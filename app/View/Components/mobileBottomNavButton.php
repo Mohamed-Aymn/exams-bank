@@ -6,11 +6,12 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class navButton extends Component
+class mobileBottomNavButton extends Component
 {
-    public function __construct()
+    public $content;
+    public function __construct($content)
     {
-
+        $this->content = explode(" ", $content);
     }
 
     /**
@@ -18,6 +19,6 @@ class navButton extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.atoms.nav-button');
+        return view('components.atoms.mobile-bottom-nav-button');
     }
 }
