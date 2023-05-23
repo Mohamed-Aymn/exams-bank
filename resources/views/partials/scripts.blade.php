@@ -7,3 +7,10 @@
 @endif  --}}
 
 
+
+
+<script>
+    function changeRoute(route){
+        window.location.href = route;
+    }
+</script>

@@ -9,7 +9,7 @@
 
     @include('../partials.styles')
 </head>
-<body class="antialiased bg-gray-100">
+<body class="antialiased text-gray-700 bg-gray-100">
 
 @if ($showHeader)
     @include('../components.organisms.header')

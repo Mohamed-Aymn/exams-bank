@@ -25,6 +25,18 @@ Route::get('/profile', function () {
     return view('profile', ['showHeader' => true, "showFooter" => false]);
 });
 
+Route::get('/bank', function () {
+    return view('bank', ['showHeader' => true, "showFooter" => false]);
+});
+
+Route::get('bank/questions', function () {
+    return view('questions', ['showHeader' => true, "showFooter" => false]);
+});
+
+Route::get('bank/questions/question', function () {
+    return view('question', ['showHeader' => true, "showFooter" => false]);
+});
+
 Route::get('/exam', function () {
     return view('exam', ['showHeader' => false, "showFooter" => false]);
 });
