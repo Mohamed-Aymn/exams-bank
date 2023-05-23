@@ -1,8 +1,8 @@
 import * as Vue from "vue";
 import * as VueRouter from "vue-router";
-import App from "./components/adminComponents/AdminProfile.vue";
-import Home from "./components/adminComponents/HomeProfile.vue";
-import QuestionRequestes from "./components/adminComponents/QuestionRequestes.vue";
+import AdminProfile from "./components/adminDashboard/AdminProfile.vue";
+import Home from "./components/adminDashboard/HomeProfile.vue";
+import QuestionRequestes from "./components/adminDashboard/QuestionRequestes.vue";
 import { h } from "vue";
 
 
@@ -17,7 +17,7 @@ const router = VueRouter.createRouter({
 });
 
 const app = Vue.createApp({
-    render: () => h(App),
+    render: () => h(AdminProfile),
 });
 
 app.use(router);
