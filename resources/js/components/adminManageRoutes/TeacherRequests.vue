@@ -1,10 +1,4 @@
-@extends('components.layouts.master')
-
-
-@section('content')
-<div class="px-8 my-12">
-
-    <x-heading level="1">Bank <span class="text-2xl font-thin">/SubjectName</span><span class="text-2xl font-thin">/Questions</span></x-heading>
+<template>
 
     <x-card class="mt-6 overflow-hidden">
         <table class="w-full whitespace-nowrap">
@@ -18,11 +12,6 @@
                 </tr>
             </thead>
             <tbody>
-                @php
-                $i = 0;
-                @endphp
-
-                @while($i<100)
                 <tr 
                     tabindex="0" 
                     onclick="location.href='{{url('bank/questions/question')}}'"
@@ -44,36 +33,20 @@
                         <p class="overflow-hidden whitespace-nowrap">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis dolore labore obcaecati dolorem in! Exercitationem qui quasi ipsa, quo quaerat vero velit veniam rerum quam dolore repellat quod temporibus natus? </p>
                     </td>
                 </tr>
-                @php
-                $i++;
-                @endphp
-                @endwhile
             </tbody>
         </table>
     </x-card>
-</div>
-<style>
-    .checkbox:checked + .check-icon {
-        display: flex;
-    }
-</style>
+</template>
+<script>
 
-@endsection
+// import card from '@/views/components/molecules/card.php';
 
+export default {
 
-@push('scripts')
-{{-- <script>
-    function dropdownFunction(element) {
-        var dropdowns = document.getElementsByClassName("dropdown-content");
-        var i;
-        let list = element.parentElement.parentElement.getElementsByClassName("dropdown-content")[0];
-        list.classList.add("target");
-        for (i = 0; i < dropdowns.length; i++) {
-            if (!dropdowns[i].classList.contains("target")) {
-                dropdowns[i].classList.add("hidden");
-            }
-        }
-        list.classList.toggle("hidden");
-    }
-</script> --}}
-@endpush
+}
+
+// export default {
+//     setup() {},
+// };
+
+</script>

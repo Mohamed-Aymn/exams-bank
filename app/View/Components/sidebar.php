@@ -6,12 +6,16 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class mobileBottomNavButton extends Component
+class sidebar extends Component
 {
-    public $content;
-    public function __construct($content)
+
+    public $title; 
+    public $content; 
+
+    public function __construct($title, $content)
     {
-        $this->content = explode(" ", $content);
+        $this->title= $title;
+        $this->content= $content;
     }
 
     /**
@@ -19,6 +23,6 @@ class mobileBottomNavButton extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.molecules.mobile-bottom-nav-button');
+        return view('components.organisms.sidebar');
     }
 }

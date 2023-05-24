@@ -37,6 +37,10 @@ Route::get('bank/questions/question', function () {
     return view('question', ['showHeader' => true, "showFooter" => false]);
 });
 
+Route::get('manage', function () {
+    return view('manage', ['showHeader' => true, "showFooter" => false]);
+});
+
 Route::get('/exam', function () {
     return view('exam', ['showHeader' => false, "showFooter" => false]);
 });
