@@ -1,14 +1,14 @@
 import * as Vue from "vue";
 import * as VueRouter from "vue-router";
-import AdminProfile from "./components/adminDashboard/Index.vue";
-import Home from "./components/adminDashboard/HomeProfile.vue";
-import QuestionRequestes from "./components/adminDashboard/QuestionRequestes.vue";
+import AdminProfile from "./components/adminManageRoutes/Index.vue";
+import TeacherRequests from "./components/adminManageRoutes/TeacherRequests.vue";
+import QuestionRequestes from "./components/adminManageRoutes/QuestionRequestes.vue";
 import { h } from "vue";
 
 
 const routes = [
-    { path: "/questions", component: Home },
-    { path: "/teachers", component: QuestionRequestes },
+    { path: "/teachers", component: TeacherRequests },
+    { path: "/questions", component: QuestionRequestes },
     // { path: "/feedback", component: QuestionRequestes },
 ];
 

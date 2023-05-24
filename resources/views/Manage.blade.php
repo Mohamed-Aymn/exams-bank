@@ -2,7 +2,7 @@
 
 @php
 $content = [
-    ["Question Requests", "#/question"], 
+    ["Question Requests", "#/questions"], 
     ["Teacher Requests", "#/teachers"]
 ];
 @endphp
@@ -11,13 +11,10 @@ $content = [
     <x-sidebar title="Content" :content="$content" />
 @endsection
 
-
 @section('content')
-{{-- here is how side-cient side routing buttons will be made --}}
-<a href="#/questions">dasf</a>
-
-<div id="admin_manage">
-</div>
+    {{-- TODO: if manage route is displayed without#question or #teacher, redirect the user to one of them --}}
+    <div id="admin_manage">
+    </div>
 @endsection
 
 @section('mobile-bottom-nav')

@@ -19,6 +19,6 @@ class mobileBottomNavButton extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.atoms.mobile-bottom-nav-button');
+        return view('components.molecules.mobile-bottom-nav-button');
     }
 }
