@@ -1,6 +1,8 @@
 <template>
+    <router-view></router-view>
+
     <!-- height: full-screen - nav height (80px) -->
-    <div class="flex flex-no-wraph h-[calc(100vh-80px)]">
+    <!-- <div class="flex flex-no-wraph h-[calc(100vh-80px)]">
         <div class="absolute flex-col justify-between hidden w-64 bg-gray-800 shadow sm:relative md:h-full sm:flex">
             <div class="px-8">
                 <ul class="mt-12">
@@ -229,15 +231,12 @@
                 </ul>
             </div>
         </div>
-        <!-- Sidebar ends -->
-        <!-- Remove class [ h-64 ] when adding a card block -->
         <div class="container w-11/12 h-64 px-6 py-10 mx-auto md:w-4/5">
-            <!-- Remove class [ border-dashed border-2 border-gray-300 ] to remove dotted border -->
             <div class="w-full h-full border-2 border-gray-300 border-dashed rounded">
                 <router-view></router-view>
             </div>
         </div>
-    </div>
+    </div> -->
 </template>
 <script>
 
