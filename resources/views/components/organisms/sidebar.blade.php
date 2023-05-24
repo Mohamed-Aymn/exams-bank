@@ -3,7 +3,6 @@
     {{-- side-bar links --}}
     <div class="px-8 mt-12">
 
-
         {{-- sidebar title --}}
         <div class="text-gray-400">{{$title}}</div>
 
@@ -12,7 +11,7 @@
             $i = 0;
         @endphp
         @while(isset($content[$i]))
-            <x-button :isAnchor="true" href="{{$content[$i][1]}}" format="tertiary" class="ml-2">
+            <x-button :isAnchor="true" href="{{$content[$i][1]}}" format="tertiary" class="block ml-2">
                 {{$content[$i][0]}}
             </x-button>
             @php

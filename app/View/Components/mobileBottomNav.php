@@ -6,16 +6,12 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class sidebar extends Component
+class mobileBottomNav extends Component
 {
-
-    public $title; 
-    public $content; 
-
-    public function __construct($title, $content)
+    public $content;
+    public function __construct($content)
     {
-        $this->title= $title;
-        $this->content= $content;
+        $this->content = $content;
     }
 
     /**
@@ -23,6 +19,6 @@ class sidebar extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.organisms.sidebar');
+        return view('components.organisms.mobile-bottom-nav');
     }
 }

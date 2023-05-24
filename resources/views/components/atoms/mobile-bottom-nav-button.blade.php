@@ -2,7 +2,10 @@
     $i = 0;
 @endphp
 
-<div class="flex flex-wrap">
+<a 
+    href="{{$attributes->get('href')}}"
+    class="flex flex-wrap cursor-pointer"
+    >
     @while(true)
         @if(isset($content[$i]))
             <div class="w-full text-center">{{$content[$i]}}</div>
@@ -15,4 +18,4 @@
             @endphp
         @endif
     @endwhile
-</div>
+</a>
