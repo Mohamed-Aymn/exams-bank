@@ -1,11 +1,9 @@
-<header class="relative flex justify-between items-center bg-white lg:pb-0 h-[80px] border-b border-gray-200 px-4 max-w-7xl lg:px-8">
+<header class="relative flex justify-between items-center bg-white h-[80px] border-b border-gray-200 px-4 lg:px-8">
 
     {{-- logo --}}
-    <div class="flex-shrink-0">
-        <a href="#" title="" class="flex">
-            <img class="w-auto h-8 lg:h-10" src="https://cdn.rareblocks.xyz/collection/celebration/images/logo.svg" alt="" />
-        </a>
-    </div>
+    <a href="#" title="" class="flex">
+        <img class="w-auto h-8 lg:h-10" src="https://cdn.rareblocks.xyz/collection/celebration/images/logo.svg" alt="" />
+    </a>
 
     {{-- small screens --}}
     <i class="cursor-pointer fa-solid fa-bars lg:hidden" id="mobile-menu-button"></i>
