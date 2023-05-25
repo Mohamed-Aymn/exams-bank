@@ -41,6 +41,22 @@ Route::get('manage', function () {
     return view('manage', ['showHeader' => true, "showFooter" => false]);
 });
 
+Route::get('users', function () {
+    return view('users', ['showHeader' => true, "showFooter" => false]);
+});
+
+Route::get('create', function () {
+    return view('create', ['showHeader' => true, "showFooter" => false]);
+});
+
+Route::get('manage/questions/question', function () {
+    return view('manageQuestion', ['showHeader' => true, "showFooter" => false]);
+});
+
+Route::get('manage/teachers/teacher', function () {
+    return view('manageTeacher', ['showHeader' => true, "showFooter" => false]);
+});
+
 Route::get('/exam', function () {
     return view('exam', ['showHeader' => false, "showFooter" => false]);
 });

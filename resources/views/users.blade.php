@@ -4,17 +4,16 @@
 @section('content')
 <div class="px-8 my-12">
 
-    <h1 class="heading heading-1">Bank <span class="text-2xl font-thin">/SubjectName</span><span class="text-2xl font-thin">/Questions</span></h1>
+    <h1 class="heading heading-1">Users</h1>
 
     <div class="mt-6 overflow-hidden card">
         <table class="table">
             <thead>
                 <tr class="tr">
                     <th class="th" ></th>
-                    <th class="th">Title</th>
-                    <th class="th">Author</th>
+                    <th class="th">Name</th>
                     <th class="th">Date</th>
-                    <th class="th">Question</th>
+                    <th class="th">Description</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,18 +22,15 @@
                 @endphp
                 @while($i<100)
                     <tr 
-                        tabindex="0" 
-                        onclick="location.href='{{url('bank/questions/question')}}'"
-                        class="tr-button"
-                        >
+                    tabindex="0" 
+                    v-on:click="changeRoute('manage/teachers/teacher')"
+                    class="tr-button"
+                    >
                         <td class="td">
                             <span>#</span>
                         </td>
                         <td class="td" >
-                            <p class="font-medium">Marketing Keynote Presentation</p>
-                        </td>
-                        <td class="td" >
-                            Author
+                            <p class="font-medium">Sanjeet Nthanda</p>
                         </td>
                         <td class="td">
                             Date

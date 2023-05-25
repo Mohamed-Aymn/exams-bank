@@ -7,10 +7,10 @@
     </div>
 
     <div class="grid gap-2 mt-6 grid-rows4 lg:grid-cols-2">
-        <div class="card card-clickable" :isClickable="true">asfd</div>
-        <div class="card card-clickable" :isClickable="true">asfd</div>
-        <div class="card card-clickable" :isClickable="true">asfd</div>
-        <div class="card card-clickable" :isClickable="true">asfd</div>
+        <div class="card card-clickable">asfd</div>
+        <div class="card card-clickable">asfd</div>
+        <div class="card card-clickable">asfd</div>
+        <div class="card card-clickable">asfd</div>
     </div>
 </div>
 @endsection
