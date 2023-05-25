@@ -1,0 +1,70 @@
+@tailwind components;
+
+@layer components{
+    /* button */
+    .btn{
+        @apply transition-all duration-200 cursor-pointer;
+    }
+    .btn-primary{
+        @apply px-6 py-2 font-medium text-white bg-primary-color border border-transparent rounded-md focus:outline-none hover:bg-dark-primary-color focus:bg-blue-700
+    }
+    .btn-secondary{
+        @apply px-6 py-2 font-medium text-white bg-primary-color border border-transparent rounded-md focus:outline-none hover:bg-dark-primary-color focus:bg-blue-700
+    }
+    .btn-tertiary{
+        @apply text-sm text-gray-600 dark:text-gray-200 hover:underline
+    }
+    .btn-circle{
+        @apply flex items-center justify-center p-4 font-bold text-black bg-white rounded-full 
+    }
+    .btn-nav{
+        @apply text-base font-medium text-black transition-all duration-200 cursor-pointer hover:text-primary-color
+    }
+
+    /* anchor */
+    .a{
+        @apply cursor-pointer text-sm text-gray-600 dark:text-gray-200 hover:underline
+    }
+
+    /* divider */
+    .hr{
+        @apply border-gray-200 dark:border-gray-700 my-2
+    }
+
+    /* heading */
+    .heading{
+        @apply font-bold leading-tight text-gray-900
+    }
+    .heading-1{
+        @apply text-3xl md:text-5xl
+    }
+    .heading-2{
+        @apply text-2xl md:text-4xl
+    }
+    .heading-3{
+        @apply text-xl md:text-3xl
+    }
+    .heading-4{
+        @apply text-lg md:text-xl
+    }
+    .heading-5{
+        @apply text-base md:text-lg
+    }
+    .heading-6{
+        @apply text-sm md:text-base
+    }
+
+    /* input */
+    .input{
+        @apply block w-full px-4 py-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600
+    }
+
+    /* card */
+    .card{
+        @apply overflow-hidden bg-white border border-gray-200 rounded-xl p-5
+    }
+    .card-clickable{
+        @apply transition-all duration-200 cursor-pointer hover:bg-gray-50
+    }
+
+}

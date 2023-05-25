@@ -3,9 +3,10 @@
         <div class="flex flex-col items-center py-6 lg:h-[36rem] lg:flex-row">
             {{-- title --}}
             {{-- <div class="w-11/12 mb-5 sm:w-2/3 sm:mb-10"> --}}
-            <x-heading level="1" class="text-white">
+            <h1 class="text-white heading heading-1">
                 The Freedom to Create the Pages You Want
-            </x-heading>
+                
+            </h1>
             {{-- </div> --}}
 
             {{-- form --}}
@@ -15,22 +16,23 @@
                         <h2 class="text-2xl font-semibold text-gray-700 dark:text-white fo">Sign In</h2>
                         <form action="#">
                             <div class="flex flex-col gap-2 mt-3">
-                                <x-input type="text" placeholder="Email address" area-label="Email Address" />
-                                <x-input type="password" placeholder="Password" area-label="Password" />
-                                <x-button format="primary" >
+                                <input class="input" type="text" placeholder="Email address" area-label="Email Address" />
+                                <input class="input" type="password" placeholder="Password" area-label="Password" />
+                                
+                                <button class="btn btn-primary">
                                     Sign in
-                                </x-button>
+                                </button>
                             </div>
 
                             <div class="flex flex-col items-start justify-start my-1">
-                                <x-button format="tertiary" href="#">
+                                <a class="a" href="#">
                                     Forget Password?
-                                </x-button>
+                                </a>
                                 <div class="text-left">
                                     Don't have account?
-                                    <x-button format="tertiary">
+                                    <button class="btn btn-tertiary">
                                         Create one.
-                                    </x-button>
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -40,10 +42,9 @@
         </div>
     </div>
 
-    <x-atoms.circle-button 
-        icon="fa-solid fa-angle-down" isFloating={{true}} floatPlace="bottom-4" animation="animate-bounce" 
-        id='downClick' 
-        />
+    <button class="absolute btn btn-circle animate-bounce bottom-4" id="downClick">
+        <span class="fa-solid fa-angle-down" />
+    </button>
 </header> 
 
 

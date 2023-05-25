@@ -11,9 +11,9 @@
                 Content
             </div>
             {{-- TODO: create component link component and pass an array to it to loop on it's elements --}}
-            <x-button :isAnchor="true" format="tertiary" class="ml-2">
+            <div class="ml-2">
                 State 1
-            </x-button>
+            </div>
         </div>
     </div>
 
