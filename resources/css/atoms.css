@@ -67,4 +67,19 @@
         @apply transition-all duration-200 cursor-pointer hover:bg-gray-50
     }
 
+    .table{
+        @apply w-full whitespace-nowrap
+    }
+    .tr{
+        @apply text-left
+    }
+    .tr-button{
+        @apply h-16 border border-gray-100 rounded cursor-pointer focus:outline-none dark:border-gray-600
+    }
+    .th{
+        @apply px-6
+    }
+    .td{
+        @apply pl-6
+    }
 }

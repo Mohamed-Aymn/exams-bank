@@ -7,14 +7,14 @@
     <h1 class="heading heading-1">Bank <span class="text-2xl font-thin">/SubjectName</span><span class="text-2xl font-thin">/Questions</span></h1>
 
     <div class="mt-6 overflow-hidden card">
-        <table class="w-full whitespace-nowrap">
+        <table class="table">
             <thead>
-                <tr class="text-left">
-                    <th ></th>
-                    <th class="mr-4">Title</th>
-                    <th class="pr-4">Author</th>
-                    <th class="pr-4 text-left">Date</th>
-                    <th>Question</th>
+                <tr class="tr">
+                    <th class="th" ></th>
+                    <th class="th">Title</th>
+                    <th class="th">Author</th>
+                    <th class="th">Date</th>
+                    <th class="th">Question</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,21 +25,21 @@
                     <tr 
                         tabindex="0" 
                         onclick="location.href='{{url('bank/questions/question')}}'"
-                        class="h-16 border border-gray-100 rounded cursor-pointer focus:outline-none dark:border-gray-600"
+                        class="tr-button"
                         >
-                        <td>
-                            <div class="mx-5">#</div>
+                        <td class="td">
+                            <span>#</span>
                         </td>
-                        <td class="pr-4">
+                        <td class="td" >
                             <p class="font-medium">Marketing Keynote Presentation</p>
                         </td>
-                        <td>
+                        <td class="td" >
                             Author
                         </td>
-                        <td>
+                        <td class="td">
                             Date
                         </td>
-                        <td>
+                        <td class="td">
                             <p class="overflow-hidden whitespace-nowrap">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis dolore labore obcaecati dolorem in! Exercitationem qui quasi ipsa, quo quaerat vero velit veniam rerum quam dolore repellat quod temporibus natus? </p>
                         </td>
                     </tr>
