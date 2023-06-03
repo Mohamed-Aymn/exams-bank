@@ -1,0 +1,16 @@
+  Subject:
+    type: object
+    properties:
+      name:
+        type: string
+      description:
+        type: string
+      creator:
+        type: integer
+      color:
+        type: string
+      created_at:
+        type: string
+    required:
+      - id
+      - description
