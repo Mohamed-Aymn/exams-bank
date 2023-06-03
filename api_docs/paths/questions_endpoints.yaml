@@ -1,0 +1,92 @@
+/questions:
+  get:
+    description: "Get a list of all questions"
+    responses:
+      200:
+        description: "Success"
+  post:
+    description: "Create a new question"
+    parameters:
+      - name: creator
+        in: formData
+        description: "ID of the teacher who created the question"
+        required: true
+        type: integer
+      - name: is_draft
+        in: formData
+        description: "Whether the question is a draft or not"
+        required: true
+        type: boolean
+      - name: type
+        in: formData
+        description: "Question type (1 for multiple-choice, 2 for open-ended)"
+        required: true
+        type: integer
+      - name: level
+        in: formData
+        description: "Question level (1 for easy, 2 for medium, 3 for hard)"
+        required: true
+        type: integer
+    responses:
+      201:
+        description: "Question created successfully"
+  /{question_id}:
+    get:
+      description: "Get a specific question by ID"
+      parameters:
+        - name: question_id
+          in: path
+          description: "Question ID"
+          required: true
+          type: integer
+      responses:
+        200:
+          description: "Success"
+        404:
+          description: "Question not found"
+    put:
+      description: "Update a specific question by ID"
+      parameters:
+        - name: question_id
+          in: path
+          description: "Question ID"
+          required: true
+          type: integer
+        - name: creator
+          in: formData
+          description: "ID of the teacher who created the question"
+          required: true
+          type: integer
+        - name: is_draft
+          in: formData
+          description: "Whether the question is a draft or not"
+          required: true
+          type: boolean
+        - name: type
+          in: formData
+          description: "Question type (1 for multiple-choice, 2 for open-ended)"
+          required: true
+          type: integer
+        - name: level
+          in: formData
+          description: "Question level (1 for easy, 2 for medium, 3 for hard)"
+          required: true
+          type: integer
+      responses:
+        200:
+          description: "Question updated successfully"
+        404:
+          description: "Question not found"
+    delete:
+      description: "Delete a specific question by ID"
+      parameters:
+        - name: question_id
+          in: path
+          description: "Question ID"
+          required: true
+          type: integer
+      responses:
+        204:
+          description: "Question deleted successfully"
+        404:
+          description: "Question not found"

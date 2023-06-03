@@ -1,0 +1,62 @@
+/students:
+  get:
+    description: "Get a list of all students"
+    responses:
+      200:
+        description: "Success"
+  post:
+    description: "Create a new student"
+    parameters:
+      - name: user_id
+        in: formData
+        description: "User ID of the student"
+        required: true
+        type: integer
+      - name: fav_questions
+        in: formData
+        description: "Student's favorite questions"
+        required: false
+        type: integer
+    responses:
+      201:
+        description: "Student created successfully"
+  /{student_id}:
+    get:
+      description: "Get a specific student by ID"
+      parameters:
+        - name: student_id
+          in: path
+          description: "Student's ID"
+          required: true
+          type: integer
+      responses:
+        200:
+          description: "Success"
+        404:
+          description: "Student not found"
+    put:
+      description: "Update a specific student by ID"
+      parameters:
+        - name: student_id
+          in: path
+          description: "Student's ID"
+          required: true
+          type: integer
+      responses:
+        200:
+          description: "Student updated successfully"
+        404:
+          description: "Student not found"
+    delete:
+      description: "Delete a specific student by ID"
+      parameters:
+        - name: student_id
+          in: path
+          description: "Student's ID"
+          required: true
+          type: integer
+      responses:
+        204:
+          description: "Student deleted successfully"
+        404:
+          description: "Student not found"

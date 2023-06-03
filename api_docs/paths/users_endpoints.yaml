@@ -1,0 +1,77 @@
+/users:
+  get:
+    description: "Get a list of all users"
+    responses:
+      200:
+        description: "Success"
+  post:
+    description: "Create a new user"
+    parameters:
+      - name: user_id
+        in: formData
+        description: "User's id"
+        required: true
+        type: integer
+      - name: name
+        in: formData
+        description: "User's name"
+        required: true
+        type: string
+      - name: email
+        in: formData
+        description: "User's email address"
+        required: true
+        type: string
+      - name: photo
+        in: formData
+        description: "User's profile photo"
+        required: false
+        type: file
+      - name: type
+        in: formData
+        description: "User's type ('a' for admin, 't' for teacher, 's' for student)"
+        required: true
+        type: string
+    responses:
+      201:
+        description: "User created successfully"
+  /{user_id}:
+    get:
+      description: "Get a specific user by ID"
+      parameters:
+        - name: user_id
+          in: path
+          description: "User's ID"
+          required: true
+          type: integer
+      responses:
+        200:
+          description: "Success"
+        404:
+          description: "User not found"
+    put:
+      description: "Update a specific user by ID"
+      parameters:
+        - name: user_id
+          in: path
+          description: "User's ID"
+          required: true
+          type: integer
+      responses:
+        200:
+          description: "User updated successfully"
+        404:
+          description: "User not found"
+    delete:
+      description: "Delete a specific user by ID"
+      parameters:
+        - name: user_id
+          in: path
+          description: "User's ID"
+          required: true
+          type: integer
+      responses:
+        204:
+          description: "User deleted successfully"
+        404:
+          description: "User not found"

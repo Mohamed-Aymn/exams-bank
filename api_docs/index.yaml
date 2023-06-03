@@ -1,0 +1,21 @@
+openapi: 3.1.0
+info:
+  title: Exams bank
+  version: 1.0.0
+  description: This is a sample API built with Laravel.
+components:
+  schemas:
+    !include schemas/question.yaml
+    !include schemas/mcq.yaml
+    !include schemas/true_or_false.yaml
+    !include schemas/students.yaml
+    !include schemas/teachers.yaml
+    !include schemas/users.yaml
+paths:
+  !include paths/users_endpoints.yaml
+  !include paths/students_endpoints.yaml
+  !include paths/teachers_endpoints.yaml
+  !include paths/subjects_endpoints.yaml
+  !include paths/questions_endpoints.yaml
+  !include paths/mcq_endpoints.yaml
+  !include paths/true_or_false_endpoints.yaml

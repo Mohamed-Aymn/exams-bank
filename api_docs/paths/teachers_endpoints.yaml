@@ -1,0 +1,67 @@
+/teachers:
+  get:
+    description: "Get a list of all teachers"
+    responses:
+      200:
+        description: "Success"
+  post:
+    description: "Create a new teacher"
+    parameters:
+      - name: user_id
+        in: formData
+        description: "User ID of the teacher"
+        required: true
+        type: integer
+      - name: title
+        in: formData
+        description: "Teacher's title"
+        required: false
+        type: string
+      - name: bio
+        in: formData
+        description: "Teacher's bio"
+        required: false
+        type: string
+    responses:
+      201:
+        description: "Teacher created successfully"
+  /{teacher_id}:
+    get:
+      description: "Get a specific teacher by ID"
+      parameters:
+        - name: teacher_id
+          in: path
+          description: "Teacher's ID"
+          required: true
+          type: integer
+      responses:
+        200:
+          description: "Success"
+        404:
+          description: "Teacher not found"
+    put:
+      description: "Update a specific teacher by ID"
+      parameters:
+        - name: teacher_id
+          in: path
+          description: "Teacher's ID"
+          required: true
+          type: integer
+      responses:
+        200:
+          description: "Teacher updated successfully"
+        404:
+          description: "Teacher not found"
+    delete:
+      description: "Delete a specific teacher by ID"
+      parameters:
+        - name: teacher_id
+          in: path
+          description: "Teacher's ID"
+          required: true
+          type: integer
+      responses:
+        204:
+          description: "Teacher deleted successfully"
+        404:
+          description: "Teacher not found"
