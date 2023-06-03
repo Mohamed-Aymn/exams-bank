@@ -30,9 +30,9 @@
                                 </a>
                                 <div class="text-left">
                                     Don't have account?
-                                    <button class="btn btn-tertiary">
+                                    <a class="btn btn-tertiary" href="/signup">
                                         Create one.
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </form>

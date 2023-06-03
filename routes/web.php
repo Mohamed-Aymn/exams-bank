@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// --------------------- Api Routes
+Route::post('/users',[UserController::class, 'store']);
+
+
+// --------------------- views
 Route::get('/', function () {
     return view('home', ['showHeader' => false, "showFooter" => true]);
 });
@@ -41,7 +47,7 @@ Route::get('manage', function () {
     return view('manage', ['showHeader' => true, "showFooter" => false]);
 });
 
-Route::get('users', function () {
+Route::get('userslist', function () {
     return view('users', ['showHeader' => true, "showFooter" => false]);
 });
 
