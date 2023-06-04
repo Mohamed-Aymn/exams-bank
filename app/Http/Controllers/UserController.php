@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Teacher;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
@@ -32,18 +34,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // validation
-        // create model object
-        $users = new User(); 
-        // validator is a laravel object
-        $validator = Validator::make($request->all(),$users->rules);
+        // user validation
+        $user = new User(); 
+        $validator = Validator::make($request->all(),$user->rules);
         if ($validator->fails()) {
-            // return "view('test')->withErrors($validator)"
             $errors = $validator->errors();
             return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
         }
 
-        // create a new user if it passes the validation
         User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -52,7 +50,38 @@ class UserController extends Controller
             'type' => $request->type,
         ]);
 
-        // view return is to redirect user to the website istead of viewing json window of the returned data
+
+        $newUserId = User::where('email', $request->email)->value('user_id');
+        if ($request->type == 't' || $request->type == 'a') {
+            
+            // teacher validation
+            $teacher = new Teacher(); 
+            $validator = Validator::make($request->all(),$teacher->rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors();
+                return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
+            }
+
+            Teacher::create([
+                'teacher_id' => $newUserId,
+                'title' => $request->title,
+                'bio' => $request->bio,
+            ]);
+        } elseif ($request->type == 's') {
+            // student validation
+            $student = new Student(); 
+            $validator = Validator::make($request->all(),$student->rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors();
+                return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
+            }
+
+            Student::create([
+                'student_id' => $newUserId,
+                'fav_questions' => $request->fav_questions
+            ]);
+        }
+
         return redirect('/');
     }
 

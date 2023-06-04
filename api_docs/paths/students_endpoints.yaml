@@ -1,62 +1,39 @@
-/students:
-  get:
-    description: "Get a list of all students"
-    responses:
-      200:
-        description: "Success"
-  post:
-    description: "Create a new student"
-    parameters:
-      - name: user_id
-        in: formData
-        description: "User ID of the student"
-        required: true
-        type: integer
-      - name: fav_questions
-        in: formData
-        description: "Student's favorite questions"
-        required: false
-        type: integer
-    responses:
-      201:
-        description: "Student created successfully"
-  /{student_id}:
-    get:
-      description: "Get a specific student by ID"
+- name: Students
+  description: Represents a student in the system
+  endpoints:
+    - method: GET
+      path: /students
+      description: Retrieves a list of all students
+    - method: GET
+      path: /students/{student_id}
+      description: Retrieves a single student by ID
       parameters:
         - name: student_id
-          in: path
-          description: "Student's ID"
-          required: true
           type: integer
-      responses:
-        200:
-          description: "Success"
-        404:
-          description: "Student not found"
-    put:
-      description: "Update a specific student by ID"
+          required: true
+          description: The ID of the student to retrieve
+    - method: POST
+      path: /students
+      description: Creates a new student
       parameters:
-        - name: student_id
-          in: path
-          description: "Student's ID"
+        - name: name
+          type: string
           required: true
-          type: integer
-      responses:
-        200:
-          description: "Student updated successfully"
-        404:
-          description: "Student not found"
-    delete:
-      description: "Delete a specific student by ID"
-      parameters:
-        - name: student_id
-          in: path
-          description: "Student's ID"
+          description: The name of the student
+        - name: email
+          type: string
           required: true
+          description: The email address of the student
+        - name: photo
+          type: file
+          description: The student's profile photo
+        - name: password
+          type: string
+          required: true
+          description: The student's password
+        - name: type
+          type: string
+          description: The student's type (s=Student)
+        - name: fav_questions
           type: integer
-      responses:
-        204:
-          description: "Student deleted successfully"
-        404:
-          description: "Student not found"
+          description: The number of favorite questions the student has

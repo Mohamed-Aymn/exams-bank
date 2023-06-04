@@ -1,67 +1,42 @@
-/teachers:
-  get:
-    description: "Get a list of all teachers"
-    responses:
-      200:
-        description: "Success"
-  post:
-    description: "Create a new teacher"
-    parameters:
-      - name: user_id
-        in: formData
-        description: "User ID of the teacher"
-        required: true
-        type: integer
-      - name: title
-        in: formData
-        description: "Teacher's title"
-        required: false
-        type: string
-      - name: bio
-        in: formData
-        description: "Teacher's bio"
-        required: false
-        type: string
-    responses:
-      201:
-        description: "Teacher created successfully"
-  /{teacher_id}:
-    get:
-      description: "Get a specific teacher by ID"
+- name: Teachers
+  description: Represents a teacher in the system
+  endpoints:
+    - method: GET
+      path: /teachers
+      description: Retrieves a list of all teachers
+    - method: GET
+      path: /teachers/{teacher_id}
+      description: Retrieves a single teacher by ID
       parameters:
         - name: teacher_id
-          in: path
-          description: "Teacher's ID"
-          required: true
           type: integer
-      responses:
-        200:
-          description: "Success"
-        404:
-          description: "Teacher not found"
-    put:
-      description: "Update a specific teacher by ID"
+          required: true
+          description: The ID of the teacher to retrieve
+    - method: POST
+      path: /teachers
+      description: Creates a new teacher
       parameters:
-        - name: teacher_id
-          in: path
-          description: "Teacher's ID"
+        - name: name
+          type: string
           required: true
-          type: integer
-      responses:
-        200:
-          description: "Teacher updated successfully"
-        404:
-          description: "Teacher not found"
-    delete:
-      description: "Delete a specific teacher by ID"
-      parameters:
-        - name: teacher_id
-          in: path
-          description: "Teacher's ID"
+          description: The name of the teacher
+        - name: email
+          type: string
           required: true
-          type: integer
-      responses:
-        204:
-          description: "Teacher deleted successfully"
-        404:
-          description: "Teacher not found"
+          description: The email address of the teacher
+        - name: photo
+          type: file
+          description: The teacher's profile photo
+        - name: password
+          type: string
+          required: true
+          description: The teacher's password
+        - name: type
+          type: string
+          description: The teacher's type (t=Teacher)
+        - name: title
+          type: string
+          description: The teacher's title
+        - name: bio
+          type: string
+          description: The teacher's biography

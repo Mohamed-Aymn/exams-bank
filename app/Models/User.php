@@ -14,6 +14,16 @@ class User extends Authenticatable
 
     protected $table = "users";
 
+    protected $primaryKey = 'user_id';
+    protected $keyType = 'int';
+    
+    public $incrementing = false;
+
+    // In Laravel 6.0+ make sure to also set $keyType
+    // protected $incrementing = false;
+
+
+    protected $guarded = ['user_id'];
     /**
      * The attributes that are mass assignable.
      *
@@ -71,4 +81,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function teacher()
+    {
+        return $this->hasOne(Teacher::class, 'teacher_id');
+    }
+
+    public function student()
+    {
+        return $this->hasOne(Student::class, 'student_id');
+    }
 }
