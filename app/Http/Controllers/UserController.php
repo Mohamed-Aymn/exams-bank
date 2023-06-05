@@ -8,6 +8,7 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -42,16 +43,16 @@ class UserController extends Controller
             return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
         }
 
-        User::create([
-            'name' => $request->name,
+        $id = generateUniqueId("users", "user_id");
+        $newOne = User::create([
+            'user_id' =>  $id,
+            'name' =>  $request->name,
             'email' => $request->email,
             'password' => $request->password,
             'photo' => $request->photo,
             'type' => $request->type,
         ]);
 
-
-        $newUserId = User::where('email', $request->email)->value('user_id');
         if ($request->type == 't' || $request->type == 'a') {
             
             // teacher validation
@@ -63,7 +64,7 @@ class UserController extends Controller
             }
 
             Teacher::create([
-                'teacher_id' => $newUserId,
+                'teacher_id' => $id,
                 'title' => $request->title,
                 'bio' => $request->bio,
             ]);
@@ -77,7 +78,7 @@ class UserController extends Controller
             }
 
             Student::create([
-                'student_id' => $newUserId,
+                'student_id' => $id,
                 'fav_questions' => $request->fav_questions
             ]);
         }

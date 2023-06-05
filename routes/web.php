@@ -16,6 +16,7 @@ use App\Http\Controllers\UserController;
 
 // --------------------- Api Routes
 Route::post('/users',[UserController::class, 'store']);
+Route::post('/questions',[QuestionController::class, 'store']);
 
 
 // --------------------- views

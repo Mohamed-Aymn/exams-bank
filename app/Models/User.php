@@ -13,31 +13,21 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = "users";
-
+    public $timestamps = false;
+    // primary key config
     protected $primaryKey = 'user_id';
     protected $keyType = 'int';
-    
     public $incrementing = false;
 
-    // In Laravel 6.0+ make sure to also set $keyType
-    // protected $incrementing = false;
 
-
-    protected $guarded = ['user_id'];
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
+        'user_id',
         'name',
         'email',
         'password',
         "photo",
         "type"
     ];
-
-    public $timestamps = false;
 
     public $rules = [
         'name' => [
@@ -62,21 +52,11 @@ class User extends Authenticatable
         ],
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
