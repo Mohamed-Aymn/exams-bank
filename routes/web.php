@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\SubjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +19,7 @@ use App\Http\Controllers\UserController;
 // --------------------- Api Routes
 Route::post('/users',[UserController::class, 'store']);
 Route::post('/questions',[QuestionController::class, 'store']);
+Route::post('/subjects',[SubjectController::class, 'store']);
 
 
 // --------------------- views

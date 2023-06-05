@@ -17,6 +17,7 @@ class Question extends Model
 
     protected $fillable = [
         'question_id',
+        'subject',
         'answer',
         'is_draft',
         'author',
@@ -29,6 +30,10 @@ class Question extends Model
             'required',
             'string',
             "max:500"
+        ],'subject' => [
+            'required',
+            'string',
+            "max:200"
         ],'creator' => [
             'required', 
             'unique:teachers',
