@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\ValnewQuestionIdator;
+use Illuminate\Support\Facades\DB;
 
 class QuestionController extends Controller
 {
@@ -92,8 +93,25 @@ class QuestionController extends Controller
      */
     public function show(Question $question, $id)
     {
-        $question = Question::findOrFail($id);
-        return response()->json($question);
+        // get question type
+        $questionType = DB::table("questions")->where("question_id", $id)->value("type");
+
+        // join with the right type
+        if($questionType = 1){
+            $question = DB::table('questions')
+                            ->join('mcq', 'questions.question_id', '=', 'mcq.question_id')
+                            ->select('questions.*', 'mcq.*')
+                            ->where('questions.question_id', '=', $id)
+                            ->first();
+        }else if($questionType = 2){
+            $question = DB::table('questions')
+                            ->join('true_or_false', 'question_id', '=', 'true_or_false.question_id')
+                            ->select('questions.*', 'true_or_false.*')
+                            ->where('questions.question_id', '=', $id)
+                            ->first();
+        }
+
+        return $question;
     }
 
     /**
