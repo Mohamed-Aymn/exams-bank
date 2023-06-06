@@ -20,7 +20,7 @@
 
             <div>OR</div>
                 
-            <form action="/questions" method="POST">
+            <form action="/api/questions" method="POST">
                 @csrf
                 <div class="flex flex-col gap-2 my-4">
                     <input class="input" placeholder="Subject" type="text" name="subject" />
@@ -46,7 +46,7 @@
                 </div>
             <form>
         @else
-        <form action="/subjects" method="POST">
+        <form action="/api/subjects" method="POST">
             @csrf
             <div class="flex flex-col gap-2 my-4">
                 <input class="input" placeholder="name" type="text" name="name" />

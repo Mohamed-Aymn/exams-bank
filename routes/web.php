@@ -18,14 +18,15 @@ use App\Http\Controllers\SubjectController;
 */
 
 // --------------------- Api Routes
-Route::post('/users',[UserController::class, 'store']);
-Route::post('/questions',[QuestionController::class, 'store']);
-Route::get('/questions/{id}',[QuestionController::class, 'show']);
-Route::post('/subjects',[SubjectController::class, 'store']);
-Route::get('/subjects',[SubjectController::class, 'index']);
+Route::prefix('api')->group(function () {
+    Route::post('/users',[UserController::class, 'store']);
+    Route::post('/questions',[QuestionController::class, 'store']);
+    Route::get('/questions/{id}',[QuestionController::class, 'show']);
+    Route::post('/subjects',[SubjectController::class, 'store']);
+    Route::get('/subjects',[SubjectController::class, 'index']);
+});
 
-
-// --------------------- views
+// --------------------- View Routes
 Route::get('/', function () {
     return view('home', ['showHeader' => false, "showFooter" => true]);
 });
