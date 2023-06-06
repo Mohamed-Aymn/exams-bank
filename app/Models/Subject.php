@@ -30,7 +30,7 @@ class Subject extends Model
         ],'color' => [
             'required',
             "string",
-            "max:6"
+            "max:7"
         ],
     ];
 }

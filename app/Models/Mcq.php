@@ -16,12 +16,16 @@ class Mcq extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'question_id',
         'choice2',
         'choice3',
         'choice4'
     ];
 
     public $rules = [
+        'question_id' => [
+            // "required",
+        ],
         'choice2' => [
             "required",
             'max:500'

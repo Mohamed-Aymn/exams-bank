@@ -10,17 +10,19 @@ class Question extends Model
     use HasFactory;
 
     protected $table = "questions";
+    public $timestamps = false;
+    // PK key confib
     protected $primaryKey = 'question_id';
     protected $keyType = 'int';
     public $incrementing = false;
-    public $timestamps = false;
 
     protected $fillable = [
         'question_id',
         'subject',
+        'question',
         'answer',
         'is_draft',
-        'author',
+        'creator',
         "type",
         "level"
     ];
@@ -30,15 +32,17 @@ class Question extends Model
             'required',
             'string',
             "max:500"
+        ],'question' => [
+            'required',
+            'string',
         ],'subject' => [
             'required',
             'string',
             "max:200"
         ],'creator' => [
-            'required', 
-            'unique:teachers',
+            // 'required', 
         ],'is_draft' => [
-            'required',
+            // 'required',
             "boolean",
         ], 'type' => [
             'required',

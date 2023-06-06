@@ -7,6 +7,7 @@ use App\Models\Mcq;
 use App\Models\TrueOrFalse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\ValnewQuestionIdator;
 
 class QuestionController extends Controller
@@ -35,7 +36,7 @@ class QuestionController extends Controller
     {
         // question valnewQuestionIdation
         $question = new Question(); 
-        $validator = Validator::make($request->all(),$question->rulesQuestion);
+        $validator = Validator::make($request->all(),$question->rules);
         if ($validator->fails()) {
             $errors = $validator->errors();
             return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
@@ -44,13 +45,14 @@ class QuestionController extends Controller
         $newQuestionId = generateUniqueId("questions", "question_id");
         Question::create([
             'question_id' => $newQuestionId,
+            'question' => $request->question,
             'answer' => $request->answer,
-            'is_draft' => $request->is_draft,
-            'author' => $request->author,
+            'creator' => 1371096878,
+            'is_draft' => true,
             'type' => $request->type,
             'level' => $request->level,
         ]);
-
+        // dd($newQuestionId);
 
         if ($request->type == '1') {
             // teacher validation
@@ -59,14 +61,14 @@ class QuestionController extends Controller
             if ($validator->fails()) {
                 $errors = $validator->errors();
                 return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
-            }
+            } 
 
-            Mcq::create([
-                'question_id' => $newQuestionId,
-                'choice2' => $request->choice2,
-                'choice3' => $request->choice3,
-                'choice4' => $request->choice4,
-            ]);
+                Mcq::create([
+                    'question_id' => 489832798,
+                    'choice2' => $request->choice2,
+                    'choice3' => $request->choice3,
+                    'choice4' => $request->choice4,
+                ]);
         } elseif ($request->type == '2') {
             // student validation
             $trueOrFalse = new TrueOrFalse(); 

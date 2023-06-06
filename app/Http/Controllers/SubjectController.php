@@ -39,7 +39,7 @@ class SubjectController extends Controller
             return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
         }
 
-        $newOne = User::create([
+        $newOne = Subject::create([
             'name' =>  $request->name,
             'color' => $request->color,
             'description' => $request->description
