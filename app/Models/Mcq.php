@@ -11,7 +11,7 @@ class Mcq extends Model
 
     protected $table = "mcq";
     protected $primaryKey = 'question_id';
-    protected $keyType = 'int';
+    protected $keyType = 'integer';
     public $incrementing = false;
     public $timestamps = false;
 
@@ -23,9 +23,9 @@ class Mcq extends Model
     ];
 
     public $rules = [
-        'question_id' => [
-            // "required",
-        ],
+        // 'question_id' => [
+        //     // "required",
+        // ],
         'choice2' => [
             "required",
             'max:500'

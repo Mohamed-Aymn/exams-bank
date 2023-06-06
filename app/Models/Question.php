@@ -13,7 +13,7 @@ class Question extends Model
     public $timestamps = false;
     // PK key confib
     protected $primaryKey = 'question_id';
-    protected $keyType = 'int';
+    protected $keyType = 'integer';
     public $incrementing = false;
 
     protected $fillable = [
@@ -55,14 +55,19 @@ class Question extends Model
         ],
     ];
 
-    public function mcq()
-    {
-        return $this->hasOne(Mcq::class, 'question_id');
-    }
+    // public function mcq()
+    // {
+    //     return $this->hasOne(Mcq::class, 'question_id');
+    // }
 
-    public function trueOrFalse()
-    {
-        return $this->hasOne(trueOrFalse::class, 'question_id');
+    // public function trueOrFalse()
+    // {
+    //     return $this->hasOne(trueOrFalse::class, 'question_id');
+    // }
+
+    
+    public function scopeSubject($query, $subject){
+        return $query->where('subject', $subject);
     }
 
 }

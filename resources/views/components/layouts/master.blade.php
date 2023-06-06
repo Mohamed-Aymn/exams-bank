@@ -15,7 +15,7 @@
     @include('../components.organisms.header')
 @endif
 
-<main>
+<main class="px-4 mx-auto mt-6 max-w-7xl sm:px-6 lg:px-8">
     @yield('content')
 </main>
 

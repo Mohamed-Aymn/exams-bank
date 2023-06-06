@@ -6,22 +6,31 @@
 
 @section('content')
 
-    <div class="mx-2 mt-6">
+    <div>
         <h1 class="heading heading-1">
             Create
             {{$optionQueryParam}}
         </h1>
 
         @if($optionQueryParam == "Question")
-            <input class="input" placeholder="Load from drafts" />
-            OR
+            <x-drop-down
+                id="drafts" 
+                :options="['first', 'second', 'third']"
+                />
+
+            <div>OR</div>
+                
             <form action="/questions" method="POST">
                 @csrf
                 <div class="flex flex-col gap-2 my-4">
                     <input class="input" placeholder="Subject" type="text" name="subject" />
                     <input class="input" placeholder="Question" type="text" name="question" />
-                    <input class="input" placeholder="type"type="text"  name="type"/>
-                    <input class="input" placeholder="level" type="text" name="level" />
+                    <input class="input" placeholder="type" type="text" id="question-type-field" name="type"/>
+                    <x-drop-down
+                        id="questionType" 
+                        :options="['MCQ', 'True or false']"
+                        />
+                    <input class="input" placeholder="level" type="text" name="level"  />
                     <input class="input" placeholder="Answer" type="text" name="answer" />
                     <input class="input" placeholder="Wrong choice 2" type="text" name="choice2" />
                     <input class="input" placeholder="Wrong choice 3" type="text" name="choice3" />
@@ -53,3 +62,9 @@
         @endif
     </div>
 @endsection
+
+@push('scripts')
+<script>
+    
+</script>
+@endpush

@@ -17,7 +17,7 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        $questions = Questions::all();
+        $questions = Question::all();
         return $questions;
     }
 
@@ -43,16 +43,16 @@ class QuestionController extends Controller
         }
 
         $newQuestionId = generateUniqueId("questions", "question_id");
-        Question::create([
+        $question = Question::create([
             'question_id' => $newQuestionId,
             'question' => $request->question,
             'answer' => $request->answer,
             'creator' => 1371096878,
-            'is_draft' => true,
+            'subject' => $request->subject,
             'type' => $request->type,
             'level' => $request->level,
+            'is_draft' => false
         ]);
-        // dd($newQuestionId);
 
         if ($request->type == '1') {
             // teacher validation
@@ -63,12 +63,12 @@ class QuestionController extends Controller
                 return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
             } 
 
-                Mcq::create([
-                    'question_id' => 489832798,
-                    'choice2' => $request->choice2,
-                    'choice3' => $request->choice3,
-                    'choice4' => $request->choice4,
-                ]);
+            Mcq::create([
+                'question_id' => $newQuestionId,
+                'choice2' => $request->choice2,
+                'choice3' => $request->choice3,
+                'choice4' => $request->choice4,
+            ]);
         } elseif ($request->type == '2') {
             // student validation
             $trueOrFalse = new TrueOrFalse(); 
@@ -90,9 +90,10 @@ class QuestionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Question $question)
+    public function show(Question $question, $id)
     {
-        //
+        $question = Question::findOrFail($id);
+        return response()->json($question);
     }
 
     /**
@@ -118,4 +119,5 @@ class QuestionController extends Controller
     {
         //
     }
+
 }
