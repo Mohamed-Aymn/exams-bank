@@ -5,6 +5,7 @@ use App\Models\Question;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\ExamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,7 @@ Route::prefix('api')->group(function () {
     Route::get('/questions/{id}',[QuestionController::class, 'show']);
     Route::post('/subjects',[SubjectController::class, 'store']);
     Route::get('/subjects',[SubjectController::class, 'index']);
+    Route::post('/exams',[ExamController::class, 'store']);
 });
 
 // --------------------- View Routes
