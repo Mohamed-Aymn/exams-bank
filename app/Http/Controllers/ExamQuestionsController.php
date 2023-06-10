@@ -2,20 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Exam;
+use App\Models\ExamQuestions;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Validator;
 
-class ExamController extends Controller
+class ExamQuestionsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $exmas = Exam::all();
-        return $exmas;
+        //
     }
 
     /**
@@ -31,33 +28,26 @@ class ExamController extends Controller
      */
     public function store(Request $request)
     {
-        // exam validation
-        $validator = Validator::make($request->all(), (new Exam())->rules);
+        // validation
+        $validator = Validator::make($request->all(), (new ExamQuestions())->rules);
         if ($validator->fails()) {
             $errors = $validator->errors();
             return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
         }
 
-        // TODO: exam questions validation
-
         // create new exam
-        $id = generateUniqueId("exams", "exam_id");
-        $newExam = Exam::create([
-            'exam_id' =>  $id,
-            'duration' => $request->duration,
-            'created_at' => now(),
+        $newExamQuestion = ExamQuestions::create([
+            'exam_id' =>  $request->exam_id,
+            'question_id' => $request->question_id,
         ]);
 
-        // TODO: create exam questions 
-
-        // redirect to exam page
-        return redirect('/exam?id='.$id);
+        return response('question {$newExamQuestion->question_id} is successfully added to exam {$newExamQuestion->exam_id}');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Exam $exam)
+    public function show(ExamQuestions $examQuestions)
     {
         //
     }
@@ -65,7 +55,7 @@ class ExamController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Exam $exam)
+    public function edit(ExamQuestions $examQuestions)
     {
         //
     }
@@ -73,7 +63,7 @@ class ExamController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Exam $exam)
+    public function update(Request $request, ExamQuestions $examQuestions)
     {
         //
     }
@@ -81,8 +71,10 @@ class ExamController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Exam $exam)
+    public function destroy(ExamQuestions $examQuestions)
     {
         //
     }
+
+    
 }

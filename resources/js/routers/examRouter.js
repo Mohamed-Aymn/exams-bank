@@ -1,14 +1,13 @@
 import * as Vue from "vue";
 import * as VueRouter from "vue-router";
-import App from "./components/App.vue";
-// import Home from "./Home.vue";
-// import About from "./About.vue";
+import ExamPage from "../routes/examRoutes/Index.vue";
+import Question from "../routes/examRoutes/Question.vue";
 import { h } from "vue";
 
 
 const routes = [
-    // { path: "/", component: Home },
-    // { path: "/about", component: About },
+    { path: "/:id", component: ExamPage },
+    // { path: "/:id", component: Question },
 ];
 
 const router = VueRouter.createRouter({
@@ -17,9 +16,9 @@ const router = VueRouter.createRouter({
 });
 
 const app = Vue.createApp({
-    render: () => h(App),
+    render: () => h(ExamPage),
 });
 
 app.use(router);
 
-app.mount("#app");
+app.mount("#exam");

@@ -2,14 +2,15 @@
 
 @section('content')
 
+{{-- TODO: this should be dropdown --}}
 <input class="input" placeholder="load form saved preffrences" />
-<div class="flex items-center justify-between">
-    <div>
+<div class="flex items-center justify-around my-6">
+    <div class="card">
         <h2 class="heading heading-3">Subject</h2>
         <h1 class="heading heading-1">Subject Name</h1>
     </div>
 
-    <div>
+    <div class="card">
         <h2 class="heading heading-3">Time</h2>
         <h1 class="heading heading-1">12:00</h1>
     </div>
@@ -17,6 +18,8 @@
 
 <form action="/api/exams" method="POST">
     @csrf
+
+    <input class="input" placeholder="subject" name="subject"/>
     <input class="input" placeholder="time" name="duration" />
     <input class="input" placeholder="Number of mcq questions" type="number" />
     <input class="input" placeholder="Number of true or false questions" type="number" />

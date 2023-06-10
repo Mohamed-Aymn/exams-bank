@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\ExamController;
+use App\Http\Controllers\ExamQuestionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,7 @@ Route::prefix('api')->group(function () {
     Route::post('/subjects',[SubjectController::class, 'store']);
     Route::get('/subjects',[SubjectController::class, 'index']);
     Route::post('/exams',[ExamController::class, 'store']);
+    Route::post('/exam-questions',[ExamQuestionsController::class, 'store']);
 });
 
 // --------------------- View Routes
@@ -42,7 +44,7 @@ Route::get('/profile', function () {
 });
 
 Route::get('/bank', function () {
-    $request = Request::create("/subjects", 'GET');
+    $request = Request::create("/api/subjects", 'GET');
     $response = Route::dispatch($request);
     $responseBody = json_decode($response->getContent(), true);
     return view('bank', ['showHeader' => true, "showFooter" => false, "subjects" => $responseBody]);
