@@ -57,7 +57,7 @@ class ExamController extends Controller
         // logic is done for all chosen questions sets
         for ($i = 0; $i < count($type); $j++){
             // fetch questions with required specs
-            $questions = Question::randomQuestions($request->subject, $request->type[$i], $request->level[$i], $request->number[0])->pluck('question_id')->toArray();
+            $questions = Question::randomQuestions($request->subject, $request->type[$i], $request->level[$i], $request->number[$i])->pluck('question_id')->toArray();
 
             // combine exam_id with questions_id in an array
             $examQuestions;
