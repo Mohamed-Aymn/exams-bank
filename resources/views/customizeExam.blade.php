@@ -21,14 +21,19 @@
 
     <input class="input" placeholder="subject" name="subject"/>
     <input class="input" placeholder="time" name="duration" />
-    <input class="input" placeholder="Number of mcq questions" type="number" />
-    <input class="input" placeholder="Number of true or false questions" type="number" />
     
+    {{--  sets of questions --}}
+    <div class="flex">
+        {{-- TODO: all of those should be drop down --}}
+        <input class="input" placeholder="type" name="type[]" />
+        <input class="input" placeholder="nubmer" name='number[]' type="number" />
+        <input class="input" placeholder="level" name='level[]' />
+        {{-- TODO: add set button --}}
+    </div>
     
     <div class="flex justify-end w-full gap-4 items-st flex-end">
         <button class="btn btn-tertiary">Cancel</button>
         <button class="w-36 btn btn-primary" type="submit">Start</button>
     <div>
-            
 </form>
 @endsection

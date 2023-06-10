@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Question;
+use App\Models\ExamQuestions;
 use App\Models\Exam;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -38,7 +40,10 @@ class ExamController extends Controller
             return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
         }
 
-        // TODO: exam questions validation
+        // exam questions validation
+        if ($request->type[0] == null || $request->level[0] == null || $request->number[0] == null){
+            return response()->json(['errors' => "questions type, level and number are requried"]);
+        }
 
         // create new exam
         $id = generateUniqueId("exams", "exam_id");
@@ -48,7 +53,24 @@ class ExamController extends Controller
             'created_at' => now(),
         ]);
 
-        // TODO: create exam questions 
+        // create exam questions
+        // logic is done for all chosen questions sets
+        for ($i = 0; $i < count($type); $j++){
+            // fetch questions with required specs
+            $questions = Question::randomQuestions($request->subject, $request->type[$i], $request->level[$i], $request->number[$i])->pluck('question_id')->toArray();
+
+            // combine exam_id with questions_id in an array
+            $examQuestions;
+            for ($j = 0; $j < $request->number[0]; $j++){
+                $examQuestions [$j] = [
+                    'exam_id' => $id,
+                    'question_id' => $questions[$j]
+                ];
+            }
+
+            // insert all of this questions using that array of exam questions
+            ExamQuestions::insert($examQuestions);
+        }
 
         // redirect to exam page
         return redirect('/exam?id='.$id);
