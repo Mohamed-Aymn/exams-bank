@@ -1,0 +1,42 @@
+- name: Teachers
+  description: Represents a teacher in the system
+  endpoints:
+    - method: GET
+      path: /teachers
+      description: Retrieves a list of all teachers
+    - method: GET
+      path: /teachers/{teacher_id}
+      description: Retrieves a single teacher by ID
+      parameters:
+        - name: teacher_id
+          type: integer
+          required: true
+          description: The ID of the teacher to retrieve
+    - method: POST
+      path: /teachers
+      description: Creates a new teacher
+      parameters:
+        - name: name
+          type: string
+          required: true
+          description: The name of the teacher
+        - name: email
+          type: string
+          required: true
+          description: The email address of the teacher
+        - name: photo
+          type: file
+          description: The teacher's profile photo
+        - name: password
+          type: string
+          required: true
+          description: The teacher's password
+        - name: type
+          type: string
+          description: The teacher's type (t=Teacher)
+        - name: title
+          type: string
+          description: The teacher's title
+        - name: bio
+          type: string
+          description: The teacher's biography

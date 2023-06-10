@@ -1,16 +1,28 @@
 @extends('components.layouts.master')
 
-
 @section('content')
 <div class="px-8 my-12">
 
-    <h1 class="heading heading-1">Bank <span class="text-2xl font-thin">/SubjectName</span><span class="text-2xl font-thin">/Questions</span></h1>
+    {{-- navigator --}}
+    <h1 class="heading heading-1">
+        Bank 
+        <a 
+            href="/bank/{{$subject}}" 
+            class="text-2xl font-thin"
+            >
+            /{{$subject}}
+        </a>
+        <span class="text-2xl font-thin">
+            /Questions
+        </span>
+    </h1>
 
+    {{-- table --}}
     <div class="mt-6 overflow-hidden card">
         <table class="table">
             <thead>
                 <tr class="tr">
-                    <th class="th" ></th>
+                    <th class="th">Type</th>
                     <th class="th">Title</th>
                     <th class="th">Author</th>
                     <th class="th">Date</th>
@@ -18,23 +30,25 @@
                 </tr>
             </thead>
             <tbody>
-                @php
-                    $i = 0;
-                @endphp
-                @while($i<100)
+
+                @foreach($questions as $question)
+                    @php
+                        $questionId = "asdf";
+                    @endphp
                     <tr 
                         tabindex="0" 
-                        onclick="location.href='{{url('bank/questions/question')}}'"
+                        {{-- onclick="location.href='{{url('bank/questions/question')}}'" --}}
+                        onclick="location.href=`{{$subject}}/{{$question['question_id']}}`"
                         class="tr-button"
                         >
                         <td class="td">
-                            <span>#</span>
+                            <span>{{$question["type"]}}</span>
                         </td>
                         <td class="td" >
-                            <p class="font-medium">Marketing Keynote Presentation</p>
+                            <p class="font-medium">{{$question["question"]}}</p>
                         </td>
                         <td class="td" >
-                            Author
+                            {{$question["creator"]}}
                         </td>
                         <td class="td">
                             Date
@@ -43,10 +57,7 @@
                             <p class="overflow-hidden whitespace-nowrap">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis dolore labore obcaecati dolorem in! Exercitationem qui quasi ipsa, quo quaerat vero velit veniam rerum quam dolore repellat quod temporibus natus? </p>
                         </td>
                     </tr>
-                    @php
-                        $i++;
-                    @endphp
-                @endwhile
+                @endforeach
             </tbody>
         </table>
     </div>

@@ -1,0 +1,39 @@
+- name: Students
+  description: Represents a student in the system
+  endpoints:
+    - method: GET
+      path: /students
+      description: Retrieves a list of all students
+    - method: GET
+      path: /students/{student_id}
+      description: Retrieves a single student by ID
+      parameters:
+        - name: student_id
+          type: integer
+          required: true
+          description: The ID of the student to retrieve
+    - method: POST
+      path: /students
+      description: Creates a new student
+      parameters:
+        - name: name
+          type: string
+          required: true
+          description: The name of the student
+        - name: email
+          type: string
+          required: true
+          description: The email address of the student
+        - name: photo
+          type: file
+          description: The student's profile photo
+        - name: password
+          type: string
+          required: true
+          description: The student's password
+        - name: type
+          type: string
+          description: The student's type (s=Student)
+        - name: fav_questions
+          type: integer
+          description: The number of favorite questions the student has

@@ -1,0 +1,55 @@
+/true_or_false:
+  get:
+    summary: Get all True/False questions
+    responses:
+      200:
+        description: OK
+  post:
+    summary: Create a new True/False question
+    parameters:
+      - name: question_id
+        in: formData
+        type: integer
+      - name: answer
+        in: formData
+        type: boolean
+    responses:
+      201:
+        description: Created
+/true_or_false/{question_id}:
+  get:
+    summary: Get a specific True/False question by ID
+    parameters:
+      - name: question_id
+        in: path
+        type: integer
+    responses:
+      200:
+        description: OK
+      404:
+        description: Not found
+  put:
+    summary: Update an existing True/False question
+    parameters:
+      - name: question_id
+        in: path
+        type: integer
+      - name: answer
+        in: formData
+        type: boolean
+    responses:
+      200:
+        description: OK
+      404:
+        description: Not found
+  delete:
+    summary: Delete an existing True/False question
+    parameters:
+      - name: question_id
+        in: path
+        type: integer
+    responses:
+      204:
+        description: No content
+      404:
+        description: Not found

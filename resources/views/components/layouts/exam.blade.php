@@ -11,17 +11,9 @@
 </head>
 <body class="antialiased text-gray-700 bg-gray-100">
 
-@if ($showHeader)
-    @include('../components.organisms.header')
-@endif
-
-<main class="px-4 mx-auto mt-6 max-w-7xl sm:px-6 lg:px-8">
+<main >
     @yield('content')
 </main>
-
-@if ($showFooter)
-    @include('../components.organisms.footer')
-@endif
 
 @include('../partials.scripts')
 <!-- custom JavaScript code -->

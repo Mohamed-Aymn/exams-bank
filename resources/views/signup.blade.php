@@ -12,7 +12,8 @@
         <div class="relative max-w-md mx-auto mt-8 md:mt-16">
             <div class="overflow-hidden bg-white rounded-md shadow-md">
                 <div class="px-4 py-6 sm:px-8 sm:py-7">
-                    <form action="#" method="POST">
+                    <form action="/api/users" method="POST">
+                        @csrf
                         <div class="space-y-5">
                             <div>
                                 <label for="" class="text-base font-medium text-gray-900"> First & Last name </label>
@@ -25,7 +26,7 @@
 
                                     <input
                                         type="text"
-                                        name=""
+                                        name="name"
                                         id=""
                                         placeholder="Enter your full name"
                                         class="block w-full py-4 pl-10 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600"
@@ -44,7 +45,7 @@
 
                                     <input
                                         type="email"
-                                        name=""
+                                        name="email"
                                         id=""
                                         placeholder="Enter email to get started"
                                         class="block w-full py-4 pl-10 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600"
@@ -68,13 +69,18 @@
 
                                     <input
                                         type="password"
-                                        name=""
+                                        name="password"
                                         id=""
                                         placeholder="Enter your password"
                                         class="block w-full py-4 pl-10 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600"
                                     />
                                 </div>
                             </div>
+
+                            <div>
+                                type
+                                <input type="text" name="type" class="input" />
+                            <div>
 
                             <div class="flex items-center">
                                 <input type="checkbox" name="agree" id="agree" class="w-5 h-5 text-green-500 bg-white border-gray-200 rounded" checked />

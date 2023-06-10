@@ -33,7 +33,7 @@
 
     /* heading */
     .heading{
-        @apply font-bold leading-tight text-gray-900
+        @apply font-bold leading-tight text-gray-900 mb-[1.5rem]
     }
     .heading-1{
         @apply text-3xl md:text-5xl

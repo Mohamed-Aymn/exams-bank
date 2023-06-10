@@ -1,0 +1,87 @@
+/subjects:
+  get:
+    description: "Get a list of all subjects"
+    responses:
+      200:
+        description: "Success"
+  post:
+    description: "Create a new subject"
+    parameters:
+      - name: name
+        in: formData
+        description: "Subject name"
+        required: true
+        type: string
+      - name: creator
+        in: formData
+        description: "ID of the teacher who created the subject"
+        required: true
+        type: integer
+      - name: description
+        in: formData
+        description: "Subject description"
+        required: false
+        type: string
+      - name: color
+        in: formData
+        description: "Subject color (in hex code format)"
+        required: true
+        type: string
+    responses:
+      201:
+        description: "Subject created successfully"
+  /{name}:
+    get:
+      description: "Get a specific subject by name"
+      parameters:
+        - name: name
+          in: path
+          description: "Subject name"
+          required: true
+          type: string
+      responses:
+        200:
+          description: "Success"
+        404:
+          description: "Subject not found"
+    put:
+      description: "Update a specific subject by name"
+      parameters:
+        - name: name
+          in: path
+          description: "Subject name"
+          required: true
+          type: string
+        - name: creator
+          in: formData
+          description: "ID of the teacher who created the subject"
+          required: true
+          type: integer
+        - name: description
+          in: formData
+          description: "Subject description"
+          required: false
+          type: string
+        - name: color
+          in: formData
+          description: "Subject color (in hex code format)"
+          required: true
+          type: string
+      responses:
+        200:
+          description: "Subject updated successfully"
+        404:
+          description: "Subject not found"
+    delete:
+      description: "Delete a specific subject by name"
+      parameters:
+        - name: name
+          in: path
+          description: "Subject name"
+          required: true
+          type: string
+      responses:
+        204:
+          description: "Subject deleted successfully"
+        404:
+          description: "Subject not found"

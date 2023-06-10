@@ -1,0 +1,18 @@
+  Question:
+    type: object
+    properties:
+      question_id:
+        type: integer
+      answer:
+        type: string
+      is_draft:
+        type: boolean
+      creator:
+        type: integer
+      type:
+        type: string
+      level:
+        type: integer
+    required:
+      - id
+      - description

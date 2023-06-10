@@ -1,10 +1,9 @@
 import * as Vue from "vue";
 import * as VueRouter from "vue-router";
-import AdminProfile from "./components/adminManageRoutes/Index.vue";
-import TeacherRequests from "./components/adminManageRoutes/TeacherRequests.vue";
-import QuestionRequestes from "./components/adminManageRoutes/QuestionRequestes.vue";
+import AdminProfile from "../routes/adminManageRoutes/Index.vue";
+import TeacherRequests from "../routes/adminManageRoutes/TeacherRequests.vue";
+import QuestionRequestes from "../routes/adminManageRoutes/QuestionRequestes.vue";
 import { h } from "vue";
-
 
 const routes = [
     { path: "/teachers", component: TeacherRequests },
