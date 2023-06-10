@@ -70,4 +70,12 @@ class Question extends Model
         return $query->where('subject', $subject);
     }
 
+    public function scopeRandomQuestions($query, $subject, $type, $level, $limit){
+        return $query->select('question_id')
+        ->where('subject', $subject)
+        ->where('type', $type)
+        ->where('level', $level)
+        ->inRandomOrder()
+        ->limit($limit);
+    }
 }
