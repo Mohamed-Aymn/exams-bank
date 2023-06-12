@@ -54,17 +54,6 @@ class UserController extends Controller
                 $errors = $validator->errors();
                 return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
             }
-
-            // Attempt to authenticate the user
-            if (Auth::attempt($request->only('email', 'password'))) {
-                // Authentication successful
-                return redirect()->intended('/profile');
-            } else {
-                // Authentication failed
-                return back()->withErrors([
-                    'email' => 'Invalid credentials',
-                ]);
-            }
         }else{
             // validation
             $validator = Validator::make($request->all(),(new User())->rules);
@@ -109,6 +98,17 @@ class UserController extends Controller
                 Student::create([
                     'student_id' => $id,
                     'fav_questions' => $request->fav_questions
+                ]);
+            }
+
+            // Attempt to authenticate the user
+            if (Auth::attempt($request->only('email', 'password'))) {
+                // Authentication successful
+                return redirect()->intended('/profile');
+            } else {
+                // Authentication failed
+                return back()->withErrors([
+                    'email' => 'Invalid credentials',
                 ]);
             }
             return redirect('/profile');
