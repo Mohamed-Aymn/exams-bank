@@ -2,35 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Question;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\QuestionController;
-use App\Http\Controllers\SubjectController;
-use App\Http\Controllers\ExamController;
-use App\Http\Controllers\ExamQuestionsController;
+use Illuminate\Http\Request;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-// --------------------- Api Routes
-Route::prefix('api')->group(function () {
-    Route::post('/users',[UserController::class, 'store']);
-    Route::post('/questions',[QuestionController::class, 'store']);
-    Route::get('/questions/{id}',[QuestionController::class, 'show']);
-    Route::post('/subjects',[SubjectController::class, 'store']);
-    Route::get('/subjects',[SubjectController::class, 'index']);
-    Route::post('/exams',[ExamController::class, 'store']);
-    Route::post('/exam-questions',[ExamQuestionsController::class, 'store']);
-});
-
-// --------------------- View Routes
 Route::get('/', function () {
     return view('home', ['showHeader' => false, "showFooter" => true]);
 });
@@ -44,19 +17,19 @@ Route::get('/profile', function () {
 });
 
 Route::get('/bank', function () {
-    $request = Request::create("/api/subjects", 'GET');
+    $request = Request::create("/api/v1/subjects", 'GET');
     $response = Route::dispatch($request);
     $responseBody = json_decode($response->getContent(), true);
     return view('bank', ['showHeader' => true, "showFooter" => false, "subjects" => $responseBody]);
 });
 
-Route::get('bank/{subject}', function (Illuminate\Http\Request $request, $subject) {
+Route::get('bank/{subject}', function (Request $request, $subject) {
     $questions = Question::subject($subject)->get();
     return view('subject', ['showHeader' => true, "showFooter" => false, "subject" => $subject, "questions" => $questions]);
 });
 
-Route::get('bank/{subject}/{questionId}', function (Illuminate\Http\Request $request, $subject, $questionId) {
-    $request = Request::create("/questions/".$questionId, 'GET');
+Route::get('bank/{subject}/{questionId}', function ($subject, $questionId) {
+    $request = Request::create("/api/v1/questions/".$questionId, 'GET');
     $response = Route::dispatch($request);
     $responseBody = json_decode($response->getContent(), true);
     return view('question', ['showHeader' => true, "showFooter" => false, "subject" => $subject, "question" => $responseBody]);

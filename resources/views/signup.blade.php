@@ -12,7 +12,7 @@
         <div class="relative max-w-md mx-auto mt-8 md:mt-16">
             <div class="overflow-hidden bg-white rounded-md shadow-md">
                 <div class="px-4 py-6 sm:px-8 sm:py-7">
-                    <form action="/api/users" method="POST">
+                    <form action="/api/v1/users" method="POST">
                         @csrf
                         <div class="space-y-5">
                             <div>
