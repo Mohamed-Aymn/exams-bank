@@ -16,8 +16,8 @@ Route::prefix('users')->group(function () {
 });
 
 Route::prefix("/auth")->group(function(){
-    Route::post("/", [TokenController::class, 'createToken']);
-    Route::delete("/", [TokenController::class, 'terminateToken']);
+    Route::post("/", [TokenController::class, 'create']);
+    Route::delete("/", [TokenController::class, 'terminate']);
 });
 
 Route::post('/questions',[QuestionController::class, 'store']);
