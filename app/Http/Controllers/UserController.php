@@ -10,6 +10,8 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\UserAuth;
+
 
 class UserController extends Controller
 {
@@ -37,23 +39,10 @@ class UserController extends Controller
     public function store(Request $request)
     {
         // check if user exist
-        $user = User::where('email', $request->email)->first();
+        $existingUser = User::where('email', $request->email)->first();
 
-        if ($user) {
-            // validation
-            $validator = Validator::make($request->all(), [
-                'email' => [
-                    'required',
-                    'email'
-                ],
-                'password' => [
-                    'required'
-                ]
-            ]);
-            if ($validator->fails()) {
-                $errors = $validator->errors();
-                return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
-            }
+        if ($existingUser) {
+            return response()->json(['errors' => "this email is already used"], Response::HTTP_BAD_REQUEST);
         }else{
             // validation
             $validator = Validator::make($request->all(),(new User())->rules);
@@ -63,7 +52,7 @@ class UserController extends Controller
             }
 
             $id = generateUniqueId("users", "user_id");
-            $newOne = User::create([
+            $newUser = User::create([
                 'user_id' =>  $id,
                 'name' =>  $request->name,
                 'email' => $request->email,
@@ -100,19 +89,9 @@ class UserController extends Controller
                     'fav_questions' => $request->fav_questions
                 ]);
             }
-
-            // Attempt to authenticate the user
-            if (Auth::attempt($request->only('email', 'password'))) {
-                // Authentication successful
-                return redirect()->intended('/profile');
-            } else {
-                // Authentication failed
-                return back()->withErrors([
-                    'email' => 'Invalid credentials',
-                ]);
-            }
-            return redirect('/profile');
         }
+
+        return $newUser;
     }
 
     /**

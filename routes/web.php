@@ -3,6 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use App\Http\Controllers\UserAuth;
+
+Route::prefix("/auth")->group(function (){
+    Route::post('/signup', [UserAuth::class, 'signup']);
+    Route::post('/login', [UserAuth::class, 'login']);
+    Route::post('/logout', [UserAuth::class, 'logout']);
+});
 
 Route::get('/', function () {
     return view('home', ['showHeader' => false, "showFooter" => true]);
@@ -12,10 +19,10 @@ Route::get('/signup', function () {
     return view('signup', ['showHeader' => false, "showFooter" => false]);
 });
 
-Route::middleware(['auth'])->group(function(){
+Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('/profile', function () {
         return view('profile', ['showHeader' => true, "showFooter" => false]);
-    });
+    })->name('profile');
 
     Route::get('/bank', function () {
         $request = Request::create("/api/v1/subjects", 'GET');
@@ -72,3 +79,18 @@ Route::middleware(['auth'])->group(function(){
         return view('createSubject', ['showHeader' => true, "showFooter" => false]);
     });
 });
+
+
+
+
+
+
+
+/**
+ * Auth routes:-
+ * 
+ * auth routes are defined here in web.php file as all of them will
+ * redirect to view.php files. 
+ * This method is used used as this api will not be used by any other
+ * client that is not this laravel website.
+ */

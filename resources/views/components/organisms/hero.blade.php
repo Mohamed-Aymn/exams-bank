@@ -14,7 +14,7 @@
                 <div class="w-full max-w-md bg-white rounded-lg dark:bg-gray-800">
                     <div class="px-6 py-8 text-center">
                         <h2 class="text-2xl font-semibold text-gray-700 dark:text-white fo">Sign In</h2>
-                        <form action="/api/v1/users" method="POST">
+                        <form action="api/v1/auth/login" method="POST">
                             @csrf
                             <div class="flex flex-col gap-2 mt-3">
                                 <input class="input" type="text" placeholder="Email address" name="email" area-label="Email Address" />
@@ -28,6 +28,10 @@
                                     Sign in
                                 </button>
                             </div>
+
+                            @error('password')
+                                <span>{{ $message }}</span>
+                            @enderror
 
                             <div class="flex flex-col items-start justify-start my-1">
                                 <a class="a" href="#">
