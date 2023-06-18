@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Http\RedirectResponse;
 
 class UserAuth extends Controller
 {
@@ -110,10 +110,39 @@ class UserAuth extends Controller
         return redirect()->intended('profile');
     }
 
-    public function logout()
+    public function logout(Request $request): RedirectResponse
     {
-        // terminte token
-        $token = Http::post('http://127.0.0.1:8000/api/v1/auth');
+        // search for that specific user
+        $validator = Validator::make($request->all(), [
+            'user_id' => [
+                'required',
+            ]
+        ]);
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            return back()->withErrors([
+                'message' => 'user id is requried.',
+            ]);
+        }
+        $user = User::where('email', $request->email)->first();
+        if (!$user) {
+            return back()->withErrors([
+                'message' => 'user not found.',
+            ]);
+        }
+
+        // terminate session cookie
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        // Revoke all tokens...
+        $requestBody = [
+            "user_id" => $request->user_id,
+            "action" => "revoke_all",
+        ];
+        $token = Http::delete('http://127.0.0.1:8000/api/v1/tokens', $requestBody);
+
         // redirect to home page
         return redirect('/');
     }

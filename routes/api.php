@@ -13,12 +13,13 @@ use App\Http\Controllers\TokenController;
 Route::prefix('users')->group(function () {
     Route::post('/', [UserController::class, 'store']);
     Route::get('/', [UserController::class, 'index']);
+
+    Route::prefix("/tokens")->group(function(){
+        Route::post("/", [TokenController::class, 'create']);
+        Route::delete("/", [TokenController::class, 'terminate']);
+    });
 });
 
-Route::prefix("/tokens")->group(function(){
-    Route::post("/", [TokenController::class, 'create']);
-    Route::delete("/", [TokenController::class, 'terminate']);
-});
 
 Route::post('/questions',[QuestionController::class, 'store']);
 Route::get('/questions/{id}',[QuestionController::class, 'show']);

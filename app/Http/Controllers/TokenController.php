@@ -47,9 +47,51 @@ class TokenController extends Controller
     }
 
     // terminate auth
-    public function terminate(){
-        auth()->user()->currentAccessToken()->delete();
-        return "token terminated";
+    public function terminate(Request $request){
+        // validate request data
+        $validator = Validator::make($request->all(), [
+            'user_id' => [
+                'required',
+            ],
+            'action' => [
+                'required',
+                'in:revoke_all,revode_current,revoke_specific'
+            ]
+        ]);
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
+        }
+
+        // get that specific user
+        $user = User::where('email', $request->email)->first();
+        if (!$user) {
+            return back()->withErrors([
+                'message' => 'user not found.',
+            ]);
+        }
+
+        // tokin termination 
+        $action = $request->input('action');
+        $tokenId = $request->input('token_id');
+        switch ($action) {
+            case 'revoke_all':
+                $request->user()->tokens()->delete();
+                return response()->json(['message' => 'All tokens revoked.']);
+    
+            case 'revoke_current':
+                $request->user()->currentAccessToken()->delete();
+                return response()->json(['message' => 'Current token revoked.']);
+    
+            case 'revoke_specific':
+                if ($tokenId) {
+                    $request->user()->tokens()->where('id', $tokenId)->delete();
+                    return response()->json(['message' => 'Token with ID ' . $tokenId . ' revoked.']);
+                }
+                break;
+        }
+
+        return response()->json(['message' => 'Invalid action or token ID.'], 400);
     }
 
     // public function userTokens(Request $request){
