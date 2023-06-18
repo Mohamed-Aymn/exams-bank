@@ -20,6 +20,9 @@ Route::prefix('users')->group(function () {
     });
 });
 
+Route::prefix('question-requests')->group(function(){
+    Route::post('/', [QuestionRequestController::class, 'create']);
+});
 
 Route::post('/questions',[QuestionController::class, 'store']);
 Route::get('/questions/{id}',[QuestionController::class, 'show']);

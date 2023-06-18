@@ -52,7 +52,8 @@ class QuestionController extends Controller
             'subject' => $request->subject,
             'type' => $request->type,
             'level' => $request->level,
-            'is_draft' => false
+            'is_draft' => false,
+            'is_accepted' => false
         ]);
 
         if ($request->type == '1') {

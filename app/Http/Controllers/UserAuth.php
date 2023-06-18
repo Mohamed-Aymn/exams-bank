@@ -134,8 +134,6 @@ class UserAuth extends Controller
             ]);
         }
 
-
-
         // terminate session cookie
         Auth::logout();
         $request->session()->invalidate();

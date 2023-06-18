@@ -40,7 +40,7 @@
                 <div class="flex items-center justify-between">
                     <button class="btn btn-tertiary">Cancel</button>
                     <div>
-                        <button class="btn btn-secondary">Drafts</button>
+                        <button class="btn btn-secondary">Save in drafts</button>
                         <button class="btn btn-primary" type="submit">Submit</button>
                     </div>
                 </div>

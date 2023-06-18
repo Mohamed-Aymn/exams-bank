@@ -41,7 +41,9 @@ class Question extends Model
             "max:200"
         ],'creator' => [
             // 'required', 
-        ],'is_draft' => [
+        ],'is_accepted' => [
+            'required',
+        ], 'is_draft' => [
             // 'required',
             "boolean",
         ], 'type' => [

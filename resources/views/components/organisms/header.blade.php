@@ -21,7 +21,7 @@
                 <a href="/profile" class="btn btn-nav">profile</a>
                 <a href="/customize-exam" class="btn btn-primary">Exam Demo</a>
             @elseif($userType == "t")
-                <button open-create-modal class="btn btn-nav">Create</button>
+                <a href="/create?option=question" class="btn btn-nav">Create</a>
                 <a href="/profile" class="btn btn-nav">profile</a>
                 <a href="/customize-exam" class="btn btn-primary">Exam Demo</a>
             @elseif($userType == "s")
@@ -51,7 +51,6 @@
             @endif
         </div>
     </nav>
-    
 </header>
 
 
@@ -69,28 +68,31 @@
 
 @push('scripts')
 <script>
-    // create modal script
-    const openButton = document.querySelector("[open-create-modal]");
-    const closeButton = document.querySelector("[close-create-modal]");
-    const createModal = document.querySelector("[create-modal]");
-    openButton.addEventListener("click",() =>{
-        createModal.showModal();
-    })
-    closeButton.addEventListener("click",() =>{
-        createModal.close();
-    })
+    // create option model (only for admin users)
+    @if($userType == "a")
+        // create modal script
+        const openButton = document.querySelector("[open-create-modal]");
+        const closeButton = document.querySelector("[close-create-modal]");
+        const createModal = document.querySelector("[create-modal]");
+        openButton.addEventListener("click",() =>{
+            createModal.showModal();
+        })
+        closeButton.addEventListener("click",() =>{
+            createModal.close();
+        })
 
-    // toggle button in create modal
-    const toggleBtn = document.querySelector("#createToggle");
-    const CreateBtn = document.querySelector("#createBtn");
-    CreateBtn.setAttribute('href', '/create?option=question');
-    toggleBtn.addEventListener('change', function() {
-        if (this.checked) {
-            CreateBtn.setAttribute('href', '/create?option=question');
-        } else {
-            CreateBtn.setAttribute('href', '/create?option=subject');
-        }
-    });
+        // toggle button in create modal
+        const toggleBtn = document.querySelector("#createToggle");
+        const CreateBtn = document.querySelector("#createBtn");
+        CreateBtn.setAttribute('href', '/create?option=question');
+        toggleBtn.addEventListener('change', function() {
+            if (this.checked) {
+                CreateBtn.setAttribute('href', '/create?option=question');
+            } else {
+                CreateBtn.setAttribute('href', '/create?option=subject');
+            }
+        });
+    @endif
 
     // hamburger menu
     $(document).ready(function() {
