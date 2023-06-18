@@ -20,11 +20,11 @@
                 <a href="/manage" class="btn btn-nav">Manage</a>
                 <a href="/profile" class="btn btn-nav">profile</a>
                 <a href="/customize-exam" class="btn btn-primary">Exam Demo</a>
-            @elseif($usertype == "t")
+            @elseif($userType == "t")
                 <button open-create-modal class="btn btn-nav">Create</button>
                 <a href="/profile" class="btn btn-nav">profile</a>
                 <a href="/customize-exam" class="btn btn-primary">Exam Demo</a>
-            @elseif($usertype == "s")
+            @elseif($userType == "s")
                 <a href="/profile" class="btn btn-nav">profile</a>
                 <a href="/customize-exam" class="btn btn-primary">Exam</a>
             @endif
@@ -41,11 +41,11 @@
                 <a href="/manage" class="btn btn-nav">Manage</a>
                 <a href="/profile" class="btn btn-nav">profile</a>
                 <a href="#" class="btn btn-primary">Exam Demo</a>
-            @elseif($usertype == "t")
+            @elseif($userType == "t")
                 <a href="/create" class="btn btn-nav">Create</a>
                 <a href="/profile" class="btn btn-nav">profile</a>
                 <a href="#" class="btn btn-primary">Exam Demo</a>
-            @elseif($usertype == "s")
+            @elseif($userType == "s")
                 <a href="/profile" class="btn btn-nav">profile</a>
                 <a href="#" class="btn btn-primary">Exam</a>
             @endif

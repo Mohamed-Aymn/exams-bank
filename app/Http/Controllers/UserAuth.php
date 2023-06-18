@@ -15,48 +15,47 @@ class UserAuth extends Controller
 {
     public function signup(Request $request)
     {
-        // web validation
-        $validator = $request->validate([
-            'name' => [
-                'required',
-                'string'
-            ], 'email' => [
-                'required',
-                'string',
-                'email'
-            ],'password' => [
-                'required',
-                'string'
-            ], 'type' => [
-                'required',
-                'string',
-                'in:a,t,s'
-            ]
-        ]);
+        // validation
+        $validator = Validator::make($request->all(),(new User())->rules);
         if ($validator->fails()) {
             $errors = $validator->errors();
             return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
         }
 
-        // create user from api endpoint
-        $hashedPassword = Hash::make($request->password);
-        $csrfToken = csrf_token();
-        $user = Http::withToken($csrfToken)->post('http://127.0.0.1:8000/api/v1/users', [
+        // create user
+        $requestBody = [
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $hashedPassword,
+            'password' => $request->password,
             'type' => $request->type,
-            'csrfToken' => $csrfToken,
-        ]);
+        ];
+        $newUserRequest = Request::create('http://127.0.0.1:8000/api/v1/users', 'POST', $requestBody);
+        $response = Route::dispatch($newUserRequest);
+        $user = json_decode($response->getContent(), true);
+
+
+        // sign in using session cookie
+        $credentials = [
+            'email' => $user["email"],
+            'password' => $request->password,
+        ];
+        if (!Auth::attempt($credentials)) {
+            dd("no");
+            return back()->withErrors([
+                'message' => 'user email or passowrd are not typed correctly',
+            ]);
+        }
+        $request->session()->regenerate();
 
         // create token from api endpoint
-        $token = Http::withToken($csrfToken)->post('http://127.0.0.1:8000/api/v1/auth',[
-            'email' => $user->email,
-            'password' => $user->password,
-        ]);
+        $requestBody = [
+            'email' => $user["email"],
+            'password' => $request->password,
+        ];
+        $request = Request::create('http://127.0.0.1:8000/api/v1/tokens', 'POST');
 
         // redirect with the created token
-        return redirect('/dashboard')->with('token', $token);
+        return redirect()->intended('profile');
     }
 
     public function login(Request $request)

@@ -43,52 +43,52 @@ class UserController extends Controller
 
         if ($existingUser) {
             return response()->json(['errors' => "this email is already used"], Response::HTTP_BAD_REQUEST);
-        }else{
-            // validation
-            $validator = Validator::make($request->all(),(new User())->rules);
+        }
+    
+        // validation
+        $validator = Validator::make($request->all(),(new User())->rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
+        }
+
+        $id = generateUniqueId("users", "user_id");
+        $newUser = User::create([
+            'user_id' =>  $id,
+            'name' =>  $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+            'photo' => $request->photo,
+            'type' => $request->type,
+        ]);
+
+        if ($request->type == 't' || $request->type == 'a') {
+            // teacher validation
+            $teacher = new Teacher(); 
+            $validator = Validator::make($request->all(),$teacher->rules);
             if ($validator->fails()) {
                 $errors = $validator->errors();
                 return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
             }
 
-            $id = generateUniqueId("users", "user_id");
-            $newUser = User::create([
-                'user_id' =>  $id,
-                'name' =>  $request->name,
-                'email' => $request->email,
-                'password' => $request->password,
-                'photo' => $request->photo,
-                'type' => $request->type,
+            Teacher::create([
+                'teacher_id' => $id,
+                'title' => $request->title,
+                'bio' => $request->bio,
             ]);
-
-            if ($request->type == 't' || $request->type == 'a') {
-                // teacher validation
-                $teacher = new Teacher(); 
-                $validator = Validator::make($request->all(),$teacher->rules);
-                if ($validator->fails()) {
-                    $errors = $validator->errors();
-                    return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
-                }
-    
-                Teacher::create([
-                    'teacher_id' => $id,
-                    'title' => $request->title,
-                    'bio' => $request->bio,
-                ]);
-            } elseif ($request->type == 's') {
-                // student validation
-                $student = new Student(); 
-                $validator = Validator::make($request->all(),$student->rules);
-                if ($validator->fails()) {
-                    $errors = $validator->errors();
-                    return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
-                }
-    
-                Student::create([
-                    'student_id' => $id,
-                    'fav_questions' => $request->fav_questions
-                ]);
+        } elseif ($request->type == 's') {
+            // student validation
+            $student = new Student(); 
+            $validator = Validator::make($request->all(),$student->rules);
+            if ($validator->fails()) {
+                $errors = $validator->errors();
+                return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
             }
+
+            Student::create([
+                'student_id' => $id,
+                'fav_questions' => $request->fav_questions
+            ]);
         }
 
         return $newUser;
