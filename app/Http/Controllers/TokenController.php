@@ -40,11 +40,10 @@ class TokenController extends Controller
         // TODO: password check to return unauthorized response if fase
 
         // create token 
-        $token = $user->createToken(time())->plainTextToken;
+        $token = $user->createToken("user_token")->plainTextToken;
 
         // reutn tokent with authenticated status code
-        return response($token, 201);
-        // return response()->json(['token' => $token], 201);
+        return ['token' => $token->plainTextToken];
     }
 
     // terminate auth
@@ -52,4 +51,20 @@ class TokenController extends Controller
         auth()->user()->currentAccessToken()->delete();
         return "token terminated";
     }
+
+    // public function userTokens(Request $request){
+    //     // search for the user
+    //     $user = User::where('email', $request->email)->first();
+    //     if (!$user) {
+    //         return response()->json([
+    //             'message' => 'User with email ' . $request->email . ' not found in the database'
+    //         ], 404);
+    //     }
+
+    //     foreach ($user->tokens as $token) {
+    //         // ...
+    //     }
+
+    //     return ['token' => $token->plainTextToken];
+    // }
 }

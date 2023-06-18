@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 
 class UserAuth extends Controller
@@ -21,7 +23,6 @@ class UserAuth extends Controller
             ], 'email' => [
                 'required',
                 'string',
-                'unique:users',
                 'email'
             ],'password' => [
                 'required',
@@ -60,17 +61,14 @@ class UserAuth extends Controller
 
     public function login(Request $request)
     {
-
-        
         // web validation
         $validator = Validator::make($request->all(), [
             'email' => [
-                // 'required',
-                // 'unique:users',
+                'required',
                 'email'
             ],
             'password' => [
-                // 'required',
+                'required',
                 'string'
             ]
         ]);
@@ -87,28 +85,27 @@ class UserAuth extends Controller
             ], 404);
         }
 
-        // create token from api endpoint
-        $csrfToken = csrf_token();
-        // $token = Http::withToken($csrfToken)->post('http://127.0.0.1:8000/api/v1/auth',[
-        //     'email' => $user->email,
-        //     'password' => $user->password,
-        // ]);
+        // sign in using session cookie
+        $credentials = [
+            'email' => $request->email,
+            'password' => $request->password,
+        ];
+        if (!Auth::attempt($credentials)) {
+            return response()->json([
+                'message' => 'unable to authorize user'
+            ], 403);
+        }
+        $request->session()->regenerate();
 
-        $token = Http::post('http://127.0.0.1:8000/api/v1/auth',[
+        // create token from api endpoint
+        $requestBody = [
             'email' => $user->email,
             'password' => $user->password,
-        ]);
-
-
-        if ($response->ok()  == false) {
-            $error = $response->status() . ' ' . $response->body();
-        } 
-
-
-        dd($token);
+        ];
+        $request = Request::create('http://127.0.0.1:8000/api/v1/tokens', 'POST');
 
         // redirect with the created token
-        return redirect('/dashboard')->with('token', $token);
+        return redirect()->intended('profile');
     }
 
     public function logout()

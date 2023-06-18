@@ -15,7 +15,7 @@ Route::prefix('users')->group(function () {
     Route::get('/', [UserController::class, 'index']);
 });
 
-Route::prefix("/auth")->group(function(){
+Route::prefix("/tokens")->group(function(){
     Route::post("/", [TokenController::class, 'create']);
     Route::delete("/", [TokenController::class, 'terminate']);
 });
