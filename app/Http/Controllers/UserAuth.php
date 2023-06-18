@@ -74,15 +74,17 @@ class UserAuth extends Controller
         ]);
         if ($validator->fails()) {
             $errors = $validator->errors();
-            return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
+            return back()->withErrors([
+                'email' => 'The provided credentials do not match our records.',
+            ])->onlyInput('email');
         }
 
         // check if user exists in db
         $user = User::where('email', $request->email)->first();
         if (!$user) {
-            return response()->json([
-                'message' => 'User with email ' . $request->email . ' not found in the database'
-            ], 404);
+            return back()->withErrors([
+                'email' => 'The provided credentials do not match our records.',
+            ])->onlyInput('email');
         }
 
         // sign in using session cookie
@@ -91,9 +93,9 @@ class UserAuth extends Controller
             'password' => $request->password,
         ];
         if (!Auth::attempt($credentials)) {
-            return response()->json([
-                'message' => 'unable to authorize user'
-            ], 403);
+            return back()->withErrors([
+                'message' => 'user email or passowrd are not typed correctly',
+            ]);
         }
         $request->session()->regenerate();
 
