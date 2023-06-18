@@ -116,6 +116,10 @@ class UserAuth extends Controller
         $validator = Validator::make($request->all(), [
             'user_id' => [
                 'required',
+            ],
+            'action' => [
+                'required',
+                'in:revoke_all,revoke_current,revoke_specific'
             ]
         ]);
         if ($validator->fails()) {
@@ -130,6 +134,8 @@ class UserAuth extends Controller
                 'message' => 'user not found.',
             ]);
         }
+
+
 
         // terminate session cookie
         Auth::logout();

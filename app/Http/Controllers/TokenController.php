@@ -55,7 +55,7 @@ class TokenController extends Controller
             ],
             'action' => [
                 'required',
-                'in:revoke_all,revode_current,revoke_specific'
+                'in:revoke_all,revoke_current,revoke_specific'
             ]
         ]);
         if ($validator->fails()) {
@@ -64,12 +64,14 @@ class TokenController extends Controller
         }
 
         // get that specific user
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('user_id', $request->user_id)->first();
         if (!$user) {
             return back()->withErrors([
                 'message' => 'user not found.',
             ]);
         }
+
+        dd($user);
 
         // tokin termination 
         $action = $request->input('action');

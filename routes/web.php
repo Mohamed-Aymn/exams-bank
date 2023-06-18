@@ -19,7 +19,7 @@ Route::get('/signup', function () {
     return view('signup', ['showHeader' => false, "showFooter" => false]);
 });
 
-Route::middleware(['auth'])->group(function(){
+Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('/profile', function () {
         return view('profile', ['showHeader' => true, "showFooter" => false]);
     })->name('profile');
