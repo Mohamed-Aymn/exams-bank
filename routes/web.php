@@ -16,6 +16,7 @@ Route::middleware(['guest'])->group(function(){
     });
 });
 
+// authorized users only
 Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('/profile', function () {
         return view('profile', ['showHeader' => true, "showFooter" => false]);
@@ -27,7 +28,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
         return view('customizeExam', ['showHeader' => true, "showFooter" => false]);
     });
 
-    // admin user web routes
+    // admin user only
     Route::middleware(['user-type:a'])->group(function(){
         // bank routes
         Route::prefix('/bank')->group(function(){
