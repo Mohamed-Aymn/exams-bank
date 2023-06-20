@@ -35,6 +35,7 @@
                     <input class="input" placeholder="Wrong choice 2" type="text" name="choice2" />
                     <input class="input" placeholder="Wrong choice 3" type="text" name="choice3" />
                     <input class="input" placeholder="Wrong choice 4" type="text" name="choice4" />
+                    <input class="input" placeholder="about" type="text" name="about" />
                 </div>
 
                 <div class="flex items-center justify-between">
@@ -46,6 +47,7 @@
                 </div>
             <form>
         @else
+        {{-- create new subject form --}}
         <form action="/api/v1/subjects" method="POST">
             @csrf
             <div class="flex flex-col gap-2 my-4">

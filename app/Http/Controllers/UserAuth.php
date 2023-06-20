@@ -33,14 +33,12 @@ class UserAuth extends Controller
         $response = Route::dispatch($newUserRequest);
         $user = json_decode($response->getContent(), true);
 
-
         // sign in using session cookie
         $credentials = [
-            'email' => $user["email"],
+            'email' => $request->email,
             'password' => $request->password,
         ];
         if (!Auth::attempt($credentials)) {
-            dd("no");
             return back()->withErrors([
                 'message' => 'user email or passowrd are not typed correctly',
             ]);
@@ -53,6 +51,7 @@ class UserAuth extends Controller
             'password' => $request->password,
         ];
         $request = Request::create('http://127.0.0.1:8000/api/v1/tokens', 'POST');
+        // dd($request);
 
         // redirect with the created token
         return redirect()->intended('profile');
@@ -98,13 +97,10 @@ class UserAuth extends Controller
         }
         $request->session()->regenerate();
 
-        // create token from api endpoint
-        $requestBody = [
-            'email' => $user->email,
-            'password' => $user->password,
-        ];
-        $request = Request::create('http://127.0.0.1:8000/api/v1/tokens', 'POST');
-
+        // create token 
+        $token = $user->createToken("user_token"); 
+        $plainTextToken = $token->plainTextToken; 
+        
         // redirect with the created token
         return redirect()->intended('profile');
     }

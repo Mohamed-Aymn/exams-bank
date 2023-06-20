@@ -8,7 +8,6 @@
     <a href="#" title="" class="flex">
         <img class="w-auto h-8 lg:h-10" src="https://cdn.rareblocks.xyz/collection/celebration/images/logo.svg" alt="" />
     </a>
-
     {{-- small screens --}}
     <i class="cursor-pointer fa-solid fa-bars lg:hidden" id="mobile-menu-button"></i>
     <nav id="mobile-menu" class="absolute hidden pt-4 pb-6 bg-white border border-gray-200 rounded-md shadow-md lg:hidden top-5 right-10">

@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Question;
 use App\Models\Mcq;
+use App\Models\QuestionRequest;
 use App\Models\TrueOrFalse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\ValnewQuestionIdator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
 {
@@ -43,17 +45,28 @@ class QuestionController extends Controller
             return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
         }
 
+        // send question request if user was a teacher
+        if(Auth::user()->type == 't'){
+            $questionRequestId = generateUniqueId("users", "user_id");
+            $questionRequest = QuestionRequest::create([
+                'question_request_id' => $questionRequestId,
+                'teacher_id' => Auth::user()->user_id,
+                'about' => $request->about,
+            ]);
+        }
+
         $newQuestionId = generateUniqueId("questions", "question_id");
+        $isAccepted = Auth::user()->type == "a" ? true : false;
         $question = Question::create([
             'question_id' => $newQuestionId,
             'question' => $request->question,
             'answer' => $request->answer,
-            'creator' => 1371096878,
+            'creator' => Auth::user()->user_id,
             'subject' => $request->subject,
             'type' => $request->type,
             'level' => $request->level,
             'is_draft' => false,
-            'is_accepted' => false
+            'is_accepted' => $isAccepted
         ]);
 
         if ($request->type == '1') {
@@ -80,13 +93,15 @@ class QuestionController extends Controller
                 return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
             }
 
-            Student::create([
+            TrueOrFalse::create([
                 'question_id' => $newQuestionId,
                 'false_ans' => $request->false_ans
             ]);
         }
 
-        return redirect('/');
+        return response()->json([
+            'message' => 'question created successfully',
+        ]);
     }
 
     /**
@@ -112,7 +127,7 @@ class QuestionController extends Controller
                             ->first();
         }
 
-        return $question;
+        return response()->json($question);
     }
 
     /**

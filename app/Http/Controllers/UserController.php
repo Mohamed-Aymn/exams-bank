@@ -91,6 +91,9 @@ class UserController extends Controller
             ]);
         }
 
+        // create token
+        // $token = $newUser->createToken("user_token")->plainTextToken;
+
         return $newUser;
     }
 

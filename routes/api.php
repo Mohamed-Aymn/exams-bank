@@ -8,9 +8,10 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\ExamQuestionsController;
 use App\Http\Controllers\TokenController;
+use App\Http\Controllers\QuestionRequestController;
 
 
-Route::prefix('users')->group(function () {
+Route::prefix('/users')->group(function () {
     Route::post('/', [UserController::class, 'store']);
     Route::get('/', [UserController::class, 'index']);
 
@@ -24,10 +25,17 @@ Route::prefix('question-requests')->group(function(){
     Route::post('/', [QuestionRequestController::class, 'create']);
 });
 
-Route::post('/questions',[QuestionController::class, 'store']);
-Route::get('/questions/{id}',[QuestionController::class, 'show']);
-Route::post('/subjects',[SubjectController::class, 'store']);
-Route::get('/subjects',[SubjectController::class, 'index']);
+Route::prefix('/questions')->group(function(){
+    Route::post('/',[QuestionController::class, 'store']);
+    Route::get('/{id}',[QuestionController::class, 'show']);
+});
+
+Route::prefix('/subjects')->group(function(){
+    Route::post('/',[SubjectController::class, 'store']);
+    Route::get('/',[SubjectController::class, 'index']);
+});
+
+
 Route::post('/exams',[ExamController::class, 'store']);
 Route::post('/exam-questions',[ExamQuestionsController::class, 'store']);
 

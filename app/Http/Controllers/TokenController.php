@@ -36,14 +36,14 @@ class TokenController extends Controller
                 'message' => 'User with email ' . $request->email . ' not found in the database'
             ], 404);
         }
-
+        
         // TODO: password check to return unauthorized response if fase
 
         // create token 
-        $token = $user->createToken("user_token")->plainTextToken;
+        $token = $user->createToken("user_token"); 
+        $plainTextToken = $token->plainTextToken; 
 
-        // reutn tokent with authenticated status code
-        return ['token' => $token->plainTextToken];
+        return response()->json(['token' => $plainTextToken]);
     }
 
     // terminate auth
@@ -70,8 +70,6 @@ class TokenController extends Controller
                 'message' => 'user not found.',
             ]);
         }
-
-        dd($user);
 
         // tokin termination 
         $action = $request->input('action');

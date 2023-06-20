@@ -13,22 +13,24 @@ class QuestionRequest extends Model
     protected $table = "question_request";
     public $timestamps = false;
     // primary key config
-    protected $primaryKey = ['questions_request_id', 'teacher_id'];
+    protected $primaryKey = ['question_request_id', 'teacher_id'];
     protected $keyType = 'integer';
     public $incrementing = false;
 
     protected $fillable = [
-        'questions_request_id',
-        'teacher_id'
+        'question_request_id',
+        'teacher_id',
+        'acceptor',
+        'about'
     ];
 
     public $rules = [
-        'questions_request_id' => [
+        'question_request_id' => [
             "required",
         ]
         ,'teacher_id' => [
             "required",
-        ], 'acceptro' => [
+        ], 'acceptor' => [
             'ing'
         ], 'about' => [
             'string'

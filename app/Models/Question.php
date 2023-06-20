@@ -24,7 +24,8 @@ class Question extends Model
         'is_draft',
         'creator',
         "type",
-        "level"
+        "level",
+        'is_accepted'
     ];
 
     public $rules = [
@@ -42,7 +43,7 @@ class Question extends Model
         ],'creator' => [
             // 'required', 
         ],'is_accepted' => [
-            'required',
+            // 'required',
         ], 'is_draft' => [
             // 'required',
             "boolean",
