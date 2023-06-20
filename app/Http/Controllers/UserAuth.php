@@ -47,7 +47,7 @@ class UserAuth extends Controller
 
         // create token from api endpoint
         $requestBody = [
-            'email' => $user["email"],
+            'email' => $request->email,
             'password' => $request->password,
         ];
         $request = Request::create('http://127.0.0.1:8000/api/v1/tokens', 'POST');
