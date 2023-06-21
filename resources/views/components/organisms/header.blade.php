@@ -13,6 +13,7 @@
     <nav id="mobile-menu" class="absolute hidden pt-4 pb-6 bg-white border border-gray-200 rounded-md shadow-md lg:hidden top-5 right-10">
         <div class="flex flex-col items-center justify-center gap-2 px-6 -my-2 space-y-1">
             @if($userType == "a")
+                <a href="/auth/logout" class="btn btn-nav">logout</a>
                 <a href="/bank" class="btn btn-nav">Bank</a>
                 <a href="/userslist" class="btn btn-nav">Users</a>
                 <button open-create-modal class="btn btn-nav">Create</button>
@@ -20,10 +21,12 @@
                 <a href="/profile" class="btn btn-nav">profile</a>
                 <a href="/customize-exam" class="btn btn-primary">Exam Demo</a>
             @elseif($userType == "t")
+                <a href="/auth/logout" class="btn btn-nav">logout</a>
                 <a href="/create?option=question" class="btn btn-nav">Create</a>
                 <a href="/profile" class="btn btn-nav">profile</a>
                 <a href="/customize-exam" class="btn btn-primary">Exam Demo</a>
             @elseif($userType == "s")
+                <a href="/auth/logout" class="btn btn-nav">logout</a>
                 <a href="/profile" class="btn btn-nav">profile</a>
                 <a href="/customize-exam" class="btn btn-primary">Exam</a>
             @endif
@@ -34,6 +37,7 @@
     <nav class="items-center justify-between hidden h-16 lg:flex lg:h-20">
         <div class="hidden lg:flex lg:items-center lg:ml-auto lg:space-x-10">
             @if($userType == "a")
+                <a href="/auth/logout" class="btn btn-nav">logout</a>
                 <a href="/bank" class="btn btn-nav">Bank</a>
                 <a href="/users" class="btn btn-nav">Users</a>
                 <a href="/create" class="btn btn-nav">Create</a>
@@ -41,10 +45,12 @@
                 <a href="/profile" class="btn btn-nav">profile</a>
                 <a href="#" class="btn btn-primary">Exam Demo</a>
             @elseif($userType == "t")
+                <a href="/auth/logout" class="btn btn-nav">logout</a>
                 <a href="/create" class="btn btn-nav">Create</a>
                 <a href="/profile" class="btn btn-nav">profile</a>
                 <a href="#" class="btn btn-primary">Exam Demo</a>
             @elseif($userType == "s")
+                <a href="/auth/logout" class="btn btn-nav">logout</a>
                 <a href="/profile" class="btn btn-nav">profile</a>
                 <a href="#" class="btn btn-primary">Exam</a>
             @endif

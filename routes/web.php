@@ -96,5 +96,5 @@ Route::middleware(['auth:sanctum'])->group(function(){
 Route::prefix("/auth")->group(function (){
     Route::post('/signup', [UserAuth::class, 'signup']);
     Route::post('/login', [UserAuth::class, 'login']);
-    Route::post('/logout', [UserAuth::class, 'logout']);
+    Route::get('/logout', [UserAuth::class, 'logout']);
 });

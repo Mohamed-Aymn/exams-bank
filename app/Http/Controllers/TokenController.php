@@ -50,9 +50,6 @@ class TokenController extends Controller
     public function terminate(Request $request){
         // validate request data
         $validator = Validator::make($request->all(), [
-            'user_id' => [
-                'required',
-            ],
             'action' => [
                 'required',
                 'in:revoke_all,revoke_current,revoke_specific'
@@ -62,9 +59,9 @@ class TokenController extends Controller
             $errors = $validator->errors();
             return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
         }
-
+        
         // get that specific user
-        $user = User::where('user_id', $request->user_id)->first();
+        $user = User::where('user_id', Auth::user()->user_id)->first();
         if (!$user) {
             return back()->withErrors([
                 'message' => 'user not found.',

@@ -107,24 +107,7 @@ class UserAuth extends Controller
 
     public function logout(Request $request): RedirectResponse
     {
-        // search for that specific user
-        $validator = Validator::make($request->all(), [
-            'user_id' => [
-                'required',
-            ],
-            'action' => [
-                'required',
-                'in:revoke_all,revoke_current,revoke_specific'
-            ]
-        ]);
-        if ($validator->fails()) {
-            $errors = $validator->errors();
-            return back()->withErrors([
-                'message' => 'user id is requried.',
-            ]);
-        }
-        $user = User::where('email', $request->email)->first();
-        if (!$user) {
+        if (!Auth::user()->user_id) {
             return back()->withErrors([
                 'message' => 'user not found.',
             ]);
@@ -136,11 +119,10 @@ class UserAuth extends Controller
         $request->session()->regenerateToken();
 
         // Revoke all tokens...
-        $requestBody = [
-            "user_id" => $request->user_id,
-            "action" => "revoke_all",
-        ];
-        $token = Http::delete('http://127.0.0.1:8000/api/v1/tokens', $requestBody);
+        // $requestBody = [
+        //     "action" => "revoke_all",
+        // ];
+        // $token = Http::delete('http://127.0.0.1:8000/api/v1/tokens', $requestBody);
 
         // redirect to home page
         return redirect('/');
