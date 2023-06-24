@@ -35,9 +35,12 @@ class QuestionRequestPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user): bool
+    public function update(User $user, QuestionRequest $questionRequest): bool
     {
-        return $user && $user->user_type == "a";
+        // var_dump($user->)
+        // return $user && $user->user_type == "a";
+        return $user && $user->type == "a";
+        // return true;
     }
 
     /**

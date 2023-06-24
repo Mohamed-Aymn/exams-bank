@@ -78,9 +78,9 @@ class QuestionRequestController extends Controller
      */
     public function update(Request $request, QuestionRequest $questionRequest)
     {
-        // TODO: authorization
-        
-        
+        // authorization (admins only proceed)
+        Gate::authorize('update', $questionRequest);
+    
         // input validation
         $validator = Validator::make($request->all(), [
             'question_request_id' => 'required',
