@@ -39,7 +39,7 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
-        ],
+        ]
     ],
 
     /*
@@ -97,6 +97,11 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+        // 'api' => [
+        //     'driver' => 'sanctum',
+        //     'provider' => 'users',
+        //     'hash' => false,
+        // ],
     ],
 
     /*

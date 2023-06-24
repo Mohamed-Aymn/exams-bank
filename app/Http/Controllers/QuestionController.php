@@ -4,34 +4,41 @@ namespace App\Http\Controllers;
 
 use App\Models\Question;
 use App\Models\Mcq;
+use App\Models\QuestionRequest;
 use App\Models\TrueOrFalse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\ValnewQuestionIdator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
 {
-    /**
+        /**
      * Display a listing of the resource.
+     *
+     * @return Illuminate\Http\JsonResponse
      */
     public function index()
     {
         $questions = Question::all();
-        return $questions;
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->json($questions);
     }
 
     /**
      * Store a newly created resource in storage.
+     * @param  int  $teacher_id
+     * @param  string  $about
+     * @param string question
+     * @param string answer
+     * @param string ceator
+     * @param string subject
+     * @param string type
+     * @param string level
+     * @param bool is_draft
+     * @param bool is_accepted
+     * @return Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -43,16 +50,28 @@ class QuestionController extends Controller
             return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
         }
 
+        // send question request if user was a teacher
+        if(Auth::user()->type == 't'){
+            $questionRequestId = generateUniqueId("users", "user_id");
+            $questionRequest = QuestionRequest::create([
+                'question_request_id' => $questionRequestId,
+                'teacher_id' => Auth::user()->user_id,
+                'about' => $request->about,
+            ]);
+        }
+
         $newQuestionId = generateUniqueId("questions", "question_id");
+        $isAccepted = Auth::user()->type == "a" ? true : false;
         $question = Question::create([
             'question_id' => $newQuestionId,
             'question' => $request->question,
             'answer' => $request->answer,
-            'creator' => 1371096878,
+            'creator' => Auth::user()->user_id,
             'subject' => $request->subject,
             'type' => $request->type,
             'level' => $request->level,
-            'is_draft' => false
+            'is_draft' => false,
+            'is_accepted' => $isAccepted
         ]);
 
         if ($request->type == '1') {
@@ -79,17 +98,21 @@ class QuestionController extends Controller
                 return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
             }
 
-            Student::create([
+            TrueOrFalse::create([
                 'question_id' => $newQuestionId,
                 'false_ans' => $request->false_ans
             ]);
         }
 
-        return redirect('/');
+        return response()->json([
+            'message' => 'question created successfully',
+        ]);
     }
 
     /**
      * Display the specified resource.
+     * @param  int  $question_id
+     * @return Illuminate\Http\JsonResponse
      */
     public function show(Question $question, $id)
     {
@@ -99,6 +122,7 @@ class QuestionController extends Controller
         // join with the right type
         if($questionType = 1){
             $question = DB::table('questions')
+
                             ->join('mcq', 'questions.question_id', '=', 'mcq.question_id')
                             ->select('questions.*', 'mcq.*')
                             ->where('questions.question_id', '=', $id)
@@ -111,15 +135,7 @@ class QuestionController extends Controller
                             ->first();
         }
 
-        return $question;
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Question $question)
-    {
-        //
+        return response()->json($question);
     }
 
     /**

@@ -16,7 +16,7 @@
     </div>
 </div>
 
-<form action="/api/exams" method="POST">
+<form action="/exams" method="POST">
     @csrf
 
     <input class="input" placeholder="subject" name="subject"/>

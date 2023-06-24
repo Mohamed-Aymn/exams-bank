@@ -14,15 +14,24 @@
                 <div class="w-full max-w-md bg-white rounded-lg dark:bg-gray-800">
                     <div class="px-6 py-8 text-center">
                         <h2 class="text-2xl font-semibold text-gray-700 dark:text-white fo">Sign In</h2>
-                        <form action="#">
+                        <form action="/auth/login" method="POST">
+                            @csrf
                             <div class="flex flex-col gap-2 mt-3">
-                                <input class="input" type="text" placeholder="Email address" area-label="Email Address" />
-                                <input class="input" type="password" placeholder="Password" area-label="Password" />
+                                <input class="input" type="text" placeholder="Email address" name="email" area-label="Email Address" />
+                                <input class="input" type="password" placeholder="Password" name="password" area-label="Password" />
                                 
-                                <button class="btn btn-primary">
+                                <label for="remember" class="block">
+                                    <input type="checkbox" name="remember" id="remember"> Remember me
+                                </label>
+
+                                <button type="submit" class="btn btn-primary">
                                     Sign in
                                 </button>
                             </div>
+
+                            @error('password')
+                                <span>{{ $message }}</span>
+                            @enderror
 
                             <div class="flex flex-col items-start justify-start my-1">
                                 <a class="a" href="#">

@@ -20,7 +20,7 @@
 
             <div>OR</div>
                 
-            <form action="/api/questions" method="POST">
+            <form action="/api/v1/questions" method="POST">
                 @csrf
                 <div class="flex flex-col gap-2 my-4">
                     <input class="input" placeholder="Subject" type="text" name="subject" />
@@ -35,18 +35,25 @@
                     <input class="input" placeholder="Wrong choice 2" type="text" name="choice2" />
                     <input class="input" placeholder="Wrong choice 3" type="text" name="choice3" />
                     <input class="input" placeholder="Wrong choice 4" type="text" name="choice4" />
+                    <input class="input" placeholder="about" type="text" name="about" />
                 </div>
 
                 <div class="flex items-center justify-between">
                     <button class="btn btn-tertiary">Cancel</button>
                     <div>
-                        <button class="btn btn-secondary">Drafts</button>
-                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <button class="btn btn-secondary">Save in drafts</button>
+                        <button 
+                            {{!$permission ? 'disabled'}}
+                            class="btn btn-primary"
+                            type="submit"
+                            >
+                            Submit</button>
                     </div>
                 </div>
             <form>
         @else
-        <form action="/api/subjects" method="POST">
+        {{-- create new subject form --}}
+        <form action="/api/v1/subjects" method="POST">
             @csrf
             <div class="flex flex-col gap-2 my-4">
                 <input class="input" placeholder="name" type="text" name="name" />

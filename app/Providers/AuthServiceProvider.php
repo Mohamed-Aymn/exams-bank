@@ -13,7 +13,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        //
+            QuestionRequest::class => QuestionRequestPolicy::class,
+        // User::class => UserPolicy::class,
     ];
 
     /**

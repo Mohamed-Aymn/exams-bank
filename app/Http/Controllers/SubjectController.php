@@ -15,7 +15,7 @@ class SubjectController extends Controller
     public function index()
     {
         $subjects = Subject::all();
-        return $subjects;
+        return response()->json($subjects);
     }
 
     /**
@@ -45,7 +45,7 @@ class SubjectController extends Controller
             'description' => $request->description
         ]);
 
-        return redirect('/');
+        return response()->json($newOne);
     }
 
     /**
