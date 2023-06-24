@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Validator;
 
 class TokenController extends Controller
 {
+    /**
+     * Store a newly created resource in storage.
+     * @param  string  $email
+     * @param  string  $password
+     * @return Illuminate\Http\JsonResponse
+     */
     public function create(Request $request){
         $validator = Validator::make($request->all(), [
             'email' => [
@@ -46,7 +52,13 @@ class TokenController extends Controller
         return response()->json(['token' => $plainTextToken]);
     }
 
-    // terminate auth
+
+    /**
+     * terminate token
+     * @param  string  $email
+     * @param  string  $password
+     * @return Illuminate\Http\JsonResponse
+     */
     public function terminate(Request $request){
         // validate request data
         $validator = Validator::make($request->all(), [
@@ -90,20 +102,4 @@ class TokenController extends Controller
 
         return response()->json(['message' => 'Invalid action or token ID.'], 400);
     }
-
-    // public function userTokens(Request $request){
-    //     // search for the user
-    //     $user = User::where('email', $request->email)->first();
-    //     if (!$user) {
-    //         return response()->json([
-    //             'message' => 'User with email ' . $request->email . ' not found in the database'
-    //         ], 404);
-    //     }
-
-    //     foreach ($user->tokens as $token) {
-    //         // ...
-    //     }
-
-    //     return ['token' => $token->plainTextToken];
-    // }
 }

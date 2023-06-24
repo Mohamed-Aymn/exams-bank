@@ -15,9 +15,10 @@ use App\Http\Controllers\UserAuth;
 
 class UserController extends Controller
 {
-
     /**
-     * Display a listing of the resource.
+     * return a list of all resources
+     *
+     * @return Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -26,15 +27,12 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
+     * @param  string  $name
+     * @param  string  $email
+     * @param  string  $type
+     * @param  string  $password
+     * @return Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -92,22 +90,6 @@ class UserController extends Controller
         }
 
         return response()->json($newUser);
-    }
-
-    /**
-     * Display the specified resource.u
-     */
-    public function show(User $user)
-    {
-
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(User $user)
-    {
-        //
     }
 
     /**

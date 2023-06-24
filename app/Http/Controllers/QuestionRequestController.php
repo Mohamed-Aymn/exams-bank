@@ -14,22 +14,20 @@ class QuestionRequestController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @return Illuminate\Http\JsonResponse
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $questionRequests = QuestionRequest::all();
+        return response()->json($questionRequests);
     }
 
     /**
      * Store a newly created resource in storage.
+     * @param  int  $teacher_id
+     * @param  string  $about
+     * @return Illuminate\Http\JsonResponse
      */
     public function store(Request $request, QuestionRequest $questionRequest)
     {
@@ -61,23 +59,10 @@ class QuestionRequestController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(QuestionRequest $questionRequest)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(QuestionRequest $questionRequest)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
+     * @param  int  $question_request_id
+     * @param  string  $is_accepted
+     * @return Illuminate\Http\JsonResponse
      */
     public function update(Request $request, QuestionRequest $questionRequest)
     {

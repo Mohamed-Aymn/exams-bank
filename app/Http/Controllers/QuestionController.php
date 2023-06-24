@@ -15,8 +15,10 @@ use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
 {
-    /**
+        /**
      * Display a listing of the resource.
+     *
+     * @return Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -25,15 +27,18 @@ class QuestionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
+     * @param  int  $teacher_id
+     * @param  string  $about
+     * @param string question
+     * @param string answer
+     * @param string ceator
+     * @param string subject
+     * @param string type
+     * @param string level
+     * @param bool is_draft
+     * @param bool is_accepted
+     * @return Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -106,6 +111,8 @@ class QuestionController extends Controller
 
     /**
      * Display the specified resource.
+     * @param  int  $question_id
+     * @return Illuminate\Http\JsonResponse
      */
     public function show(Question $question, $id)
     {
@@ -115,6 +122,7 @@ class QuestionController extends Controller
         // join with the right type
         if($questionType = 1){
             $question = DB::table('questions')
+
                             ->join('mcq', 'questions.question_id', '=', 'mcq.question_id')
                             ->select('questions.*', 'mcq.*')
                             ->where('questions.question_id', '=', $id)
@@ -128,14 +136,6 @@ class QuestionController extends Controller
         }
 
         return response()->json($question);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Question $question)
-    {
-        //
     }
 
     /**
