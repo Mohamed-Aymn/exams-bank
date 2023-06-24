@@ -98,10 +98,24 @@ Route::middleware(['auth:sanctum'])->group(function(){
     });
 });
 
+// --------------------------------------------- logic routes
 
-// logic routes
+// authentication
 Route::prefix("/auth")->group(function (){
     Route::post('/signup', [UserAuth::class, 'signup']);
     Route::post('/login', [UserAuth::class, 'login']);
     Route::get('/logout', [UserAuth::class, 'logout']);
+});
+
+// exams
+Route::prefix("/exams")->group(function(){
+    Route::post('/', function(Request $request){
+        // i need to pass request body that is passed in the function argument in this request, how to do it
+        $examRequest = Request::create("/api/v1/exams", 'POST', $request->all());
+        $response = Route::dispatch($examRequest);
+        dd($response);
+        $newExam = json_decode($examRequest->getContent(), true);
+        // dd($newExam);
+        return redirect('/exam?id='.$newExam->id);
+    });
 });

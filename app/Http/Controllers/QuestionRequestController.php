@@ -57,7 +57,7 @@ class QuestionRequestController extends Controller
             'about' => $request->about,
         ]);
 
-        return $newQuestionRequest;
+        return response()->json($newQuestionRequest);
     }
 
     /**

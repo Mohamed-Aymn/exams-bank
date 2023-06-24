@@ -16,8 +16,8 @@ class ExamController extends Controller
      */
     public function index()
     {
-        $exmas = Exam::all();
-        return $exmas;
+        $exams = Exam::all();
+        return response()->json($exams);
     }
 
     /**
@@ -33,7 +33,10 @@ class ExamController extends Controller
      */
     public function store(Request $request, Exam $exam)
     {
-        Gate::authorize('create', $exam);
+
+        // dd($request->type[0]);
+
+        // dd($request);
 
         // exam validation
         $validator = Validator::make($request->all(), (new Exam())->rules);
@@ -57,13 +60,13 @@ class ExamController extends Controller
 
         // create exam questions
         // logic is done for all chosen questions sets
-        for ($i = 0; $i < count($type); $j++){
+        for ($i = 0; $i < count($request->type); $i++){
             // fetch questions with required specs
             $questions = Question::randomQuestions($request->subject, $request->type[$i], $request->level[$i], $request->number[$i])->pluck('question_id')->toArray();
 
             // combine exam_id with questions_id in an array
             $examQuestions;
-            for ($j = 0; $j < $request->number[0]; $j++){
+            for ($j = 1; $j < $request->number[0]; $j++){
                 $examQuestions [$j] = [
                     'exam_id' => $id,
                     'question_id' => $questions[$j]
@@ -75,7 +78,7 @@ class ExamController extends Controller
         }
 
         // redirect to exam page
-        return redirect('/exam?id='.$id);
+        return response()->json($newExam);
     }
 
     /**

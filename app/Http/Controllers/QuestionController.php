@@ -21,7 +21,7 @@ class QuestionController extends Controller
     public function index()
     {
         $questions = Question::all();
-        return $questions;
+        return response()->json($questions);
     }
 
     /**

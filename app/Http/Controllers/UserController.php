@@ -22,7 +22,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return $users;
+        return response()->json($users);
     }
 
     /**
@@ -91,10 +91,7 @@ class UserController extends Controller
             ]);
         }
 
-        // create token
-        // $token = $newUser->createToken("user_token")->plainTextToken;
-
-        return $newUser;
+        return response()->json($newUser);
     }
 
     /**

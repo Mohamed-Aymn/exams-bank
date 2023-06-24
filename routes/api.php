@@ -38,9 +38,3 @@ Route::prefix('/subjects')->group(function(){
 
 Route::post('/exams',[ExamController::class, 'store']);
 Route::post('/exam-questions',[ExamQuestionsController::class, 'store']);
-
-
-
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
