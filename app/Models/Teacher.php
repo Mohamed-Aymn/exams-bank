@@ -14,7 +14,8 @@ class Teacher extends Model
     protected $fillable = [
         'teacher_id',
         'title',
-        'bio'
+        'bio',
+        'permission'
     ];
     public $timestamps = false;
 
@@ -26,6 +27,9 @@ class Teacher extends Model
             'string',
             'max:500'
         ],
+        'permission'=>[
+            'bool'
+        ]
     ];
 
     public function user()

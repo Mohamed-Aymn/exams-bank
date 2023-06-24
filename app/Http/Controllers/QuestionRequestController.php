@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\QuestionRequest;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+
 
 class QuestionRequestController extends Controller
 {
@@ -73,7 +78,30 @@ class QuestionRequestController extends Controller
      */
     public function update(Request $request, QuestionRequest $questionRequest)
     {
-        //
+        // TODO: authorization
+        
+        
+        // input validation
+        $validator = Validator::make($request->all(), [
+            'question_request_id' => 'required',
+            'is_accepted' => 'in:1,0|string'
+        ]);
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
+        }
+
+        // search for that question request in database        
+        $retrivedQuestionRequest = QuestionRequest::where('question_request_id', $request->question_request_id)->first();
+        if (!$questionRequest) {
+            return response()->json(['message' => 'question request not found'], Response::HTTP_NOT_FOUND);
+        }
+        
+        // update statememnt
+        QuestionRequest::where('question_request_id', $request->question_request_id)
+                ->update(['is_accepted' => boolval($request->is_accepted)]);
+
+        return response()->json(['message' => 'question request updated successfuly']);
     }
 
     /**

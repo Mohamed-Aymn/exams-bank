@@ -42,7 +42,12 @@
                     <button class="btn btn-tertiary">Cancel</button>
                     <div>
                         <button class="btn btn-secondary">Save in drafts</button>
-                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <button 
+                            {{!$permission ? 'disabled'}}
+                            class="btn btn-primary"
+                            type="submit"
+                            >
+                            Submit</button>
                     </div>
                 </div>
             <form>

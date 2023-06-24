@@ -21,8 +21,9 @@ Route::prefix('/users')->group(function () {
     });
 });
 
-Route::prefix('question-requests')->group(function(){
-    Route::post('/', [QuestionRequestController::class, 'create']);
+// Route::middleware(['auth:sanctum'])->prefix('/question-requests')->group(function(){
+Route::prefix('/question-requests')->group(function(){
+    Route::post('/', [QuestionRequestController::class, 'update']);
 });
 
 Route::prefix('/questions')->group(function(){

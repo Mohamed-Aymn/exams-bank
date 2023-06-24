@@ -20,21 +20,24 @@ class QuestionRequest extends Model
     protected $fillable = [
         'question_request_id',
         'teacher_id',
-        'acceptor',
-        'about'
+        'Reviewer',
+        'about',
+        'is_accepted'
     ];
 
     public $rules = [
-        'question_request_id' => [
-            "required",
-        ]
-        ,'teacher_id' => [
-            "required",
-        ], 'acceptor' => [
-            'ing'
-        ], 'about' => [
-            'string'
-        ]
+        // 'question_request_id' => [
+        //     "required",
+        // ]
+        // ,'teacher_id' => [
+        //     "required",
+        // ], 'Reviewer' => [
+        //     'int'
+        // ], 'about' => [
+        //     'string'
+        // ], 'is_accepted' => [
+        //     'bool'
+        // ]
     ];
 
 }

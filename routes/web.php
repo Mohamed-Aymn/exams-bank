@@ -78,10 +78,17 @@ Route::middleware(['auth:sanctum'])->group(function(){
     });
 
     // teachers and admins (non-students) routes 
-    Route::middleware(['user-type:a,t'])->group(function () {
+    Route::middleware(['user-type:t'])->group(function () {
         // create question page
         Route::get('create', function () {
-            return view('create', ['showHeader' => true, "showFooter" => false]);
+            $permission = true;
+            if (Auth::user()->type == 't'){
+                $teacher = Teacher::where('user_id', Auth::user()->user_id)->first();
+                if($teacher->persmission == false){
+                    $permission = false;
+                }
+            }
+            return view('create', ['showHeader' => true, "showFooter" => false, "permission" => $permission]);
         })->middleware("user-type:a,t");
 
         // create question

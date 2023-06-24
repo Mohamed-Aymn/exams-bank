@@ -17,9 +17,11 @@
             <span>photo</span>
             <span>Name</span>
         </div>
-        <div>
-            <button class="btn btn-primary">Accept</button>
-            <button class="btn btn-secondary">Reject</button>
-        </div>
+        <form method="POST" action="/api/v1/question-requests">
+            @csrf
+            <button type="submit" name="is_accepted" value="1" class="btn btn-primary">Accept</button>
+            <button type="submit" name="is_accepted" value="0" class="btn btn-secondary">Reject</button>
+            <input hidden name="question_request_id" value="1659817560" />
+        </form>
     </div>
 @endsection
