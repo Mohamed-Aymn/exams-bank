@@ -37,10 +37,7 @@ class QuestionRequestPolicy
      */
     public function update(User $user, QuestionRequest $questionRequest): bool
     {
-        // var_dump($user->)
-        // return $user && $user->user_type == "a";
         return $user && $user->type == "a";
-        // return true;
     }
 
     /**

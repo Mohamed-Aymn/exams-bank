@@ -80,7 +80,7 @@ class QuestionRequestController extends Controller
     {
         // authorization (admins only proceed)
         Gate::authorize('update', $questionRequest);
-    
+
         // input validation
         $validator = Validator::make($request->all(), [
             'question_request_id' => 'required',
