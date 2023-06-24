@@ -31,8 +31,10 @@ class ExamController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Exam $exam)
     {
+        Gate::authorize('create', $exam);
+
         // exam validation
         $validator = Validator::make($request->all(), (new Exam())->rules);
         if ($validator->fails()) {

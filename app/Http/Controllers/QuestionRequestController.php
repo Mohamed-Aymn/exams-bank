@@ -31,8 +31,11 @@ class QuestionRequestController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, QuestionRequest $questionRequest)
     {
+        // authorization (admins only proceed)
+        Gate::authorize('create', $questionRequest);
+
         // validation
         $validator = Validator::make($request->all(), [
             'teacher_id' => [
