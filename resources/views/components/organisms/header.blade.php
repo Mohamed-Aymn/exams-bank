@@ -15,7 +15,7 @@
             @if($userType == "a")
                 <a href="/auth/logout" class="btn btn-nav">logout</a>
                 <a href="/bank" class="btn btn-nav">Bank</a>
-                <a href="/userslist" class="btn btn-nav">Users</a>
+                <a href="/users-list" class="btn btn-nav">Users</a>
                 <button open-create-modal class="btn btn-nav">Create</button>
                 <a href="/manage" class="btn btn-nav">Manage</a>
                 <a href="/profile" class="btn btn-nav">profile</a>
@@ -39,7 +39,7 @@
             @if($userType == "a")
                 <a href="/auth/logout" class="btn btn-nav">logout</a>
                 <a href="/bank" class="btn btn-nav">Bank</a>
-                <a href="/users" class="btn btn-nav">Users</a>
+                <a href="/users-list" class="btn btn-nav">Users</a>
                 <a href="/create" class="btn btn-nav">Create</a>
                 <a href="/manage" class="btn btn-nav">Manage</a>
                 <a href="/profile" class="btn btn-nav">profile</a>

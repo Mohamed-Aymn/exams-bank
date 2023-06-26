@@ -1,4 +1,4 @@
-@extends('components.layouts.master')
+@extends('components.layouts.account')
 
 @section('content')
 <div class="px-8 mt-12">

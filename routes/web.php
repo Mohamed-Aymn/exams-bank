@@ -36,7 +36,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
                 $request = Request::create("/api/v1/subjects", 'GET');
                 $response = Route::dispatch($request);
                 $responseBody = json_decode($response->getContent(), true);
-                return view('bank');
+                return view('bank', ["subjects" => $responseBody]);
             });
         
             Route::get('/{subject}', function (Request $request, $subject) {

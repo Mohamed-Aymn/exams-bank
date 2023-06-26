@@ -1,7 +1,25 @@
-@extends('components.layouts.master')
+@extends('components.layouts.account')
 
 @section('content')
+
 <div class="px-4 mx-auto mt-12 lg:max-w-5xl">
+    {{-- navigator --}}
+    <h1 class="heading heading-1">
+        Bank 
+        <a 
+            href="/bank/{{$subject}}" 
+            class="text-2xl font-thin"
+            >
+            /{{$subject}}
+        </a>
+        <a 
+        href="/bank/{{$subject}}/{{$question['question']}}" 
+        class="text-2xl font-thin"
+        >
+        /{{$question['question']}}
+        </a>
+    </h1>
+    
     <div class="card">
         {{$question["question"]}}
     </div>

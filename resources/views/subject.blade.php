@@ -1,4 +1,4 @@
-@extends('components.layouts.master')
+@extends('components.layouts.account')
 
 @section('content')
 <div class="px-8 my-12">
@@ -12,9 +12,6 @@
             >
             /{{$subject}}
         </a>
-        <span class="text-2xl font-thin">
-            /Questions
-        </span>
     </h1>
 
     {{-- table --}}

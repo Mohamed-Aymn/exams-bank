@@ -31,5 +31,8 @@ export default{
                 </a>
             </div>
         </div>
+        <button class="text-left btn btn-tertiary">
+            Logout
+        </button>
 </div>
 </template>
