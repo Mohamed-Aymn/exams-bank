@@ -2,8 +2,8 @@
 
 @php
 $content = [
-    ["Question Requests", "#/questions"], 
-    ["Teacher Requests", "#/teachers"]
+    ["Question Requests", "/questions"], 
+    ["Teacher Requests", "/teachers"]
 ];
 @endphp
 
@@ -13,7 +13,7 @@ $content = [
 
 @section('content')
     {{-- TODO: if manage route is displayed without#question or #teacher, redirect the user to one of them --}}
-    <div id="admin_manage">
+    <div class="vue-router">
     </div>
 @endsection
 

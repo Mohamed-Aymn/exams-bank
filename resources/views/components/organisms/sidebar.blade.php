@@ -5,15 +5,15 @@
 
         {{-- sidebar title --}}
         <div class="text-gray-400">{{$title}}</div>
-
+    
         {{-- links --}}
         @php
             $i = 0;
         @endphp
         @while(isset($content[$i]))
-            <button class='block ml-2 btn btn-tertiary' :isAnchor="true" href="{{$content[$i][1]}}" format="tertiary">
+            <a class='block ml-2 btn btn-tertiary' :isAnchor="true" href="manage{{$content[$i][1]}}" format="tertiary">
                 {{$content[$i][0]}}
-            </button>
+            </a>
             @php
                 $i++;
             @endphp
