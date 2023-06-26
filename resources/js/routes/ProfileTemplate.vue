@@ -25,9 +25,6 @@ export default {
             <div>               
                 data visualization here
             </div>
-            <button class="btn btn-primary" @click="getToken">
-                click me
-            </button>
         </div>
     </div>
 </template>

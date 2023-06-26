@@ -33,11 +33,6 @@ class ExamController extends Controller
      */
     public function store(Request $request, Exam $exam)
     {
-
-        // dd($request->type[0]);
-
-        // dd($request);
-
         // exam validation
         $validator = Validator::make($request->all(), (new Exam())->rules);
         if ($validator->fails()) {
@@ -76,8 +71,6 @@ class ExamController extends Controller
             // insert all of this questions using that array of exam questions
             ExamQuestions::insert($examQuestions);
         }
-
-        // redirect to exam page
         return response()->json($newExam);
     }
 

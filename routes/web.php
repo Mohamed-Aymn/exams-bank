@@ -110,12 +110,9 @@ Route::prefix("/auth")->group(function (){
 // exams
 Route::prefix("/exams")->group(function(){
     Route::post('/', function(Request $request){
-        // i need to pass request body that is passed in the function argument in this request, how to do it
         $examRequest = Request::create("/api/v1/exams", 'POST', $request->all());
         $response = Route::dispatch($examRequest);
-        dd($response);
-        $newExam = json_decode($examRequest->getContent(), true);
-        // dd($newExam);
-        return redirect('/exam?id='.$newExam->id);
+        $newExam = json_decode($response->getContent(), true);
+        return redirect('/exam?id='.$newExam["exam_id"]);
     });
 });
