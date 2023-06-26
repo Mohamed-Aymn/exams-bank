@@ -1,21 +1,26 @@
 import * as Vue from "vue";
 import * as VueRouter from "vue-router";
 import { h } from "vue";
-import ExamIndex from "./routes/ExamIndex.vue";
-import ManageIndex from "./routes/ManageIndex.vue";
+import ProfileTemplate from "./routes/ProfileTemplate.vue";
+import ExamTemplate from "./routes/ExamTemplate.vue";
+import ManageTemplate from "./routes/ManageTemplate.vue";
 import TeacherRequests from "./routes/TeacherRequests.vue";
 import QuestionRequestes from "./routes/QuestionRequestes.vue";
 
 
-const Index = { template:  
+const IndexTemplate = { template:  
     `<router-view>
     </router-view>
 ` }
 
 const routes = [
+    {
+        path: '/profile',
+        component: ProfileTemplate,
+    },
     {  
         path: "/manage",
-        component: ManageIndex, 
+        component: ManageTemplate, 
         children:[
             {
                 path: 'teachers',
@@ -29,7 +34,7 @@ const routes = [
     },
     { 
         path: "/exam:id", 
-        component: ExamIndex 
+        component: ExamTemplate 
     },
 ];
 
@@ -39,7 +44,7 @@ const router = VueRouter.createRouter({
 });
 
 const app = Vue.createApp({
-    render: () => h(Index),
+    render: () => h(IndexTemplate),
 });
 
 app.use(router);
