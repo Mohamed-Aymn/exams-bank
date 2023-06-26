@@ -5,7 +5,6 @@
             {{-- <div class="w-11/12 mb-5 sm:w-2/3 sm:mb-10"> --}}
             <h1 class="text-white heading heading-1">
                 The Freedom to Create the Pages You Want
-                
             </h1>
             {{-- </div> --}}
 
