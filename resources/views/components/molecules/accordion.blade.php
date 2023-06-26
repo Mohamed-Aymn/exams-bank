@@ -4,23 +4,23 @@
 {{ $attributes->except('class') }}
 >
     @foreach($children as $child)
-        <x-card :isClickable="true" class="accordion-item">
-            <div class="accordion-title flex justify-between items-center cursor-pointer">
+        <div class="card accordion-item" :isClickable="true">
+            <div class="flex items-center justify-between cursor-pointer accordion-title">
                 @if(substr($titleTag, 0, 1) == "h")
-                    <x-heading :level="substr($titleTag, 1, 1)">
+                    <h1 :level="substr($titleTag, 1, 1)">
                         {{ucfirst($child[0])}}
-                    </x-heading>
+                    </h1>
                 @else
                     <{{$titleTag}} class="mr-2">
                         {{$child[0]}}
                     </{{$titleTag}}>
                 @endif
-                <i class="accordion-icon fas fa-chevron-down transition-all"></i>
+                <i class="transition-all accordion-icon fas fa-chevron-down"></i>
             </div>
-            <div class="accordion-content py-2 hidden">
+            <div class="hidden py-2 accordion-content">
                 {{$child[1]}}
             </div>
-        </x-card>
+        </div>
     @endforeach
 </div>
 
