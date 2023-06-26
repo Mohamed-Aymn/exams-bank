@@ -4,10 +4,6 @@ import ProgressBar from './components/molecules/ProgressBar.vue'
 // --------------- laravel bootstrap
 import "./bootstrap";
 
-// --------------- jquery
-import $ from 'jquery';
-window.$ = $;
-
 // --------------- vue client side components
 const app = createApp({})
 

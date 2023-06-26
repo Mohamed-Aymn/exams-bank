@@ -8,12 +8,12 @@ $content = [
 @endphp
 
 @section('sidebar')
-    <x-sidebar title="Content" :content="$content" />
+<x-sidebar title="Content" :content="$content" />
 @endsection
 
 @section('content')
-    <div>
-    </div>
+<div class='vue-router'>
+</div>
 @endsection
 @section('mobile-bottom-nav')
     <x-mobile-bottom-nav :content="$content"/>

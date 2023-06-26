@@ -18,9 +18,9 @@
 </template>
 
 <script>
-import ControllerBar from "../../components/organisms/ControllerBar.vue";
-import ProgressBar from "../../components/molecules/ProgressBar.vue";
-import SideController from "../../components/organisms/SideController.vue";
+import ControllerBar from "../components/organisms/ControllerBar.vue";
+import ProgressBar from "../components/molecules/ProgressBar.vue";
+import SideController from "../components/organisms/SideController.vue";
 
 export default {
     name: "exam",

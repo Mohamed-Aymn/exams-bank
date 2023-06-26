@@ -57,13 +57,13 @@ Route::middleware(['auth:sanctum'])->group(function(){
             Route::get('/', function () {
                 return view('manage', ['showHeader' => true, "showFooter" => false]);
             });
-            Route::get('/questions/question', function () {
-                return view('manageQuestion', ['showHeader' => true, "showFooter" => false]);
-            });
+            // Route::get('/questions/question', function () {
+            //     return view('manageQuestion', ['showHeader' => true, "showFooter" => false]);
+            // });
         
-            Route::get('/teachers/teacher', function () {
-                return view('manageTeacher', ['showHeader' => true, "showFooter" => false]);
-            });
+            // Route::get('/teachers/teacher', function () {
+            //     return view('manageTeacher', ['showHeader' => true, "showFooter" => false]);
+            // });
         });
 
         // user list

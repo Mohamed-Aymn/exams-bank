@@ -1,5 +1,6 @@
 <template>
-    <div class="mt-6 overflow-hidden card">
+hello from question requests
+<!-- <div class="mt-6 overflow-hidden card">
         <table class="table">
             <thead>
                 <tr class="tr">
@@ -34,14 +35,14 @@
                     </tr>
             </tbody>
         </table>
-    </div>
+    </div> -->
 </template>
 
-<script>
+<!-- <script>
 import {changeRoute} from '@/globalFunctions.js'
 export default {
     methods:{
         changeRoute,
     }
 }
-</script>
+</script> -->
