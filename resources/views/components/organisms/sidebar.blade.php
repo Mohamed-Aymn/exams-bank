@@ -11,9 +11,9 @@
             $i = 0;
         @endphp
         @while(isset($content[$i]))
-            <x-button :isAnchor="true" href="{{$content[$i][1]}}" format="tertiary" class="block ml-2">
+            <button class='block ml-2 btn btn-tertiary' :isAnchor="true" href="{{$content[$i][1]}}" format="tertiary">
                 {{$content[$i][0]}}
-            </x-button>
+            </button>
             @php
                 $i++;
             @endphp
