@@ -8,14 +8,17 @@
     <title>Exams Bank</title>
     @include('../partials.styles')
 </head>
-<body class="antialiased text-gray-700 bg-gray-100">
+<body 
+class="antialiased text-gray-700 bg-gray-100"
+>
 
 @include('../components.organisms.header')
 
-<main id='app' class="flex flex-no-wraph h-[calc(100vh-80px)]">
-    <div class="container w-11/12 h-64 px-6 py-10 mx-auto md:w-4/5">
+<main 
+    id='app'
+    class="flex flex-no-wraph h-[calc(100vh-80px)]"
+    >
         @yield('content')
-    </div>
 </main>
 
 @include('../partials.scripts')
