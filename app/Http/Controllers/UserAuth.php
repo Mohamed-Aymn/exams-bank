@@ -100,6 +100,8 @@ class UserAuth extends Controller
         // create token 
         $token = $user->createToken("user_token"); 
         $plainTextToken = $token->plainTextToken; 
+
+        $request->session()->put('token', $plainTextToken);
         
         // redirect with the created token
         return redirect()->intended('profile');

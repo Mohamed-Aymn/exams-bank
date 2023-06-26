@@ -16,7 +16,11 @@ class="antialiased text-gray-700 bg-gray-100"
 
 <main 
     id='app'
-    class="flex flex-no-wraph h-[calc(100vh-80px)]"
+    class="flex flex-no-wrap h-[calc(100vh-80px)]
+    @if(Request::url() !== "http://127.0.0.1:8000/profile")
+        justify-center py-10
+    @endif
+    "
     >
         @yield('content')
 </main>

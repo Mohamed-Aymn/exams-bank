@@ -16,6 +16,7 @@ Route::prefix('/users')->group(function () {
     Route::get('/', [UserController::class, 'index']);
 
     Route::prefix("/tokens")->group(function(){
+        Route::get("/", [TokenController::class, 'getToken']);
         Route::post("/", [TokenController::class, 'create']);
         Route::delete("/", [TokenController::class, 'terminate']);
     });
@@ -34,7 +35,6 @@ Route::prefix('/subjects')->group(function(){
     Route::post('/',[SubjectController::class, 'store']);
     Route::get('/',[SubjectController::class, 'index']);
 });
-
 
 Route::post('/exams',[ExamController::class, 'store']);
 Route::post('/exam-questions',[ExamQuestionsController::class, 'store']);

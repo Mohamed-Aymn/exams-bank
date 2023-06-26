@@ -49,7 +49,9 @@ class TokenController extends Controller
         $token = $user->createToken("user_token"); 
         $plainTextToken = $token->plainTextToken; 
 
-        return response()->json(['token' => $plainTextToken]);
+
+        $cookie = cookie('token', $plainTextToken, 60*24, null, null, false, true);
+        return response()->json(['token' => $token])->withCookie($cookie);
     }
 
 
@@ -101,5 +103,13 @@ class TokenController extends Controller
         }
 
         return response()->json(['message' => 'Invalid action or token ID.'], 400);
+    }
+
+    // assign token to browser cookie
+    public function getToken(Request $request)
+    {
+        $token = $request->session()->get('token');
+        $cookie = cookie('token', $token, 60*24, null, null, false, true);
+        return response()->json(['token' => $token])->withCookie($cookie);
     }
 }
