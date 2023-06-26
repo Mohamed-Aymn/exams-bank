@@ -15,7 +15,7 @@
     @include('../components.organisms.header')
 @endif
 
-<main class="flex flex-no-wraph h-[calc(100vh-80px)]">
+<main id='app' class="flex flex-no-wraph h-[calc(100vh-80px)]">
 
     @yield('sidebar')
     {{-- <div class="absolute flex-col justify-between hidden w-64 shadow bg-gray-50 sm:relative md:h-full sm:flex">

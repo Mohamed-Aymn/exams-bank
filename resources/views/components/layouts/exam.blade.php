@@ -11,7 +11,7 @@
 </head>
 <body class="antialiased text-gray-700 bg-gray-100">
 
-<main >
+<main id="app">
     @yield('content')
 </main>
 
