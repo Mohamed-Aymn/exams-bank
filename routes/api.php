@@ -36,5 +36,12 @@ Route::prefix('/subjects')->group(function(){
     Route::get('/',[SubjectController::class, 'index']);
 });
 
-Route::post('/exams',[ExamController::class, 'store']);
-Route::post('/exam-questions',[ExamQuestionsController::class, 'store']);
+Route::prefix('/exams')->group(function(){
+    Route::post('/',[ExamController::class, 'store']);
+    Route::get('/{exam}',[ExamController::class, 'show']);
+});
+
+Route::prefix('/exam-questions')->group(function(){
+    Route::post('/',[ExamQuestionsController::class, 'store']);
+    Route::get('/',[ExamQuestionsController::class, 'show']);
+});

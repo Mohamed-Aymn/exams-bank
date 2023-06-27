@@ -8,6 +8,7 @@ use App\Models\Exam;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class ExamController extends Controller
 {
@@ -79,7 +80,22 @@ class ExamController extends Controller
      */
     public function show(Exam $exam)
     {
-        //
+
+        if($exam == null){
+            return resposne()->json(['message'=>'not found']);
+        }
+
+        $examQuestions = DB::table('exam_questions')
+        ->join('questions', 'exam_questions.question_id', '=', 'questions.question_id')
+        ->join('mcq', 'exam_questions.question_id', '=', 'mcq.question_id')
+        ->select('questions.answer', 'questions.question', 'questions.level', 'questions.type', 'mcq.*')
+        ->where('exam_questions.exam_id', '=', $exam->exam_id)
+        ->get();
+
+        return response()->json([
+            'duration' => $exam->duration,
+            'questions' => $examQuestions
+        ]);
     }
 
     /**

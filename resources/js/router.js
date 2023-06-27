@@ -33,8 +33,9 @@ const routes = [
         ] 
     },
     { 
-        path: "/exam:id", 
-        component: ExamTemplate 
+        path: "/exam", 
+        component: ExamTemplate ,
+        props: route => ({ id: route.query.id })
     },
 ];
 
