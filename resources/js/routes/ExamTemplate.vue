@@ -1,13 +1,18 @@
 <script>
 import ControllerBar from "../components/organisms/ControllerBar.vue";
+import McqQuestion from "../components/organisms/McqQuestion.vue";
+import TrueOrFalseQuestion from "../components/organisms/TrueOrFalseQuestion.vue";
 import ProgressBar from "../components/molecules/ProgressBar.vue";
 import SideController from "../components/organisms/SideController.vue";
 
 export default {
     name: "exam",
-    return:{
-        duration: null,
-        questions: []
+    data(){
+        return {
+            duration: null,
+            questions: [],
+            currentQuestion: 1,
+        }
     },
     mounted(){
         this.getExamInfoAndQuestions();
@@ -21,6 +26,7 @@ export default {
             .then(response => {
                 this.duration = response.data.duration;
                 this.questions = response.data.questions;
+                console.log(response);
             })
             .catch(error => {
                 console.log(error);
@@ -29,6 +35,8 @@ export default {
     },
     components:{
         ControllerBar,
+        McqQuestion,
+        TrueOrFalseQuestion,
         ProgressBar,
         SideController
     }
@@ -45,9 +53,16 @@ export default {
             <div class="w-3/12">
                 <SideController />
             </div>
+
+            <!-- question area -->
             <div class="flex-grow">
-                <router-view></router-view>
+                <template v-if="questions.length > 0">
+                    <McqQuestion v-if="questions[currentQuestion].type === 1">
+                    </McqQuestion>
+                    <TrueOrFalseQuestion v-else></TrueOrFalseQuestion>
+                </template>
             </div>
+
         </div>
         <ControllerBar />
     </div>

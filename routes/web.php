@@ -113,6 +113,6 @@ Route::prefix("/exams")->group(function(){
         $examRequest = Request::create("/api/v1/exams", 'POST', $request->all());
         $response = Route::dispatch($examRequest);
         $newExam = json_decode($response->getContent(), true);
-        return redirect('/exam?id='.$newExam["exam_id"]);
+        return redirect('/exam?id='.$newExam["exam_id"].'?n=1');
     });
 });

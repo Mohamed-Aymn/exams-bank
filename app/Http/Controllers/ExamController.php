@@ -85,12 +85,46 @@ class ExamController extends Controller
             return resposne()->json(['message'=>'not found']);
         }
 
-        $examQuestions = DB::table('exam_questions')
+        // get mcq questions
+        $mcqQuestions = DB::table('exam_questions')
         ->join('questions', 'exam_questions.question_id', '=', 'questions.question_id')
         ->join('mcq', 'exam_questions.question_id', '=', 'mcq.question_id')
-        ->select('questions.answer', 'questions.question', 'questions.level', 'questions.type', 'mcq.*')
+        ->select('questions.answer as choice1', 'mcq.choice2', 'mcq.choice3', 'mcq.choice4', 'questions.question', 'questions.level', 'questions.type')
         ->where('exam_questions.exam_id', '=', $exam->exam_id)
         ->get();
+        // shuffle values of choices
+        foreach ($mcqQuestions as $question) {
+            $choices = [$question->choice1, $question->choice2, $question->choice3, $question->choice4];
+            shuffle($choices);
+            $question->choice1 = $choices[0];
+            $question->choice2 = $choices[1];
+            $question->choice3 = $choices[2];
+            $question->choice4 = $choices[3];
+        }
+
+        // get true or false questions
+        $trueOrFalseQuestions = DB::table('exam_questions')
+        ->join('questions', 'exam_questions.question_id', '=', 'questions.question_id')
+        ->join('true_or_false', 'exam_questions.question_id', '=', 'true_or_false.question_id')
+        ->select('questions.answer as choice1', 'true_or_false.false_ans as choice2', 'questions.question', 'questions.level', 'questions.type')
+        ->where('exam_questions.exam_id', '=', $exam->exam_id)
+        ->get();
+        // shuffle values of choices
+        foreach ($trueOrFalseQuestions as $question) {
+            $choices = [$question->choice1, $question->choice2];
+            shuffle($choices);
+            $question->choice1 = $choices[0];
+            $question->choice2 = $choices[1];
+        }
+
+        // merge all questions in one response
+        $examQuestions = [];
+        if($mcqQuestions->isNotEmpty()){
+            $examQuestions = array_merge($examQuestions, $mcqQuestions->toArray());
+        }
+        if($trueOrFalseQuestions->isNotEmpty()){
+            $examQuestions = array_merge($examQuestions, $trueOrFalseQuestions->toArray());
+        }
 
         return response()->json([
             'duration' => $exam->duration,
