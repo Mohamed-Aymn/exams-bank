@@ -4,18 +4,31 @@ import McqQuestion from "../components/organisms/McqQuestion.vue";
 import TrueOrFalseQuestion from "../components/organisms/TrueOrFalseQuestion.vue";
 import ProgressBar from "../components/molecules/ProgressBar.vue";
 import SideController from "../components/organisms/SideController.vue";
+import { computed } from 'vue';
+import { useExamsStore } from '../stores/ExamStore.js';
 
 export default {
     name: "exam",
+    setup(){
+        const store = useExamsStore();
+        return {
+            currentQuestion: computed(() => store.currentQuestion),
+            nextQuestion: () => store.nextQuestion(),
+            prevQuestion: () => store.prevQuestion()
+        }
+    },
     data(){
         return {
             duration: null,
             questions: [],
-            currentQuestion: 1,
         }
     },
-    mounted(){
+    beforeMount(){
+        // get questions
         this.getExamInfoAndQuestions();
+        // get question number
+        const store = useExamsStore();
+        store.setCurrentQuestion(this.$route.query.n);
     },
     methods:{
         getExamInfoAndQuestions(){
@@ -31,6 +44,22 @@ export default {
             .catch(error => {
                 console.log(error);
             });
+        },
+        nextQuestion(){
+            const store = useExamsStore();
+            store.nextQuestion(this.questions.length);
+            this.$router.push({
+                path: '/exam',
+                query: { ...this.$route.query, n: store.currentQuestion }
+            })
+        },
+        prevQuestion(){
+            const store = useExamsStore();
+            store.prevQuestion();
+            this.$router.push({
+                path: '/exam',
+                query: { ...this.$route.query, n: store.currentQuestion }
+            })
         }
     },
     components:{
@@ -57,13 +86,27 @@ export default {
             <!-- question area -->
             <div class="flex-grow">
                 <template v-if="questions.length > 0">
-                    <McqQuestion v-if="questions[currentQuestion].type === 1">
-                    </McqQuestion>
-                    <TrueOrFalseQuestion v-else></TrueOrFalseQuestion>
+                    <McqQuestion 
+                        v-if="questions[currentQuestion - 1].type === 1"
+                        :question="questions[currentQuestion - 1].question"
+                        :choices="[
+                            questions[currentQuestion - 1].choice1,
+                            questions[currentQuestion - 1].choice2,
+                            questions[currentQuestion - 1].choice3,
+                            questions[currentQuestion - 1].choice4,
+                        ]"
+                        />
+                    <TrueOrFalseQuestion 
+                        v-else
+                        :question="questions[currentQuestion - 1].question"
+                        :choices="[
+                            questions[currentQuestion - 1].choice1,
+                            questions[currentQuestion - 1].choice2,
+                        ]"
+                        />
                 </template>
             </div>
-
         </div>
-        <ControllerBar />
+        <ControllerBar :next="nextQuestion" :prev="prevQuestion" />
     </div>
 </template>
