@@ -3,7 +3,7 @@ import ControllerBar from "../components/organisms/ControllerBar.vue";
 import McqQuestion from "../components/organisms/McqQuestion.vue";
 import TrueOrFalseQuestion from "../components/organisms/TrueOrFalseQuestion.vue";
 import ProgressBar from "../components/molecules/ProgressBar.vue";
-import SideController from "../components/organisms/SideController.vue";
+import QuestionsPagination from "../components/organisms/QuestionsPagination.vue";
 import { computed } from 'vue';
 import { useExamsStore } from '../stores/ExamStore.js';
 
@@ -60,6 +60,14 @@ export default {
                 path: '/exam',
                 query: { ...this.$route.query, n: store.currentQuestion }
             })
+        },
+        setQuestion(newIndex){
+            const store = useExamsStore();
+            store.setCurrentQuestion(newIndex);
+            this.$router.push({
+                path: '/exam',
+                query: { ...this.$route.query, n: store.currentQuestion }
+            })
         }
     },
     components:{
@@ -67,7 +75,7 @@ export default {
         McqQuestion,
         TrueOrFalseQuestion,
         ProgressBar,
-        SideController
+        QuestionsPagination
     }
 };
 </script>
@@ -80,7 +88,10 @@ export default {
         </div>
         <div class="flex flex-grow">
             <div class="w-3/12">
-                <SideController />
+                <QuestionsPagination 
+                    :length="questions.length"
+                    :clickHanlder="setQuestion"
+                    />
             </div>
 
             <!-- question area -->
