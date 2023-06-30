@@ -4,69 +4,57 @@ import McqQuestion from "../components/organisms/McqQuestion.vue";
 import TrueOrFalseQuestion from "../components/organisms/TrueOrFalseQuestion.vue";
 import ProgressBar from "../components/molecules/ProgressBar.vue";
 import QuestionsPagination from "../components/organisms/QuestionsPagination.vue";
-import { computed } from 'vue';
 import { useExamsStore } from '../stores/ExamStore.js';
+import { ref, onBeforeMount } from 'vue'
 
 export default {
     name: "exam",
     setup(){
-        const store = useExamsStore();
-        return {
-            currentQuestion: computed(() => store.currentQuestion),
-            nextQuestion: () => store.nextQuestion(),
-            prevQuestion: () => store.prevQuestion()
-        }
-    },
-    data(){
-        return {
-            duration: null,
-            questions: [],
-        }
-    },
-    beforeMount(){
-        // get questions
-        this.getExamInfoAndQuestions();
-        // get question number
-        const store = useExamsStore();
-        store.setCurrentQuestion(this.$route.query.n);
-    },
-    methods:{
-        getExamInfoAndQuestions(){
-            const examId = this.$route.query.id;
+        const examStore = useExamsStore();
+
+        let duration = ref(0);
+        let questions = ref([]);
+
+        onBeforeMount(() => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const examId = urlParams.get('id'); 
             const url = '/api/v1/exams/' + examId;
 
             axios.get(url)
-            .then(response => {
-                this.duration = response.data.duration;
-                this.questions = response.data.questions;
-                console.log(response);
-            })
-            .catch(error => {
-                console.log(error);
-            });
-        },
+                .then(response => {
+                    duration.value = response.data.duration;
+                    questions.value = response.data.questions;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        })
+        return {
+            examStore,
+            duration,
+            questions,
+        }
+    },
+    methods:{
         nextQuestion(){
-            const store = useExamsStore();
-            store.nextQuestion(this.questions.length);
+            this.examStore.nextQuestion(this.questions.length);
             this.$router.push({
                 path: '/exam',
-                query: { ...this.$route.query, n: store.currentQuestion }
+                query: { ...this.$route.query, n: this.examStore.currentQuestion }
             })
         },
         prevQuestion(){
-            const store = useExamsStore();
-            store.prevQuestion();
+            this.examStore.prevQuestion();
             this.$router.push({
                 path: '/exam',
-                query: { ...this.$route.query, n: store.currentQuestion }
+                query: { ...this.$route.query, n: this.examStore.currentQuestion }
             })
         },
         setQuestion(newIndex){
-            const store = useExamsStore();
-            store.setCurrentQuestion(newIndex);
+            this.examStore.setCurrentQuestion(newIndex);
             this.$router.push({
                 path: '/exam',
-                query: { ...this.$route.query, n: store.currentQuestion }
+                query: { ...this.$route.query, n: this.examStore.currentQuestion }
             })
         }
     },
@@ -94,25 +82,24 @@ export default {
                     />
             </div>
 
-            <!-- question area -->
             <div class="flex-grow">
                 <template v-if="questions.length > 0">
                     <McqQuestion 
-                        v-if="questions[currentQuestion - 1].type === 1"
-                        :question="questions[currentQuestion - 1].question"
+                        v-if="questions[examStore.currentQuestion - 1].type === 1"
+                        :question="questions[examStore.currentQuestion - 1].question"
                         :choices="[
-                            questions[currentQuestion - 1].choice1,
-                            questions[currentQuestion - 1].choice2,
-                            questions[currentQuestion - 1].choice3,
-                            questions[currentQuestion - 1].choice4,
+                            questions[examStore.currentQuestion - 1].choice1,
+                            questions[examStore.currentQuestion - 1].choice2,
+                            questions[examStore.currentQuestion - 1].choice3,
+                            questions[examStore.currentQuestion - 1].choice4,
                         ]"
                         />
                     <TrueOrFalseQuestion 
                         v-else
-                        :question="questions[currentQuestion - 1].question"
+                        :question="questions[examStore.currentQuestion - 1].question"
                         :choices="[
-                            questions[currentQuestion - 1].choice1,
-                            questions[currentQuestion - 1].choice2,
+                            questions[examStore.currentQuestion - 1].choice1,
+                            questions[examStore.currentQuestion - 1].choice2,
                         ]"
                         />
                 </template>
