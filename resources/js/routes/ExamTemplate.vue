@@ -49,10 +49,7 @@ export default {
                     console.error('Error getting data:', event.target.error);
                 };
                 getAllRequest.onsuccess = (event) => {
-                    console.log(event.target.result);
                     examStore.setAllAnswers(event.target.result)
-                    console.log(examStore.answers)
-                    
                 };
             }
         })
