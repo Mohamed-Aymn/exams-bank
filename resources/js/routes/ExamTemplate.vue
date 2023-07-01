@@ -56,6 +56,60 @@ export default {
                 path: '/exam',
                 query: { ...this.$route.query, n: this.examStore.currentQuestion }
             })
+        },
+        chooseAnswer(answer, answerTime, questionId){
+            const request = window.indexedDB.open("examDB", 1);
+            // const questionId = this.examStore.currentQuestion;
+
+            request.onupgradeneeded = function(event) {
+                const db = event.target.result;
+                if (!db.objectStoreNames.contains('answers')) {
+                    const objectStore = db.createObjectStore('answers', { keyPath: 'questionId' });
+                }
+            };
+
+            request.onerror = function() {
+                console.error('Database connection error');
+            };
+
+            request.onsuccess = function(event) {
+                const db = event.target.result;
+
+                const transaction = db.transaction(['answers'], 'readwrite');
+                const objectStore = transaction.objectStore('answers');
+
+                const getRequest = objectStore.get(questionId);
+                getRequest.onsuccess = function(event) {
+                    const question = event.target.result;
+                    const recordData = { 
+                        questionId: questionId,
+                        answer,
+                        isSent: false,
+                        answerTime,
+                    };
+                    if (!question){
+                        const addRequest = objectStore.add(recordData);
+                        addRequest.onerror = function(event) {
+                            console.error('Error adding question: ' + event.target.error);
+                        };
+                        addRequest.onsuccess = function() {
+                            // console.log('Question added successfully');
+                        };
+                    }else{
+                        const updateRequest = objectStore.put(recordData);
+                        updateRequest.onsuccess = function() {
+                        // console.log('Data updated successfully');
+                        };
+
+                        updateRequest.onerror = function(event) {
+                        console.error('Error updating data: ', event.target.error);
+                        };
+                    }
+                };
+                getRequest.onerror = function(event) {
+                    console.log('Error retrieving user: ', event.target.error);
+                };
+            };
         }
     },
     components:{
@@ -93,6 +147,8 @@ export default {
                             questions[examStore.currentQuestion - 1].choice3,
                             questions[examStore.currentQuestion - 1].choice4,
                         ]"
+                        :chooseAnswer="chooseAnswer"
+                        :questionId="questions[examStore.currentQuestion - 1].question_id"
                         />
                     <TrueOrFalseQuestion 
                         v-else
@@ -101,6 +157,8 @@ export default {
                             questions[examStore.currentQuestion - 1].choice1,
                             questions[examStore.currentQuestion - 1].choice2,
                         ]"
+                        :chooseAnswer="chooseAnswer"
+                        :questionId="questions[examStore.currentQuestion - 1].question_id"
                         />
                 </template>
             </div>

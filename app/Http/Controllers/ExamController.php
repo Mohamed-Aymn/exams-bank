@@ -89,7 +89,7 @@ class ExamController extends Controller
         $mcqQuestions = DB::table('exam_questions')
         ->join('questions', 'exam_questions.question_id', '=', 'questions.question_id')
         ->join('mcq', 'exam_questions.question_id', '=', 'mcq.question_id')
-        ->select('questions.answer as choice1', 'mcq.choice2', 'mcq.choice3', 'mcq.choice4', 'questions.question', 'questions.level', 'questions.type')
+        ->select('exam_questions.question_id', 'questions.answer as choice1', 'mcq.choice2', 'mcq.choice3', 'mcq.choice4', 'questions.question', 'questions.level', 'questions.type')
         ->where('exam_questions.exam_id', '=', $exam->exam_id)
         ->get();
         // shuffle values of choices
@@ -106,7 +106,7 @@ class ExamController extends Controller
         $trueOrFalseQuestions = DB::table('exam_questions')
         ->join('questions', 'exam_questions.question_id', '=', 'questions.question_id')
         ->join('true_or_false', 'exam_questions.question_id', '=', 'true_or_false.question_id')
-        ->select('questions.answer as choice1', 'true_or_false.false_ans as choice2', 'questions.question', 'questions.level', 'questions.type')
+        ->select('exam_questions.question_id', 'questions.answer as choice1', 'true_or_false.false_ans as choice2', 'questions.question', 'questions.level', 'questions.type')
         ->where('exam_questions.exam_id', '=', $exam->exam_id)
         ->get();
         // shuffle values of choices

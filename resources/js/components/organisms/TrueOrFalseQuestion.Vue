@@ -8,6 +8,14 @@ export default{
         choices: {
             type: Array,
             required: true
+        },
+        chooseAnswer:{
+            type: Function,
+            required: true
+        },
+        questionId:{
+            type: Number,
+            required: true
         }
     }
 }
