@@ -27,6 +27,9 @@ export const useExamsStore = defineStore('exam', () => {
             answers.value.push(newRecord);
         }
     }
+    function setAllAnswers(newAnswers){
+        answers.value = newAnswers
+    }
 
-    return { currentQuestion, nextQuestion, prevQuestion, setCurrentQuestion, addAnswer, answers }
+    return { currentQuestion, answers, nextQuestion, prevQuestion, setCurrentQuestion, addAnswer, setAllAnswers }
 })

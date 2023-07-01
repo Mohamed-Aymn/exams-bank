@@ -5,7 +5,7 @@ import TrueOrFalseQuestion from "../components/organisms/TrueOrFalseQuestion.vue
 import ProgressBar from "../components/molecules/ProgressBar.vue";
 import QuestionsPagination from "../components/organisms/QuestionsPagination.vue";
 import { useExamsStore } from '../stores/ExamStore.js';
-import { ref, onBeforeMount } from 'vue'
+import { ref, onBeforeMount, onMounted } from 'vue'
 
 export default {
     name: "exam",
@@ -29,6 +29,34 @@ export default {
                     console.log(error);
                 });
         })
+
+        // set answers in exam store (client state) on reload
+        onMounted(()=>{
+            const request = window.indexedDB.open("examDB", 1);
+            
+            request.onerror = function() {
+                console.error('Database connection error');
+            };
+            
+            request.onsuccess = function(){
+                const db = event.target.result;
+                
+                const transaction = db.transaction(['answers'], 'readonly');
+                const objectStore = transaction.objectStore('answers');
+                
+                const getAllRequest = objectStore.getAll();
+                getAllRequest.onerror = (event) => {
+                    console.error('Error getting data:', event.target.error);
+                };
+                getAllRequest.onsuccess = (event) => {
+                    console.log(event.target.result);
+                    examStore.setAllAnswers(event.target.result)
+                    console.log(examStore.answers)
+                    
+                };
+            }
+        })
+
         return {
             examStore,
             duration,
