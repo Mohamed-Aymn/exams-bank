@@ -58,9 +58,11 @@ export default {
             })
         },
         chooseAnswer(answer, answerTime, questionId){
-            const request = window.indexedDB.open("examDB", 1);
-            // const questionId = this.examStore.currentQuestion;
+            // store in exams store (client state)
+            this.examStore.addAnswer(questionId, answer, answerTime);
 
+            // store in indexeddb
+            const request = window.indexedDB.open("examDB", 1);
             request.onupgradeneeded = function(event) {
                 const db = event.target.result;
                 if (!db.objectStoreNames.contains('answers')) {
