@@ -37,8 +37,18 @@ export default {
             request.onerror = function() {
                 console.error('Database connection error');
             };
+
+            request.onupgradeneeded = function(event) {
+                // store request result in a variable called db to create <<should be typed here under onupgradeneeded function>>
+                const db = event.target.result;
+
+                // if doesn't exist create users table
+                if (!db.objectStoreNames.contains('answers')) {
+                    const objectStore = db.createObjectStore('answers', { keyPath: 'questionId' });
+                }
+            };
             
-            request.onsuccess = function(){
+            request.onsuccess = function(event){
                 const db = event.target.result;
                 
                 const transaction = db.transaction(['answers'], 'readonly');
@@ -108,8 +118,9 @@ export default {
                 const getRequest = objectStore.get(questionId);
                 getRequest.onsuccess = function(event) {
                     const question = event.target.result;
+                    // console.log(answer);
                     const recordData = { 
-                        questionId: questionId,
+                        questionId,
                         answer,
                         isSent: false,
                         answerTime,
@@ -137,6 +148,30 @@ export default {
                     console.log('Error retrieving user: ', event.target.error);
                 };
             };
+        },
+        submitHanlder(){
+            if(this.examStore.answers.length == this.questions.length){
+                const urlParams = new URLSearchParams(window.location.search);
+                const examId = urlParams.get('id'); 
+                const url = '/api/v1/exams/'+ examId;
+
+                axios.post(url, {answers: this.examStore.answers})
+                    .then(response => {
+                        // detele answers in indexed database
+                        const dbName = "examDB";
+                        const request = window.indexedDB.open(dbName, 1);
+                        request.onerror = function() {
+                            console.error('Database connection error');
+                        };                        
+                        request.onsuccess = function(event) {
+                            console.log("success");
+                            const request = indexedDB.deleteDatabase(dbName);
+                        };
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            }
         }
     },
     components:{
@@ -160,6 +195,7 @@ export default {
                 <QuestionsPagination 
                     :length="questions.length"
                     :clickHanlder="setQuestion"
+                    :submitHanlder="submitHanlder"
                     />
             </div>
 

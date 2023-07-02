@@ -4,7 +4,7 @@ import { ref } from 'vue'
 export const useExamsStore = defineStore('exam', () => {
     // state
     const currentQuestion = ref(1)
-    const answers = ref([])
+    const answers = ref([]) // {questionId, answers, answerTime, isSent}
 
     // methods
     function nextQuestion(numberOfQuestions) {
