@@ -3,6 +3,7 @@ import * as VueRouter from "vue-router";
 import { h } from "vue";
 import ProfileTemplate from "./routes/ProfileTemplate.vue";
 import ExamTemplate from "./routes/ExamTemplate.vue";
+import ExamResultTemplate from "./routes/ExamResultTemplate.vue";
 import ManageTemplate from "./routes/ManageTemplate.vue";
 import TeacherRequests from "./routes/TeacherRequests.vue";
 import QuestionRequestes from "./routes/QuestionRequestes.vue";
@@ -34,9 +35,12 @@ const routes = [
     },
     { 
         path: "/exam", 
-        component: ExamTemplate ,
-        props: route => ({ id: route.query.id })
+        component: ExamTemplate,
     },
+    {
+        path: '/exams/:id/results',
+        component: ExamResultTemplate,
+    }
 ];
 
 const router = VueRouter.createRouter({

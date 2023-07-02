@@ -1,8 +1,6 @@
-@extends('components.layouts.master')
+@extends('components.layouts.exam')
 
 @section('content')
-<div>
-    congrates
+<div class="vue-router">
 </div>
-
 @endsection
