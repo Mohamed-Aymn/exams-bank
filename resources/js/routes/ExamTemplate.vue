@@ -15,13 +15,6 @@ export default {
         let duration = ref(0);
         let questions = ref([]);
 
-        // var currentUrl = window.location.href;
-// var examId = currentUrl.match(/\/exams\/(\d+)/)[1];
-// console.log(examId); // prints the exam ID
-
-
-        // let examId = ref([]);
-
         onBeforeMount(() => {
             const urlParams = new URLSearchParams(window.location.search);
             const examId = urlParams.get('id'); 

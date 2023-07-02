@@ -132,7 +132,6 @@ class ExamController extends Controller
      */
     public function show(Exam $exam)
     {
-
         if($exam == null){
             return resposne()->json(['message'=>'not found']);
         }
@@ -184,12 +183,37 @@ class ExamController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Exam $exam)
-    {
-        //
+    public function showResults(Exam $exam)
+    {   
+        // check if exist     
+        if($exam == null){
+            return resposne()->json(['message'=>'not found']);
+        }
+        
+        // get questions and answers
+        $questions = DB::table("exam_questions")
+        ->join('questions', 'exam_questions.question_id', 'questions.question_id')
+        ->select('exam_questions.answer as user_answer', 'questions.answer as model_answer')
+        ->where('exam_questions.exam_id', '=', $exam->exam_id)
+        ->get();
+
+        // count correct and wrong answers
+        $correct = 0;
+        $wrong = 0;
+        foreach ($questions as $q) {
+            if ($q->user_answer == $q->model_answer){
+                ++$correct;
+            }else{
+                ++$wrong;
+            }
+        }
+
+        return response()->json([
+            'number_of_questions' => count($questions),
+            'correct' => $correct,
+            'wrong' => $wrong,
+            'grade' => "A+"
+        ]);
     }
 
     /**
