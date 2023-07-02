@@ -76,6 +76,58 @@ class ExamController extends Controller
     }
 
     /**
+     * submit exam answers
+     * @return Illuminate\Http\JsonResponse
+     */
+    public function storeAnswers(Request $request, Exam $exam)
+    {
+        // input validation
+        $validator = Validator::make($request->all(), [
+            'answers.*.questionId' => 'required',
+            'answers.*.answer' => 'required|string',
+            'answers.*.answerTime' => 'string',
+        ]);
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
+        }
+
+        // refine data
+        $data = array_map(function($ans) {
+            return [
+                'answer' => $ans['answer'],
+                'answer_time' => $ans['answerTime'],
+            ];
+        }, $request->answers);
+
+        // Extract the question IDs from the array of question objects
+        $questionIds = array_column($request->answers, 'questionId');
+
+        // dynamic query function to update dynamic records with dynamic contnet
+        function getWhenStatements(array $questionIds, array $data, string $field): string
+        {
+            $whenStatements = '';
+            foreach ($questionIds as $key => $questionId) {
+                if ($key > 0) {
+                    $whenStatements .= ' ';
+                }
+                $whenStatements .= "WHEN '{$questionId}' THEN '{$data[$key][$field]}'";
+            }
+            return $whenStatements;
+        }
+
+        // update query
+        ExamQuestions::whereIn('question_id', $questionIds)
+            ->where('exam_id', $exam->exam_id)
+            ->update([
+                'answer' => DB::raw("CASE question_id " . getWhenStatements($questionIds, $data, 'answer') . " END"),
+                'answer_time' => DB::raw("CASE question_id " . getWhenStatements($questionIds, $data, 'answer_time') . " END"),
+            ]);
+
+        return response()->json(["message" => 'answers submitted successfully']);
+    }
+
+    /**
      * Display the specified resource.
      */
     public function show(Exam $exam)

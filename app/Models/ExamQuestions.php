@@ -17,7 +17,9 @@ class ExamQuestions extends Model
 
     protected $fillable = [
         'exam_id',
-        'question_id'
+        'question_id',
+        'answer',
+        'answer_time'
     ];
 
     public $rules = [
