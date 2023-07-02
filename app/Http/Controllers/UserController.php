@@ -107,4 +107,11 @@ class UserController extends Controller
     {
         //
     }
+
+    public function getUser(User $user){
+        if ($user == null){
+            return resposne()->json(['message'=>'not found']);
+        };
+        return $user;
+    }
 }

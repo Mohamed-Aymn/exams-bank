@@ -22,7 +22,7 @@ export default{
         });
     
         return{
-            results: results
+            results
         }
     }
 }

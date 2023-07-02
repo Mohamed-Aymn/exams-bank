@@ -14,6 +14,7 @@ use App\Http\Controllers\QuestionRequestController;
 Route::prefix('/users')->group(function () {
     Route::post('/', [UserController::class, 'store']);
     Route::get('/', [UserController::class, 'index']);
+    Route::get('/{user}', [UserController::class, 'getUser']);
 
     Route::prefix("/tokens")->group(function(){
         Route::get("/", [TokenController::class, 'getToken']);

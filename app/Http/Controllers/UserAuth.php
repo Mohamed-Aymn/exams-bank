@@ -54,7 +54,7 @@ class UserAuth extends Controller
         // dd($request);
 
         // redirect with the created token
-        return redirect()->intended('profile');
+        return redirect()->intended('profile?id='.$user->user_id);
     }
 
     public function login(Request $request)
@@ -104,7 +104,7 @@ class UserAuth extends Controller
         $request->session()->put('token', $plainTextToken);
         
         // redirect with the created token
-        return redirect()->intended('profile');
+        return redirect()->intended('profile?id='.$user->user_id);
     }
 
     public function logout(Request $request): RedirectResponse
