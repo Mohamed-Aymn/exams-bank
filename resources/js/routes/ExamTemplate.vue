@@ -15,6 +15,13 @@ export default {
         let duration = ref(0);
         let questions = ref([]);
 
+        // var currentUrl = window.location.href;
+// var examId = currentUrl.match(/\/exams\/(\d+)/)[1];
+// console.log(examId); // prints the exam ID
+
+
+        // let examId = ref([]);
+
         onBeforeMount(() => {
             const urlParams = new URLSearchParams(window.location.search);
             const examId = urlParams.get('id'); 
@@ -39,18 +46,12 @@ export default {
             };
 
             request.onupgradeneeded = function(event) {
-                // store request result in a variable called db to create <<should be typed here under onupgradeneeded function>>
                 const db = event.target.result;
-
-                // if doesn't exist create users table
-                if (!db.objectStoreNames.contains('answers')) {
-                    const objectStore = db.createObjectStore('answers', { keyPath: 'questionId' });
-                }
+                const objectStore = db.createObjectStore('answers', { keyPath: 'questionId' });
             };
             
             request.onsuccess = function(event){
                 const db = event.target.result;
-                
                 const transaction = db.transaction(['answers'], 'readonly');
                 const objectStore = transaction.objectStore('answers');
                 
@@ -167,6 +168,7 @@ export default {
                             console.log("success");
                             const request = indexedDB.deleteDatabase(dbName);
                         };
+                        window.location.href = '/exams/' + examId + '/results';
                     })
                     .catch(error => {
                         console.error(error);

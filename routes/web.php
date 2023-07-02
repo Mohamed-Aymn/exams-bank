@@ -27,6 +27,9 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('/customize-exam', function () {
         return view('customizeExam');
     });
+    Route::get("/exams/{exam}/results", function($exam){
+        return view('examResults', ['showHeader' => false, 'showFooter' => false, "examId" => $exam]);
+    });
 
     // admin user only
     Route::middleware(['user-type:a'])->group(function(){
