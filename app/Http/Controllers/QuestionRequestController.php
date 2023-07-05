@@ -13,9 +13,29 @@ use Illuminate\Support\Facades\Auth;
 class QuestionRequestController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return Illuminate\Http\JsonResponse
+     * @OA\Get(
+     *      path="/api/v1/question-requests",
+     *      tags={"Question Requests"},
+     *      @OA\Response(
+     *          response="200",
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              type="array",
+     *              @OA\Items(
+     *                  @OA\Property(property="question_id", type="integer"),
+     *                  @OA\Property(property="question_request_id", type="integer"),
+     *                  @OA\Property(property="teacher_id", type="integer"),
+     *                  @OA\Property(property="reviewer_id", type="integer"),
+     *                  @OA\Property(property="about", type="integer"),
+     *                  @OA\Property(property="is_accepted", type="boolean", example="true"),
+     *              )
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response="401",
+     *          description="Unauthorized"
+     *      ),
+     * )
      */
     public function index()
     {
@@ -24,10 +44,33 @@ class QuestionRequestController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param  int  $teacher_id
-     * @param  string  $about
-     * @return Illuminate\Http\JsonResponse
+     * @OA\Post(
+     *      path="/api/v1/question-requests",
+     *      tags={"Question Requests"},
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              @OA\Property(property="teacher_id", type="integer"),
+     *              @OA\Property(property="about", type="string"),
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response="200",
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(property="question_id", type="integer"),
+     *              @OA\Property(property="teacher_id", type="integer"),
+     *              @OA\Property(property="reviewer_id", type="integer"),
+     *              @OA\Property(property="about", type="integer"),
+     *              @OA\Property(property="is_accepted", type="boolean", example="true"),
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response="401",
+     *          description="Unauthorized"
+     *      ),
+     * )
      */
     public function store(Request $request, QuestionRequest $questionRequest)
     {
@@ -63,6 +106,47 @@ class QuestionRequestController extends Controller
      * @param  int  $question_request_id
      * @param  string  $is_accepted
      * @return Illuminate\Http\JsonResponse
+     */
+        /**
+     * @OA\Post(
+     *      path="/api/v1/question-requests/{id}",
+     *      operationId="update",     
+     *      tags={"Question Requests"},
+     *      
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="The ID of the user",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer",
+     *              format="int64"
+     *          )
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              @OA\Property(property="question_request_id", type="integer"),
+     *              @OA\Property(property="is_accepted", type="boolean"),
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response="200",
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(property="message", type="string", example="question request updated successfuly"),
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response="401",
+     *          description="Unauthorized",
+     *      ),
+     *      @OA\Response(
+     *          response="404",
+     *          description="Question not found"
+     *      ),
+     * )
      */
     public function update(Request $request, QuestionRequest $questionRequest)
     {

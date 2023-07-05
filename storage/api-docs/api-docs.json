@@ -8,6 +8,172 @@
         "version": "0.1.0"
     },
     "paths": {
+        "/api/v1/question-requests": {
+            "get": {
+                "tags": [
+                    "Question Requests"
+                ],
+                "operationId": "c0026d2df8d886e44636218ac3ab8e85",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "question_id": {
+                                                "type": "integer"
+                                            },
+                                            "question_request_id": {
+                                                "type": "integer"
+                                            },
+                                            "teacher_id": {
+                                                "type": "integer"
+                                            },
+                                            "reviewer_id": {
+                                                "type": "integer"
+                                            },
+                                            "about": {
+                                                "type": "integer"
+                                            },
+                                            "is_accepted": {
+                                                "type": "boolean",
+                                                "example": "true"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Question Requests"
+                ],
+                "operationId": "002cb0409bad5307c46dd3ba7b97d899",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "teacher_id": {
+                                        "type": "integer"
+                                    },
+                                    "about": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "question_id": {
+                                            "type": "integer"
+                                        },
+                                        "teacher_id": {
+                                            "type": "integer"
+                                        },
+                                        "reviewer_id": {
+                                            "type": "integer"
+                                        },
+                                        "about": {
+                                            "type": "integer"
+                                        },
+                                        "is_accepted": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/v1/question-requests/{id}": {
+            "post": {
+                "tags": [
+                    "Question Requests"
+                ],
+                "operationId": "update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The ID of the user",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "question_request_id": {
+                                        "type": "integer"
+                                    },
+                                    "is_accepted": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "question request updated successfuly"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Question not found"
+                    }
+                }
+            }
+        },
         "/api/v1/users/tokens": {
             "get": {
                 "tags": [
