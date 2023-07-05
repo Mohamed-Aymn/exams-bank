@@ -10,7 +10,30 @@ use Illuminate\Support\Facades\Validator;
 class SubjectController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *      path="/api/v1/subjects",
+     *      tags={"Subjects"},
+     *      @OA\Response(
+     *          response="200",
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              type="array",
+     *              @OA\Items(
+     *                  @OA\Property(property="name", type="string"),
+     *                  @OA\Property(property="description", type="string"),
+     *                  @OA\Property(property="color", type="string"),
+     *              )
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response="401",
+     *          description="Unauthorized"
+     *      ),
+     *      @OA\Response(
+     *          response="404",
+     *          description="Subject not found"
+     *      ),
+     *  )
      */
     public function index()
     {
@@ -18,16 +41,34 @@ class SubjectController extends Controller
         return response()->json($subjects);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *      path="/api/v1/users",
+     *      tags={"Users"},
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+      *                  @OA\Property(property="name", type="string"),
+     *                  @OA\Property(property="description", type="string"),
+     *                  @OA\Property(property="color", type="string"),
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response="200",
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              type="object",
+     *                  @OA\Property(property="name", type="string"),
+     *                  @OA\Property(property="description", type="string"),
+     *                  @OA\Property(property="color", type="string"),
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response="401",
+     *          description="Unauthorized"
+     *      ),
+     * )
      */
     public function store(Request $request)
     {
@@ -45,38 +86,6 @@ class SubjectController extends Controller
             'description' => $request->description
         ]);
 
-        return response()->json($newOne);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Subject $subject)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Subject $subject)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Subject $subject)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Subject $subject)
-    {
-        //
+        return $newOne;
     }
 }
