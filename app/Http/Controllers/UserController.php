@@ -16,9 +16,26 @@ use App\Http\Controllers\UserAuth;
 class UserController extends Controller
 {
     /**
-     * return a list of all resources
-     *
-     * @return Illuminate\Http\JsonResponse
+     * @OA\Get(
+     *      path="/users",
+     *      @OA\Response(
+     *          response="200",
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              type="array",
+     *              @OA\Items(
+     *                  @OA\Property(property="id", type="integer", example="1"),
+     *                  @OA\Property(property="name", type="string"),
+     *                  @OA\Property(property="email", type="string", format="email"),
+     *                  @OA\Property(property="age", type="integer", minimum=18),
+     *              )
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response="401",
+     *          description="Unauthorized"
+     *      ),
+     * )
      */
     public function index()
     {
