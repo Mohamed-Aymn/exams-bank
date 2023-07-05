@@ -44,7 +44,7 @@ class SubjectController extends Controller
 
     /**
      * @OA\Post(
-     *      path="/api/v1/users",
+     *      path="/api/v1/subjects",
      *      tags={"Users"},
      *      @OA\RequestBody(
      *          required=true,

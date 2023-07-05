@@ -157,7 +157,7 @@ class QuestionController extends Controller
 
     /**
      * @OA\Post(
-     *      path="/api/v1/questions",
+     *      path="/api/v1/questions/{id}",
      *      tags={"Questions"},
      *      operationId="show",
      *      @OA\Parameter(
