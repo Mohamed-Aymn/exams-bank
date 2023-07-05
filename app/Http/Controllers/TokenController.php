@@ -15,7 +15,7 @@ class TokenController extends Controller
 {
     /**
      * @OA\Post(
-     *      path="/users/tokens",
+     *      path="/api/v1/users/tokens",
      *      tags={"Tokens"},
      *      summary="Log in and get an authentication token",
      *      @OA\RequestBody(
@@ -77,7 +77,7 @@ class TokenController extends Controller
 
     /**
      * @OA\Delete(
-     *      path="/users/tokens",
+     *      path="/api/v1/users/tokens",
      *      tags={"Tokens"},
      *      summary="delete user's token",
      *      @OA\RequestBody(
@@ -147,7 +147,7 @@ class TokenController extends Controller
 
     /**
      * @OA\Get(
-     *      path="/users/tokens",
+     *      path="/api/v1/users/tokens",
      *      tags={"Tokens"},
      *      summary="Get token of a specific user",
      *      @OA\Response(

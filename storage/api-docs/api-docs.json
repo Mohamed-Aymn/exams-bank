@@ -8,13 +8,13 @@
         "version": "0.1.0"
     },
     "paths": {
-        "/users/tokens": {
+        "/api/v1/users/tokens": {
             "get": {
                 "tags": [
                     "Tokens"
                 ],
                 "summary": "Get token of a specific user",
-                "operationId": "9f82d643b86c5d5934b6083c80110e5f",
+                "operationId": "c367be6e22de2a1bbf83ad8d76a66c52",
                 "responses": {
                     "200": {
                         "description": "Successful operation",
@@ -45,7 +45,7 @@
                     "Tokens"
                 ],
                 "summary": "Log in and get an authentication token",
-                "operationId": "c5e7901c2b5aa19bff4625eed43bc786",
+                "operationId": "882b15237b402740d6a26017f5a0f89c",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -91,7 +91,7 @@
                     "Tokens"
                 ],
                 "summary": "delete user's token",
-                "operationId": "cbc46149daf335445997302e8d74bde3",
+                "operationId": "0c6bd338c5875243c93b32d4f4f3f6e1",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -133,12 +133,12 @@
                 }
             }
         },
-        "/users": {
+        "/api/v1/users": {
             "get": {
                 "tags": [
                     "Users"
                 ],
-                "operationId": "7e2f5799553ec93c9c43e2a58490d447",
+                "operationId": "3ab81e3f9b24b4f36ab08d72349ac632",
                 "responses": {
                     "200": {
                         "description": "Successful operation",
@@ -174,12 +174,14 @@
                         "description": "Unauthorized"
                     }
                 }
-            },
+            }
+        },
+        "//api/v1/users": {
             "post": {
                 "tags": [
                     "Users"
                 ],
-                "operationId": "a1fce870c566eb5fc0cf3178ec5d2fed",
+                "operationId": "34d247f28b01881da6400da643dec1f7",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -242,7 +244,7 @@
                 }
             }
         },
-        "/users/{id}": {
+        "/api/v1/users/{id}": {
             "post": {
                 "tags": [
                     "Users"

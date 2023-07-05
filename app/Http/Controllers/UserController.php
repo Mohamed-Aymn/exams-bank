@@ -17,7 +17,7 @@ class UserController extends Controller
 {
     /**
      * @OA\Get(
-     *      path="/users",
+     *      path="/api/v1/users",
      *      tags={"Users"},
      *      @OA\Response(
      *          response="200",
@@ -46,7 +46,7 @@ class UserController extends Controller
 
     /**
      * @OA\Post(
-     *      path="/users",
+     *      path="//api/v1/users",
      *      tags={"Users"},
      *      @OA\RequestBody(
      *          required=true,
@@ -134,7 +134,7 @@ class UserController extends Controller
 
     /**
      * @OA\Post(
-     *      path="/users/{id}",
+     *      path="/api/v1/users/{id}",
      *      operationId="getUser",
      *      tags={"Users"},
      *      @OA\Parameter(
