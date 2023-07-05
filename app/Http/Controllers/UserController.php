@@ -18,6 +18,7 @@ class UserController extends Controller
     /**
      * @OA\Get(
      *      path="/users",
+     *      tags={"Users"},
      *      @OA\Response(
      *          response="200",
      *          description="Successful operation",
@@ -44,12 +45,34 @@ class UserController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param  string  $name
-     * @param  string  $email
-     * @param  string  $type
-     * @param  string  $password
-     * @return Illuminate\Http\JsonResponse
+     * @OA\Post(
+     *      path="/users",
+     *      tags={"Users"},
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              @OA\Property(property="name", type="string"),
+     *              @OA\Property(property="email", type="string"),
+     *              @OA\Property(property="type", type="type", enum={"a", "t", "s"}),
+     *              @OA\Property(property="password", type="string")
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response="200",
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(property="id", type="integer", example="1"),
+     *              @OA\Property(property="name", type="string"),
+     *              @OA\Property(property="email", type="string", format="email"),
+     *              @OA\Property(property="age", type="integer"),
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response="401",
+     *          description="Unauthorized"
+     *      ),
+     * )
      */
     public function store(Request $request)
     {
@@ -106,25 +129,47 @@ class UserController extends Controller
             ]);
         }
 
-        return response()->json($newUser);
+        return $newUser;
     }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\Post(
+     *      path="/users/{id}",
+     *      operationId="getUser",
+     *      tags={"Users"},
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="The ID of the user",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer",
+     *              format="int64"
+     *          )
+     *      ),
+     *  
+     *      @OA\Response(
+     *          response="200",
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(property="id", type="integer", example="1"),
+     *              @OA\Property(property="name", type="string"),
+     *              @OA\Property(property="email", type="string", format="email"),
+     *              @OA\Property(property="age", type="integer"),
+     *              @OA\Property(property="photo", type="integer"),
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response="401",
+     *          description="Unauthorized"
+     *      ),
+     *      @OA\Response(
+     *          response="404",
+     *          description="User not found"
+     *      )
+     * )
      */
-    public function update(Request $request, User $user)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(User $user)
-    {
-        //
-    }
-
     public function getUser(User $user){
         if ($user == null){
             return resposne()->json(['message'=>'not found']);
