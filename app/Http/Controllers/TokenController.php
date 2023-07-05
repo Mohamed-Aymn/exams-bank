@@ -14,10 +14,30 @@ use Illuminate\Support\Facades\Validator;
 class TokenController extends Controller
 {
     /**
-     * Store a newly created resource in storage.
-     * @param  string  $email
-     * @param  string  $password
-     * @return Illuminate\Http\JsonResponse
+     * @OA\Post(
+     *      path="/users/tokens",
+     *      tags={"Tokens"},
+     *      summary="Log in and get an authentication token",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              @OA\Property(property="email", type="string"),
+     *              @OA\Property(property="password", type="string")
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response="200",
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(property="token", type="string", example="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response="404",
+     *          description="User not found"
+     *      ),
+     * )
      */
     public function create(Request $request){
         $validator = Validator::make($request->all(), [
@@ -56,10 +76,30 @@ class TokenController extends Controller
 
 
     /**
-     * terminate token
-     * @param  string  $email
-     * @param  string  $password
-     * @return Illuminate\Http\JsonResponse
+     * @OA\Delete(
+     *      path="/users/tokens",
+     *      tags={"Tokens"},
+     *      summary="delete user's token",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              @OA\Property(property="email", type="string"),
+     *              @OA\Property(property="password", type="string")
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response="200",
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(property="token", type="string", example="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response="404",
+     *          description="User not found"
+     *      ),
+     * )
      */
     public function terminate(Request $request){
         // validate request data
@@ -105,7 +145,29 @@ class TokenController extends Controller
         return response()->json(['message' => 'Invalid action or token ID.'], 400);
     }
 
-    // assign token to browser cookie
+    /**
+     * @OA\Get(
+     *      path="/users/tokens",
+     *      tags={"Tokens"},
+     *      summary="Get token of a specific user",
+     *      @OA\Response(
+     *          response="200",
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(property="token", type="string", example="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response="404",
+     *          description="User not found"
+     *      ),
+     *      @OA\Response(
+     *          response="401",
+     *          description="Unauthorized"
+     *      ),
+     * )
+     */
     public function getToken(Request $request)
     {
         $token = $request->session()->get('token');
