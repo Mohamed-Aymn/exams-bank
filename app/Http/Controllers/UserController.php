@@ -28,7 +28,7 @@ class UserController extends Controller
      *                  @OA\Property(property="id", type="integer", example="1"),
      *                  @OA\Property(property="name", type="string"),
      *                  @OA\Property(property="email", type="string", format="email"),
-     *                  @OA\Property(property="age", type="integer", minimum=18),
+     *                  @OA\Property(property="age", type="integer"),
      *              )
      *          )
      *      ),
@@ -46,7 +46,7 @@ class UserController extends Controller
 
     /**
      * @OA\Post(
-     *      path="//api/v1/users",
+     *      path="/api/v1/users",
      *      tags={"Users"},
      *      @OA\RequestBody(
      *          required=true,

@@ -15,10 +15,33 @@ use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
 {
-        /**
-     * Display a listing of the resource.
-     *
-     * @return Illuminate\Http\JsonResponse
+
+    /**
+     * @OA\Get(
+     *      path="/api/v1/questions",
+     *      tags={"Questions"},
+     *      @OA\Response(
+     *          response="200",
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              type="array",
+     *              @OA\Items(
+     *                  @OA\Property(property="question_id", type="integer"),
+     *                  @OA\Property(property="creator", type="integer"),
+     *                  @OA\Property(property="answer", type="string"),
+     *                  @OA\Property(property="subject", type="string"),
+     *                  @OA\Property(property="is_accepted", type="boolean"),
+     *                  @OA\Property(property="is_draft", type="boolean"),
+     *                  @OA\Property(property="type", type="intiger", format="email", enum={"1", "2", "3"}),
+     *                  @OA\Property(property="level", type="intiger", format="email", enum={"1", "2", "3"}),
+     *              )
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response="401",
+     *          description="Unauthorized"
+     *      ),
+     * )
      */
     public function index()
     {
@@ -27,18 +50,41 @@ class QuestionController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param  int  $teacher_id
-     * @param  string  $about
-     * @param string question
-     * @param string answer
-     * @param string ceator
-     * @param string subject
-     * @param string type
-     * @param string level
-     * @param bool is_draft
-     * @param bool is_accepted
-     * @return Illuminate\Http\JsonResponse
+     * @OA\Post(
+     *      path="/api/v1/questions",
+     *      tags={"Questions"},
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              @OA\Property(property="teacher_id", type="integer"),
+     *              @OA\Property(property="about", type="string"),
+     *              @OA\Property(property="question", type="string"),
+     *              @OA\Property(property="answer", type="string"),
+     *              @OA\Property(property="creator", type="integer"),
+     *              @OA\Property(property="subject", type="string"),
+     *              @OA\Property(property="type", type="string", enum={"1", "2", "3"}),
+     *              @OA\Property(property="level", type="string", enum={"1", "2", "3"}),
+     *              @OA\Property(property="is_accepted", type="boolean"),
+     *              @OA\Property(property="is_draft", type="boolean"),
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response="200",
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(property="message", type="question created successfully"),
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response="401",
+     *          description="Unauthorized"
+     *      ),
+     *      @OA\Response(
+     *          response="404",
+     *          description="Question not found"
+     *      ),
+     * )
      */
     public function store(Request $request)
     {
@@ -110,9 +156,47 @@ class QuestionController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     * @param  int  $question_id
-     * @return Illuminate\Http\JsonResponse
+     * @OA\Post(
+     *      path="/api/v1/questions",
+     *      tags={"Questions"},
+     *      operationId="show",
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="The ID of the user",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer",
+     *              format="int64"
+     *          )
+     *      ),
+     *  
+     *      @OA\Response(
+     *          response="200",
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(property="teacher_id", type="integer"),
+     *              @OA\Property(property="about", type="string"),
+     *              @OA\Property(property="question", type="string"),
+     *              @OA\Property(property="answer", type="string"),
+     *              @OA\Property(property="creator", type="integer"),
+     *              @OA\Property(property="subject", type="string"),
+     *              @OA\Property(property="type", type="string", enum={"1", "2", "3"}),
+     *              @OA\Property(property="level", type="string", enum={"1", "2", "3"}),
+     *              @OA\Property(property="is_accepted", type="boolean"),
+     *              @OA\Property(property="is_draft", type="boolean"),
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response="401",
+     *          description="Unauthorized"
+     *      ),
+     *      @OA\Response(
+     *          response="404",
+     *          description="User not found"
+     *      )
+     * )
      */
     public function show(Question $question, $id)
     {
@@ -137,21 +221,4 @@ class QuestionController extends Controller
 
         return response()->json($question);
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Question $question)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Question $question)
-    {
-        //
-    }
-
 }
