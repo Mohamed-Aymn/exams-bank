@@ -13,7 +13,26 @@ use Illuminate\Support\Facades\DB;
 class ExamController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *      path="/api/v1/exams",
+     *      tags={"Exams"},
+     *      @OA\Response(
+     *          response="200",
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              type="array",
+     *              @OA\Items(
+     *                  @OA\Property(property="exam_id", type="integer", example="1"),
+     *                  @OA\Property(property="duration", type="string"),
+     *                  @OA\Property(property="created_at", type="string", format="email"),
+     *              )
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response="401",
+     *          description="Unauthorized"
+     *      ),
+     * )
      */
     public function index()
     {
@@ -22,15 +41,32 @@ class ExamController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *      path="/api/v1/exams",
+     *      tags={"Exams"},
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *                  @OA\Property(property="exam_id", type="integer", example="1"),
+     *                  @OA\Property(property="duration", type="string"),
+     *                  @OA\Property(property="created_at", type="string", format="email"),
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response="200",
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              type="object",
+     *                  @OA\Property(property="exam_id", type="integer", example="1"),
+     *                  @OA\Property(property="duration", type="string"),
+     *                  @OA\Property(property="created_at", type="string", format="email"),
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response="401",
+     *          description="Unauthorized"
+     *      ),
+     * )
      */
     public function store(Request $request, Exam $exam)
     {
@@ -72,7 +108,7 @@ class ExamController extends Controller
             // insert all of this questions using that array of exam questions
             ExamQuestions::insert($examQuestions);
         }
-        return response()->json($newExam);
+        return $newExam;
     }
 
     /**
@@ -128,7 +164,38 @@ class ExamController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Post(
+     *      path="/api/v1/{id}",
+     *      tags={"Exams"},
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="The ID of the user",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer",
+     *              format="int64"
+     *          )
+     *      ),
+     *  
+     *      @OA\Response(
+     *          response="200",
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(property="duration", type="string"),
+     *              @OA\Property(property="questions", type="string"),
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response="401",
+     *          description="Unauthorized"
+     *      ),
+     *      @OA\Response(
+     *          response="404",
+     *          description="User not found"
+     *      )
+     * )
      */
     public function show(Exam $exam)
     {
@@ -183,6 +250,30 @@ class ExamController extends Controller
         ]);
     }
 
+        /**
+     * @OA\Get(
+     *      path="/api/v1/{id}/results",
+     *      tags={"Exams"},
+     *      operationId="showResults",
+     *      @OA\Response(
+     *          response="200",
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              type="array",
+     *              @OA\Items(
+     *                  @OA\Property(property="number_of_questions", type="integer"),
+     *                  @OA\Property(property="correct", type="integer"),
+     *                  @OA\Property(property="wrong", type="integer"),
+     *                  @OA\Property(property="grade", type="string"),
+     *              )
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response="401",
+     *          description="Unauthorized"
+     *      ),
+     * )
+     */
     public function showResults(Exam $exam)
     {   
         // check if exist     
@@ -214,21 +305,5 @@ class ExamController extends Controller
             'wrong' => $wrong,
             'grade' => "A+"
         ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Exam $exam)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Exam $exam)
-    {
-        //
     }
 }

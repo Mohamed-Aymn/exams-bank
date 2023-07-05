@@ -8,6 +8,276 @@
         "version": "0.1.0"
     },
     "paths": {
+        "/api/v1/exams": {
+            "get": {
+                "tags": [
+                    "Exams"
+                ],
+                "operationId": "8f7eac6ca89a084dac5639a7d00a61da",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "exam_id": {
+                                                "type": "integer",
+                                                "example": "1"
+                                            },
+                                            "duration": {
+                                                "type": "string"
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "email"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Exams"
+                ],
+                "operationId": "ae49807066ffc719a1202aa9f2ac363a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "exam_id": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "duration": {
+                                        "type": "string"
+                                    },
+                                    "created_at": {
+                                        "type": "string",
+                                        "format": "email"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "exam_id": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "duration": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "email"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/v1/{id}": {
+            "post": {
+                "tags": [
+                    "Exams"
+                ],
+                "operationId": "788fd75521c959b9b901a7daeef8b7bd",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The ID of the user",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "duration": {
+                                            "type": "string"
+                                        },
+                                        "questions": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            }
+        },
+        "/api/v1/{id}/results": {
+            "get": {
+                "tags": [
+                    "Exams"
+                ],
+                "operationId": "showResults",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "number_of_questions": {
+                                                "type": "integer"
+                                            },
+                                            "correct": {
+                                                "type": "integer"
+                                            },
+                                            "wrong": {
+                                                "type": "integer"
+                                            },
+                                            "grade": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/v1/exam-questions": {
+            "get": {
+                "tags": [
+                    "Exam Questions"
+                ],
+                "operationId": "5a32be7925bd3313385b3946a682793a",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "exam_id": {
+                                                "type": "integer",
+                                                "example": "1"
+                                            },
+                                            "question_id": {
+                                                "type": "integer",
+                                                "example": "1"
+                                            },
+                                            "answer": {
+                                                "type": "string"
+                                            },
+                                            "answer_time": {
+                                                "type": "string",
+                                                "format": "email"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Exam Questions"
+                ],
+                "operationId": "f0c89c8c8ec9bb34b9e0c7bb51f883ca",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "exam_id": {
+                                        "type": "integer"
+                                    },
+                                    "question_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully created"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
         "/api/v1/questions": {
             "get": {
                 "tags": [
