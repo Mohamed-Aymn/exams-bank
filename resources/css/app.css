@@ -1,9 +1,13 @@
 /* fontawesome */
 @import "@fortawesome/fontawesome-free/css/all.css";
 
-/* atoms utility clasess and component tailwind import */
-@import "./atoms.css";
+/* atoms and molecules customization*/
+@import "./customization.css";
+
 /* tailwind */
 @tailwind base;
+@tailwind components;
 @tailwind utilities;
+
+
 

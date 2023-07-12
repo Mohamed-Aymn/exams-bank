@@ -1,24 +1,13 @@
-@tailwind components;
-
 @layer components{
     /* button */
-    .btn{
-        @apply transition-all duration-200 cursor-pointer;
-    }
-    .btn-primary{
-        @apply px-6 py-2 font-medium text-white bg-primary-color border border-transparent rounded-md focus:outline-none hover:bg-dark-primary-color focus:bg-blue-700
-    }
     .btn-secondary{
-        @apply px-6 py-2 font-medium text-white bg-primary-color border border-transparent rounded-md focus:outline-none hover:bg-dark-primary-color focus:bg-blue-700
-    }
-    .btn-tertiary{
-        @apply text-sm text-gray-600 dark:text-gray-200 hover:underline
+        @apply px-6 py-2 font-medium text-white border border-transparent rounded-md focus:outline-none focus:bg-blue-700
     }
     .btn-circle{
         @apply flex items-center justify-center p-4 font-bold text-black bg-white rounded-full 
     }
     .btn-nav{
-        @apply text-base font-medium text-black transition-all duration-200 cursor-pointer hover:text-primary-color
+        @apply text-base font-medium text-black transition-all duration-200 cursor-pointer
     }
 
     /* anchor */

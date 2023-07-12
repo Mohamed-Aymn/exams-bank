@@ -62,7 +62,7 @@
 <dialog create-modal class="card">
     <p>Choose what do you want to create!</p>
     <div class="flex flex-col items-center justify-center my-6">
-        <x-toggle id="createToggle" firstOption="Question" secondOption="Subject"></x-toggle>
+        {{-- <x-toggle id="createToggle" firstOption="Question" secondOption="Subject"></x-toggle> --}}
     </div>
     <div class="flex flex-col gap-2 mt-2">
         <a id="createBtn" class="text-center btn btn-primary">Create</a>
