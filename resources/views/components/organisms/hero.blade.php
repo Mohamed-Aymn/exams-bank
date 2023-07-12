@@ -20,10 +20,12 @@
                             <div class="flex flex-col gap-2 mt-3">
                                 <input class="input" type="text" placeholder="Email address" name="email" area-label="Email Address" />
                                 <input class="input" type="password" placeholder="Password" name="password" area-label="Password" />
-                                
-                                <label for="remember" class="block">
-                                    <input type="checkbox" name="remember" id="remember" class="radio radio-primary"> Remember me
-                                </label>
+                                <div class="form-control">
+  <label class="label cursor-pointer">
+      <input type="checkbox" checked="checked" class="checkbox checkbox-primary" />
+      <span class="label-text">Remember me</span> 
+  </label>
+</div>
 
                                 <button class="btn btn-primary" type="submit">
                                     Sign in
@@ -35,12 +37,12 @@
                             @enderror
 
                             <div class="flex flex-col items-start justify-start my-1">
-                                <button class="btn btn-link" href="#">
+                                <button class="link link-neutral" href="#">
                                     Forget Password?
                                 </button>
                                 <div class="text-left">
                                     Don't have account?
-                                    <a class="btn btn-link" href="/signup">
+                                    <a class="link link-neutral" href="/signup">
                                         Create one.
                                     </a>
                                 </div>

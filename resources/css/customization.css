@@ -1,7 +1,15 @@
 @layer components{
     /* button */
-    .btn-secondary{
+     .btn-secondary{
         @apply px-6 py-2 font-medium text-white border border-transparent rounded-md focus:outline-none focus:bg-blue-700
+    }
+    .label{
+        @apply justify-normal gap-4
+    }
+    .label-text{
+        @apply text-black
+    }
+    .form-control{
     }
     .btn-circle{
         @apply flex items-center justify-center p-4 font-bold text-black bg-white rounded-full 
