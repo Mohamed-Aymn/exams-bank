@@ -35,19 +35,22 @@
 
     {{-- large screens --}}
     <nav class="navbar hidden h-16 lg:flex lg:h-20">
-        <div class="hidden lg:flex lg:items-center lg:ml-auto lg:space-x-10">
+        <div class="hidden lg:flex lg:items-center lg:ml-auto lg:space-x-11">
             @if($userType == "a")
                 <a href="/auth/logout" class="btn btn-ghost">logout</a>
                 <a href="/bank" class="btn btn-ghost">Bank</a>
                 <a href="/users-list" class="btn btn-ghost">Users</a>
                 {{-- <a href="/create" class="btn btn-ghost">Create</a> --}}
-        <details class="relative">
-          <summary class="btn btn-ghost">Create</summary>
-          <ul class="p-2" class="absolute bottom-1">
-            <li><a>Submenu 1</a></li>
-            <li><a>Submenu 2</a></li>
-          </ul>
-        </details>         
+                
+
+                <details class="dropdown">
+                <summary class="m-1 btn btn-ghost">Create</summary>
+                <ul class="dropdown-content">
+                    <li><a href="/create?option=question">Question</a></li>
+                    <li><a href="/create?option=subject">Subject</a></li>
+                </ul>
+                </details>
+        
                 <a href="/manage" class="btn btn-ghost">Manage</a>
                 <a href="/profile" class="btn btn-ghost">profile</a>
                 <a href="#" class="btn btn-primary">Exam Demo</a>
@@ -62,9 +65,11 @@
                 <a href="#" class="btn btn-primary">Exam</a>
             @endif
         </div>
+        
+
     </nav>
 </header>
-
+{{-- 
 @push('scripts')
 <script>
     // create option model (only for admin users)
@@ -104,4 +109,4 @@
         });
     });
 </script>
-@endpush
+@endpush --}}

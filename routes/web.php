@@ -75,9 +75,9 @@ Route::middleware(['auth:sanctum'])->group(function(){
         });
 
         // create question
-        Route::get('/create-subject', function () {
-            return view('createSubject');
-        });
+        // Route::get('/create-subject', function () {
+        //     return view('createSubject');
+        // });
     });
 
     // teachers and admins (non-students) routes 
@@ -92,12 +92,12 @@ Route::middleware(['auth:sanctum'])->group(function(){
                 }
             }
             return view('create', ["permission" => $permission]);
-        })->middleware("user-type:a,t");
-
-        // create question
-        Route::get('/create-question', function () {
-            return view('createQuestion');
         });
+
+        // // create question
+        // Route::get('/create-question', function () {
+        //     return view('createQuestion');
+        // });
     });
 });
 
