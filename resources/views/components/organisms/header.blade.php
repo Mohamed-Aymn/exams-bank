@@ -37,11 +37,7 @@
     <nav class="navbar hidden h-16 lg:flex lg:h-20">
         <div class="hidden lg:flex lg:items-center lg:ml-auto lg:space-x-11">
             @if($userType == "a")
-                <a href="/auth/logout" class="btn btn-ghost">logout</a>
                 <a href="/bank" class="btn btn-ghost">Bank</a>
-                <a href="/users-list" class="btn btn-ghost">Users</a>
-                {{-- <a href="/create" class="btn btn-ghost">Create</a> --}}
-                
 
                 <details class="dropdown">
                 <summary class="m-1 btn btn-ghost">Create</summary>
@@ -50,12 +46,19 @@
                     <li><a href="/create?option=subject">Subject</a></li>
                 </ul>
                 </details>
-        
-                <a href="/manage" class="btn btn-ghost">Manage</a>
+
+                <details class="dropdown">
+                    <summary class="m-1 btn btn-ghost">Manage</summary>
+                    <ul class="dropdown-content">
+                        <li><a href="/create?option=question">Question Requests</a></li>
+                        <li><a href="/create?option=subject">Teacher Requests</a></li>
+                        <li><a href="/users-list">Users</a></li>
+                    </ul>
+                </details>
+            
                 <a href="/profile" class="btn btn-ghost">profile</a>
                 <a href="#" class="btn btn-primary">Exam Demo</a>
             @elseif($userType == "t")
-                <a href="/auth/logout" class="btn btn-nav">logout</a>
                 <a href="/create" class="btn btn-nav">Create</a>
                 <a href="/profile" class="btn btn-nav">profile</a>
                 <a href="#" class="btn btn-primary">Exam Demo</a>
