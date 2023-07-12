@@ -37,12 +37,12 @@
                             @enderror
 
                             <div class="flex flex-col items-start justify-start my-1">
-                                <button class="link link-neutral" href="#">
+                                <button class="link link-hover" href="#">
                                     Forget Password?
                                 </button>
                                 <div class="text-left">
                                     Don't have account?
-                                    <a class="link link-neutral" href="/signup">
+                                    <a class="link link-hover" href="/signup">
                                         Create one.
                                     </a>
                                 </div>

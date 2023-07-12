@@ -26,13 +26,11 @@ export default{
             <div class="text-gray-400">{{ element.title }}</div>
             
             <div v-for="link in element.content">
-                <a class="block ml-2 btn btn-tertiary" :href="'#' + link.linkId">
+                <a class="block ml-2 link link-hover" :href="'#' + link.linkId">
                     {{ link.linkText }}
                 </a>
             </div>
         </div>
-        <button class="text-left btn btn-tertiary">
-            Logout
-        </button>
+        <a href="/auth/logout" class="link link-hover">logout</a>
 </div>
 </template>
