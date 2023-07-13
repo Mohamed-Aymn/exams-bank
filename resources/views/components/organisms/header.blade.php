@@ -35,7 +35,7 @@
 
     {{-- large screens --}}
     <nav class="navbar hidden h-16 lg:flex lg:h-20">
-        <div class="hidden lg:flex lg:items-center lg:ml-auto lg:space-x-11">
+        <div class="hidden lg:flex lg:items-center lg:ml-auto lg:space-x-3">
             @if($userType == "a")
                 <a href="/bank" class="btn btn-ghost">Bank</a>
 

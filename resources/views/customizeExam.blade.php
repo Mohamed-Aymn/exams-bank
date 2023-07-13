@@ -1,39 +1,121 @@
 @extends('components.layouts.account')
 
 @section('content')
+    <div class="centralization-container h-full mt-0">
+        <div class="form-control join-item col-span-3">
 
-{{-- TODO: this should be dropdown --}}
-<input class="input" placeholder="load form saved preffrences" />
-<div class="flex items-center justify-around my-6">
-    <div class="card">
-        <h2 class="heading heading-3">Subject</h2>
-        <h1 class="heading heading-1">Subject Name</h1>
+            <label class="label">Load from saved preferences</label>
+            
+            <select class="select">
+                <option disabled selected>Chose preference</option>
+                <option>first One</option>
+                <option>second one</option>
+            </select>
+        </div>
+        <br />
+        <hr />
+        <br />
+        <form action="/exams" method="POST" class="form h-full">
+            @csrf
+            {{-- TODO: this should be dropdown --}}
+            <div class="form-control">
+                <label class="label">Subject</label>
+                <select class="select">
+                    <option disabled selected>Select subject</option>
+                    <option>Physics</option>
+                    <option>database</option>
+                </select>
+            </div>
+
+            <div class="form-control">
+                <label class="label">Time</label>
+
+                <div class="join"> <input class='input join-item' placeholder="hours" name="hours" />
+                    <input class='input join-item' placeholder="minutes" name="minutes" />
+                </div>
+
+            </div>
+
+            <div class="form-control ">
+                <label class="label">Questions</label>
+                <div id="questions-groups">
+
+                    <div>
+                        <div class="question-index font-light ml-1">Group 1</div>
+                        <div class='question-group join grid grid-cols-12'>
+                            <div class="form-control join-item col-span-3">
+                                <select class="select">
+                                    <option disabled selected>Select Type</option>
+                                    <option>MCQ</option>
+                                    <option>True or false</option>
+                                </select>
+                            </div>
+
+                            <input class='input join-item col-span-3' placeholder="Number" name="number" type='number' />
+
+                            <div class="form-control join-item col-span-3">
+                                <select class="select">
+                                    <option disabled selected>Level</option>
+                                    <option>One</option>
+                                    <option>Two</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <button class="btn btn-outline mt-4 w-full" type="button" id="add-group-btn">
+                Add Questions group
+            </button>
+            <div class="flex w-full justify-between mt-auto">
+                <button class="btn btn-ghost">Cancel</button>
+                <div class="flex gap-2">
+                    <button class="btn btn-ghost">save preference</button>
+                    <button class="btn btn-primary" type="submit">Start</button>
+                </div>
+            </div>
+        </form>
+
     </div>
-
-    <div class="card">
-        <h2 class="heading heading-3">Time</h2>
-        <h1 class="heading heading-1">12:00</h1>
-    </div>
-</div>
-
-<form action="/exams" method="POST">
-    @csrf
-
-    <input class="input" placeholder="subject" name="subject"/>
-    <input class="input" placeholder="time" name="duration" />
-    
-    {{--  sets of questions --}}
-    <div class="flex">
-        {{-- TODO: all of those should be drop down --}}
-        <input class="input" placeholder="type" name="type[]" />
-        <input class="input" placeholder="nubmer" name='number[]' type="number" />
-        <input class="input" placeholder="level" name='level[]' />
-        {{-- TODO: add set button --}}
-    </div>
-    
-    <div class="flex justify-end w-full gap-4 items-st flex-end">
-        <button class="btn btn-tertiary">Cancel</button>
-        <button class="w-36 btn btn-primary" type="submit">Start</button>
-    <div>
-</form>
 @endsection
+
+@push('scripts')
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // get buttons groups container
+            let questionsGroups = document.querySelector("#questions-groups")
+
+            // delete button 
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "X"
+            deleteButton.classList.add("btn", "btn-error", "join-item", "col-span-1");
+            deleteButton.setAttribute("type", "button")
+            let deleteHandler = function() {
+                const containerToDelete = this.parentNode.parentNode;
+                containerToDelete.remove();
+                changeIndex();
+            }
+
+            let addGroupBtn = document.querySelector("#add-group-btn");
+            addGroupBtn.addEventListener('click', function() {
+                const copy = questionsGroups.children[0].cloneNode(true);
+                questionsGroups.appendChild(copy);
+                const deleteButtonCopy = deleteButton.cloneNode(true)
+                deleteButtonCopy.addEventListener('click', deleteHandler)
+                copy.querySelector('.question-group').appendChild(deleteButtonCopy)
+                changeIndex()
+            })
+
+            let changeIndex = () => {
+                for (let i = 0; i < questionsGroups.children.length; i++) {
+                    questionsGroups.children[i].querySelector(".question-index").innerText = "Group " +
+                        (i + 1)
+                }
+            }
+
+        });
+    </script>
+@endpush

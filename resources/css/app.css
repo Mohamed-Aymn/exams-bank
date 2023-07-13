@@ -3,6 +3,7 @@
 
 /* atoms and molecules customization*/
 @import "./customization.css";
+@import "./newComponents.css";
 
 /* tailwind */
 @tailwind base;

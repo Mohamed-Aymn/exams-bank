@@ -9,19 +9,13 @@
     @include('../partials.styles')
 </head>
 <body 
-class="antialiased text-gray-700 bg-gray-100"
->
+    class="antialiased text-gray-700 bg-gray-100 h-screen"
+    >
 
 @include('../components.organisms.header')
 
-<main 
-    id='app'
-    @if(Request::url() !== "http://127.0.0.1:8000/profile")
-        justify-center py-10
-    @endif
-    "
-    >
-        @yield('content')
+<main id='app h-full relative'>
+    @yield('content')
 </main>
 
 @include('../partials.scripts')
