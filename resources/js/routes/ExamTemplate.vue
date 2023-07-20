@@ -185,8 +185,9 @@ export default {
             <ProgressBar color="red-500" text="n solved from m" />
             <ProgressBar color="blue-500" text="20:00" />
         </div>
+
         <div class="flex flex-grow">
-            <div class="w-3/12">
+            <div>
                 <QuestionsPagination 
                     :length="questions.length"
                     :clickHanlder="setQuestion"
@@ -221,6 +222,7 @@ export default {
                 </template>
             </div>
         </div>
+
         <ControllerBar :next="nextQuestion" :prev="prevQuestion" />
     </div>
 </template>
