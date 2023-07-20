@@ -9,9 +9,9 @@
 
     @include('../partials.styles')
 </head>
-<body class="antialiased text-gray-700 bg-gray-100">
+<body class="antialiased text-gray-700 h-screen bg-gray-100">
 
-<main id="app">
+<main id="app" class="h-full">
     @yield('content')
 </main>
 
