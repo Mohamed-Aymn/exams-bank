@@ -1,15 +1,7 @@
 <script>
     export default {
-        data() {
-            return {
-                elements: [{
-                    title: "Dashboard elements",
-                    content: [{
-                        linkText: "element one",
-                        linkId: "elementOne"
-                    }]
-                }]
-            }
+        props:{
+            elements: Array,
         }
     }
 </script>
@@ -39,6 +31,8 @@
             </ul>
         </div>
     </div>
+
+    <!-- big screen approach -->
     <div class="absolute flex-col justify-between hidden w-64 p-6 shadow bg-gray-50 sm:relative sm:h-full lg:flex">
         <div v-for="element in elements">
             <div class="text-gray-400">{{ element . title }}</div>
