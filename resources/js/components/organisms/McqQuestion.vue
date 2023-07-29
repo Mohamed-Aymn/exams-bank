@@ -16,6 +16,9 @@ export default{
         questionId:{
             type: Number,
             required: true
+        }, 
+        userChoice:{
+            type: String
         }
     }
 }
@@ -32,7 +35,9 @@ export default{
         <div 
             v-for="choice in choices" 
             @click="chooseAnswer(choice, '3:00', questionId)"
-            class="card card-clickable">
+            class="card card-clickable"
+            :class="{'hover:bg-slate-400 bg-slate-300' : choice == userChoice}"
+            >
             {{choice}}
         </div>
     </div>

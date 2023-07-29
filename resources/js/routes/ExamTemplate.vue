@@ -4,12 +4,12 @@ import McqQuestion from "../components/organisms/McqQuestion.vue";
 import TrueOrFalseQuestion from "../components/organisms/TrueOrFalseQuestion.vue";
 import ProgressBar from "../components/molecules/ProgressBar.vue";
 import QuestionsPagination from "../components/organisms/QuestionsPagination.vue";
-import { useExamsStore } from '../stores/ExamStore.js';
-import { ref, onBeforeMount, onMounted } from 'vue'
+import { useExamsStore } from "../stores/ExamStore.js";
+import { ref, onBeforeMount, onMounted } from "vue";
 
 export default {
     name: "exam",
-    setup(){
+    setup() {
         const examStore = useExamsStore();
 
         let duration = ref(0);
@@ -17,165 +17,182 @@ export default {
 
         onBeforeMount(() => {
             const urlParams = new URLSearchParams(window.location.search);
-            const examId = urlParams.get('id'); 
-            const url = '/api/v1/exams/' + examId;
+            const examId = urlParams.get("id");
+            const url = "/api/v1/exams/" + examId;
 
-            axios.get(url)
-                .then(response => {
+            axios
+                .get(url)
+                .then((response) => {
                     duration.value = response.data.duration;
                     questions.value = response.data.questions;
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.log(error);
                 });
-        })
 
-        // set answers in exam store (client state) on reload
-        onMounted(()=>{
             const request = window.indexedDB.open("examDB", 1);
-            
-            request.onerror = function() {
-                console.error('Database connection error');
+
+            request.onerror = function () {
+                console.error("Database connection error");
             };
 
-            request.onupgradeneeded = function(event) {
+            request.onupgradeneeded = function (event) {
                 const db = event.target.result;
-                const objectStore = db.createObjectStore('answers', { keyPath: 'questionId' });
+                const objectStore = db.createObjectStore("answers", {
+                    keyPath: "questionId",
+                });
             };
-            
-            request.onsuccess = function(event){
+
+            request.onsuccess = function (event) {
                 const db = event.target.result;
-                const transaction = db.transaction(['answers'], 'readonly');
-                const objectStore = transaction.objectStore('answers');
-                
+                const transaction = db.transaction(["answers"], "readonly");
+                const objectStore = transaction.objectStore("answers");
+
                 const getAllRequest = objectStore.getAll();
                 getAllRequest.onerror = (event) => {
-                    console.error('Error getting data:', event.target.error);
+                    console.error("Error getting data:", event.target.error);
                 };
                 getAllRequest.onsuccess = (event) => {
-                    examStore.setAllAnswers(event.target.result)
+                    examStore.setAllAnswers(event.target.result);
                 };
-            }
-        })
+            };
+        });
 
         return {
             examStore,
             duration,
             questions,
-        }
+        };
     },
-    methods:{
-        nextQuestion(){
+    methods: {
+        nextQuestion() {
             this.examStore.nextQuestion(this.questions.length);
             this.$router.push({
-                path: '/exam',
-                query: { ...this.$route.query, n: this.examStore.currentQuestion }
-            })
+                path: "/exam",
+                query: {
+                    ...this.$route.query,
+                    n: this.examStore.currentQuestion,
+                },
+            });
         },
-        prevQuestion(){
+        prevQuestion() {
             this.examStore.prevQuestion();
             this.$router.push({
-                path: '/exam',
-                query: { ...this.$route.query, n: this.examStore.currentQuestion }
-            })
+                path: "/exam",
+                query: {
+                    ...this.$route.query,
+                    n: this.examStore.currentQuestion,
+                },
+            });
         },
-        setQuestion(newIndex){
+        setQuestion(newIndex) {
             this.examStore.setCurrentQuestion(newIndex);
             this.$router.push({
-                path: '/exam',
-                query: { ...this.$route.query, n: this.examStore.currentQuestion }
-            })
+                path: "/exam",
+                query: {
+                    ...this.$route.query,
+                    n: this.examStore.currentQuestion,
+                },
+            });
         },
-        chooseAnswer(answer, answerTime, questionId){
+        chooseAnswer(answer, answerTime, questionId) {
             // store in exams store (client state)
             this.examStore.addAnswer(questionId, answer, answerTime);
 
             // store in indexeddb
             const request = window.indexedDB.open("examDB", 1);
-            request.onupgradeneeded = function(event) {
+            request.onupgradeneeded = function (event) {
                 const db = event.target.result;
-                if (!db.objectStoreNames.contains('answers')) {
-                    const objectStore = db.createObjectStore('answers', { keyPath: 'questionId' });
+                if (!db.objectStoreNames.contains("answers")) {
+                    const objectStore = db.createObjectStore("answers", {
+                        keyPath: "questionId",
+                    });
                 }
             };
 
-            request.onerror = function() {
-                console.error('Database connection error');
+            request.onerror = function () {
+                console.error("Database connection error");
             };
 
-            request.onsuccess = function(event) {
+            request.onsuccess = function (event) {
                 const db = event.target.result;
 
-                const transaction = db.transaction(['answers'], 'readwrite');
-                const objectStore = transaction.objectStore('answers');
+                const transaction = db.transaction(["answers"], "readwrite");
+                const objectStore = transaction.objectStore("answers");
 
                 const getRequest = objectStore.get(questionId);
-                getRequest.onsuccess = function(event) {
+                getRequest.onsuccess = function (event) {
                     const question = event.target.result;
                     // console.log(answer);
-                    const recordData = { 
+                    const recordData = {
                         questionId,
                         answer,
                         isSent: false,
                         answerTime,
                     };
-                    if (!question){
+                    if (!question) {
                         const addRequest = objectStore.add(recordData);
-                        addRequest.onerror = function(event) {
-                            console.error('Error adding question: ' + event.target.error);
+                        addRequest.onerror = function (event) {
+                            console.error(
+                                "Error adding question: " + event.target.error
+                            );
                         };
-                        addRequest.onsuccess = function() {
+                        addRequest.onsuccess = function () {
                             // console.log('Question added successfully');
                         };
-                    }else{
+                    } else {
                         const updateRequest = objectStore.put(recordData);
-                        updateRequest.onsuccess = function() {
-                        // console.log('Data updated successfully');
+                        updateRequest.onsuccess = function () {
+                            // console.log('Data updated successfully');
                         };
 
-                        updateRequest.onerror = function(event) {
-                        console.error('Error updating data: ', event.target.error);
+                        updateRequest.onerror = function (event) {
+                            console.error(
+                                "Error updating data: ",
+                                event.target.error
+                            );
                         };
                     }
                 };
-                getRequest.onerror = function(event) {
-                    console.log('Error retrieving user: ', event.target.error);
+                getRequest.onerror = function (event) {
+                    console.log("Error retrieving user: ", event.target.error);
                 };
             };
         },
-        submitHanlder(){
-            if(this.examStore.answers.length == this.questions.length){
+        submitHanlder() {
+            if (this.examStore.answers.length == this.questions.length) {
                 const urlParams = new URLSearchParams(window.location.search);
-                const examId = urlParams.get('id'); 
-                const url = '/api/v1/exams/'+ examId;
+                const examId = urlParams.get("id");
+                const url = "/api/v1/exams/" + examId;
 
-                axios.post(url, {answers: this.examStore.answers})
-                    .then(response => {
+                axios
+                    .post(url, { answers: this.examStore.answers })
+                    .then((response) => {
                         // detele answers in indexed database
                         const dbName = "examDB";
                         const request = window.indexedDB.open(dbName, 1);
-                        request.onerror = function() {
-                            console.error('Database connection error');
-                        };                        
-                        request.onsuccess = function(event) {
+                        request.onerror = function () {
+                            console.error("Database connection error");
+                        };
+                        request.onsuccess = function (event) {
                             console.log("success");
                             const request = indexedDB.deleteDatabase(dbName);
                         };
-                        window.location.href = '/exams/' + examId + '/results';
+                        window.location.href = "/exams/" + examId + "/results";
                     })
-                    .catch(error => {
+                    .catch((error) => {
                         console.error(error);
                     });
             }
-        }
+        },
     },
-    components:{
+    components: {
         ControllerBar,
         McqQuestion,
         TrueOrFalseQuestion,
         ProgressBar,
-        QuestionsPagination
-    }
+        QuestionsPagination,
+    },
 };
 </script>
 
@@ -188,18 +205,22 @@ export default {
 
         <div class="flex flex-grow">
             <div>
-                <QuestionsPagination 
+                <QuestionsPagination
                     :length="questions.length"
                     :clickHanlder="setQuestion"
                     :submitHanlder="submitHanlder"
-                    />
+                />
             </div>
 
             <div class="flex-grow">
                 <template v-if="questions.length > 0">
-                    <McqQuestion 
-                        v-if="questions[examStore.currentQuestion - 1].type === 1"
-                        :question="questions[examStore.currentQuestion - 1].question"
+                    <McqQuestion
+                        v-if="
+                            questions[examStore.currentQuestion - 1].type === 1
+                        "
+                        :question="
+                            questions[examStore.currentQuestion - 1].question
+                        "
                         :choices="[
                             questions[examStore.currentQuestion - 1].choice1,
                             questions[examStore.currentQuestion - 1].choice2,
@@ -207,18 +228,27 @@ export default {
                             questions[examStore.currentQuestion - 1].choice4,
                         ]"
                         :chooseAnswer="chooseAnswer"
-                        :questionId="questions[examStore.currentQuestion - 1].question_id"
-                        />
-                    <TrueOrFalseQuestion 
+                        :questionId="
+                            questions[examStore.currentQuestion - 1].question_id
+                        "
+                        :userChoice="
+                        examStore.userChoice(questions[examStore.currentQuestion - 1].question_id)
+                        "
+                    />
+                    <TrueOrFalseQuestion
                         v-else
-                        :question="questions[examStore.currentQuestion - 1].question"
+                        :question="
+                            questions[examStore.currentQuestion - 1].question
+                        "
                         :choices="[
                             questions[examStore.currentQuestion - 1].choice1,
                             questions[examStore.currentQuestion - 1].choice2,
                         ]"
                         :chooseAnswer="chooseAnswer"
-                        :questionId="questions[examStore.currentQuestion - 1].question_id"
-                        />
+                        :questionId="
+                            questions[examStore.currentQuestion - 1].question_id
+                        "
+                    />
                 </template>
             </div>
         </div>
