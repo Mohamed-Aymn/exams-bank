@@ -53,11 +53,18 @@
 <template>
     <div v-if="userData" class="flex h-[calc(100vh-80px)] w-screen">
         <profile-sidebar
-            :elements="[{
+            :elements="[
+                {
+                    title: 'Settings',
+                    content: [{
+                        linkText: 'profile Settings',
+                        linkId: '/profile/settings?id=asdf'
+                    }]
+                },{
                 title: 'Dashboard elements',
                 content: [{
                     linkText: 'Right and wrong answers',
-                    linkId: 'rightAndWrongA'
+                    linkId: '#rightAndWrongA'
                 }]
             }]">
         </profile-sidebar>
