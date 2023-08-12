@@ -209,6 +209,7 @@ export default {
                     :length="questions.length"
                     :clickHanlder="setQuestion"
                     :submitHanlder="submitHanlder"
+                    :currentQuestion="examStore.currentQuestion"
                 />
             </div>
 
