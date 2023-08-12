@@ -1,7 +1,17 @@
 @layer components{
+
+
     /* button */
     .btn-secondary{
         @apply px-6 py-2 font-medium text-white border border-transparent rounded-md focus:outline-none focus:bg-blue-700
+    }
+    .label{
+        @apply justify-normal gap-4
+    }
+    .label-text{
+        @apply text-black
+    }
+    .form-control{
     }
     .btn-circle{
         @apply flex items-center justify-center p-4 font-bold text-black bg-white rounded-full 
@@ -42,10 +52,19 @@
     .heading-6{
         @apply text-sm md:text-base
     }
-
+    .dropdown-content{
+        @apply p-2 shadow menu z-[1] bg-base-100 rounded-box w-52
+    }
     /* input */
     .input{
         @apply block w-full px-4 py-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600
+    }
+    .file-input{
+        @apply block w-full text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600
+    }
+
+    .select{
+        @apply text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600
     }
 
     /* card */
@@ -56,19 +75,4 @@
         @apply transition-all duration-200 cursor-pointer hover:bg-gray-50
     }
 
-    .table{
-        @apply w-full whitespace-nowrap
-    }
-    .tr{
-        @apply text-left
-    }
-    .tr-button{
-        @apply h-16 border border-gray-100 rounded cursor-pointer focus:outline-none dark:border-gray-600
-    }
-    .th{
-        @apply px-6
-    }
-    .td{
-        @apply pl-6
-    }
 }

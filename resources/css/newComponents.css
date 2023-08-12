@@ -1,0 +1,8 @@
+@layer components{ 
+.centralization-container{
+        @apply px-4 mx-auto max-w-7xl sm:px-6 lg:px-8
+    }
+.form{
+    @apply flex flex-col gap-2
+} 
+} 
