@@ -12,6 +12,8 @@
             submitHanlder: {
                 type: Function,
                 required: true
+            },currentQuestion:{
+                type: Number,
             }
         }
     }
@@ -30,8 +32,13 @@
             <ul class="menu p-4 w-80 h-full bg-white text-base-content">
                 <!-- Sidebar content here -->
                 <div class="flex gap-2">
-                    <div v-for="i in length" @click="clickHanlder(i)" :key="i"
-                        class="flex items-center justify-center w-16 h-16 bg-blue-500 hover:cursor-pointer">
+                    <div v-for="i in length" @click="() => {
+                        clickHanlder(i);
+                        }" 
+                        :key="i"
+                        class="flex items-center justify-center w-16 h-16 card card-clickable hover:cursor-pointer"
+                        :class="{'bg-[#4b4fbe] text-white hover:bg-[#4b4fbe]': currentQuestion == i}" 
+                        >
                         {{ i }}
                     </div>
                 </div>
