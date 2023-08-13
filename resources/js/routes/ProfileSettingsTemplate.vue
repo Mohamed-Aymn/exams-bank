@@ -6,8 +6,8 @@ export default {
 
         let userData = ref({})
 
-        onBeforeMount(() => {
-            axios
+        onBeforeMount(async () => {
+            await axios
                 .get("/api/v1/users/current-user")
                 .then((response) => {
                     userData.value = response.data;
@@ -17,20 +17,39 @@ export default {
                 });
         });
 
+        const clickHandler = async (userData) => {
+            // get csrf token
+            await axios.get("/sanctum/csrf-cookie");
+
+            // submit data
+            await axios.post(`/api/v1/users/${userData.user_id}`, userData)
+                .then((response) => {
+                    console.log(response)
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
+            // redirect to profile page
+            window.location.href = "http://localhost:8000/profile?id=" + userData.user_id;
+        }
+
         return {
-            userData
+            userData,
+            clickHandler
         };
     }
 };
 </script>
 <template>
     <div class="centralization-container py-6 h-full">
-        <form class="flex flex-col gap-4 h-full" method="POST" :action="`/api/v1/users/${userData.user_id}`">
-            <input class="input" type="text" :value="userData.name" name="name" />
+        <form class="flex flex-col gap-4 h-full" >
+            <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+            <input class="input" type="text" v-model="userData.name"  name="name" />
             <input
                 class="input"
                 type="email"
-                :value="userData.email"
+                v-model="userData.email"
                 email="email"
             />
             <!-- <div class="flex flex-col gap-2">
@@ -38,9 +57,9 @@ export default {
                 <input type="file" class="file-input w-full max-w-xs" />
             </div> -->
             <div class="mt-auto flex justify-between items-center">
-                <button class="btn btn-primary btn-outline" type="button">Cancel</button>
-                <button class="btn btn-primary" type="submit">Submit</button>
+                <button class="btn btn-primary btn-outline" >Cancel</button>
+                    <button @click.prevent="clickHandler(userData)" class="btn btn-primary" >Submit</button>
+                </div>
+                </form>
             </div>
-        </form>
-    </div>
 </template>
