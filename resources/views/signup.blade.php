@@ -2,15 +2,14 @@
 
 @section('content')
 
-<section class="py-10 bg-gray-50 sm:py-16 lg:py-24">
-    <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+    <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8 min-h-screen flex justify-center items-center flex-col">
         <div class="max-w-2xl mx-auto text-center">
             <h2 class="text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">Create free account</h2>
-            <p class="max-w-xl mx-auto mt-4 text-base leading-relaxed text-gray-600">You can create a free Celebration account in 2 minutes</p>
+            <p class="max-w-xl mx-auto mt-4 text-base leading-relaxed text-gray-600">You can create a free account in 2 minutes</p>
         </div>
 
-        <div class="relative max-w-md mx-auto mt-8 md:mt-16">
-            <div class="overflow-hidden bg-white rounded-md shadow-md">
+        <div class="relative mx-auto mt-8 md:mt-16 w-full">
+            <div class="overflow-hidden bg-white rounded-md shadow-md ">
                 <div class="px-4 py-6 sm:px-8 sm:py-7">
                     <form action="auth/signup" method="POST">
                         @csrf
@@ -77,18 +76,19 @@
                                 </div>
                             </div>
 
+                            <div class="flex flex-col">
+                                <label for="" class="text-base font-medium text-gray-900"> Type</label>
+                                <div class="my-2 flex gap-2">
+                                    <div class="flex items-center gap-2">
+                                        <input type="radio" name="type" required class="radio radio-primary" value="s" />
+                                        <label>Student</label>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <input type="radio" name="type" required class="radio radio-primary" value="t"/>
+                                        <label>Teacher</label>
+                                    </div>
+                                </div>
                             <div>
-                                type
-                                <input type="text" name="type" class="input" />
-                            <div>
-
-                            <div class="flex items-center">
-                                <input type="checkbox" name="agree" id="agree" class="w-5 h-5 text-green-500 bg-white border-gray-200 rounded" checked />
-
-                                <label for="agree" class="ml-3 text-sm font-medium text-gray-500">
-                                    I agree to Postcraft’s <a href="#" title="" class="text-blue-600 hover:text-blue-700 hover:underline">Terms of Service</a> and <a href="#" title="" class="text-blue-600 hover:text-blue-700 hover:underline">Privacy Policy</a>
-                                </label>
-                            </div>
 
                             <div>
                                 <button type="submit" class="inline-flex items-center justify-center w-full px-4 py-4 text-base font-semibold text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-md focus:outline-none hover:bg-blue-700 focus:bg-blue-700">
@@ -97,7 +97,7 @@
                             </div>
 
                             <div class="text-center">
-                                <p class="text-base text-gray-600">Already have an account? <a href="#" title="" class="font-medium text-orange-500 transition-all duration-200 hover:text-orange-600 hover:underline">Login here</a></p>
+                                <p class="text-base text-gray-600">Already have an account? <a href="/" title="" class="font-medium text-orange-500 transition-all duration-200 hover:text-orange-600 hover:underline">Login here</a></p>
                             </div>
                         </div>
                     </form>
@@ -105,6 +105,5 @@
             </div>
         </div>
     </div>
-</section>
 
 @endsection

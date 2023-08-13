@@ -44,6 +44,7 @@ class UserAuth extends Controller
             ]);
         }
         $request->session()->regenerate();
+        
 
         // create token from api endpoint
         $requestBody = [
@@ -52,9 +53,10 @@ class UserAuth extends Controller
         ];
         $request = Request::create('http://127.0.0.1:8000/api/v1/tokens', 'POST');
         // dd($request);
-
+        // dd($user);
+        
         // redirect with the created token
-        return redirect()->intended('profile?id='.$user->user_id);
+        return redirect()->intended('profile?id='.$user['user_id']);
     }
 
     public function login(Request $request)

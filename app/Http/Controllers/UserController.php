@@ -117,11 +117,11 @@ class UserController extends Controller
         } elseif ($request->type == 's') {
             // student validation
             $student = new Student(); 
-            $validator = Validator::make($request->all(),$student->rules);
-            if ($validator->fails()) {
-                $errors = $validator->errors();
-                return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
-            }
+            // $validator = Validator::make($request->all(),$student->rules);
+            // if ($validator->fails()) {
+            //     $errors = $validator->errors();
+            //     return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
+            // }
 
             Student::create([
                 'student_id' => $id,
@@ -176,4 +176,26 @@ class UserController extends Controller
         };
         return $user;
     }
+
+    public function current(Request $request){
+        return $request->user();
+    }
+
+    public function updateUser(Request $request, $user){
+        // search for that user in database        
+        $retrivedUser = User::where('user_id', $user)->first();
+        if (!$retrivedUser) {
+            return response()->json(['message' => 'user not found'], Response::HTTP_NOT_FOUND);
+        }
+        
+        // update statememnt
+        User::where('user_id', $user)
+                ->update([
+                    'name' => strval($request->name),
+                    'email' => strval($request->email)
+                ]);
+
+        return response()->json(['message' => 'user updated successfuly']);
+    }
+
 }
