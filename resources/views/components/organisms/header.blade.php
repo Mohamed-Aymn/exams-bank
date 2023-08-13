@@ -59,13 +59,14 @@
                 <a href="/profile" class="btn btn-ghost">profile</a>
                 <a href="#" class="btn btn-primary">Exam Demo</a>
             @elseif($userType == "t")
-                <a href="/create" class="btn btn-nav">Create</a>
-                <a href="/profile" class="btn btn-nav">profile</a>
-                <a href="#" class="btn btn-primary">Exam Demo</a>
-            @elseif($userType == "s")
                 <a href="/auth/logout" class="btn btn-nav">logout</a>
+                <a href="/create?option=question" class="btn btn-nav">Create</a>
                 <a href="/profile" class="btn btn-nav">profile</a>
-                <a href="#" class="btn btn-primary">Exam</a>
+                <a href="/customize-exam" class="btn btn-primary">Exam Demo</a>
+            @elseif($userType == "s")
+                <a href="/auth/logout" class="btn btn-ghost">logout</a>
+                <a href="profile?id={{Auth::user()->user_id}}" class="btn btn-ghost">profile</a>
+                <a href="/customize-exam" class="btn btn-primary">Exam</a>
             @endif
         </div>
         

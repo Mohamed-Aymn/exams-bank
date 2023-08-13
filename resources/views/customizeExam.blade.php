@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="centralization-container h-full mt-0">
-        <div class="form-control join-item col-span-3">
+        {{-- <div class="form-control join-item col-span-3">
 
             <label class="label">Load from saved preferences</label>
             
@@ -14,7 +14,7 @@
         </div>
         <br />
         <hr />
-        <br />
+        <br /> --}}
         <form action="/exams" method="POST" class="form h-full">
             @csrf
             {{-- TODO: this should be dropdown --}}
