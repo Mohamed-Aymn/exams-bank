@@ -26,7 +26,6 @@ export default {
 <template>
     <div class="centralization-container py-6 h-full">
         <form class="flex flex-col gap-4 h-full" method="POST" :action="`/api/v1/users/${userData.user_id}`">
-            @csrf
             <input class="input" type="text" :value="userData.name" name="name" />
             <input
                 class="input"
