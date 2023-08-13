@@ -117,11 +117,11 @@ class UserController extends Controller
         } elseif ($request->type == 's') {
             // student validation
             $student = new Student(); 
-            $validator = Validator::make($request->all(),$student->rules);
-            if ($validator->fails()) {
-                $errors = $validator->errors();
-                return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
-            }
+            // $validator = Validator::make($request->all(),$student->rules);
+            // if ($validator->fails()) {
+            //     $errors = $validator->errors();
+            //     return response()->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
+            // }
 
             Student::create([
                 'student_id' => $id,
