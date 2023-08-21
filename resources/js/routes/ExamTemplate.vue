@@ -5,7 +5,8 @@ import TrueOrFalseQuestion from "../components/organisms/TrueOrFalseQuestion.vue
 import ProgressBar from "../components/molecules/ProgressBar.vue";
 import QuestionsPagination from "../components/organisms/QuestionsPagination.vue";
 import { useExamsStore } from "../stores/ExamStore.js";
-import { ref, onBeforeMount, onMounted } from "vue";
+import { ref, computed, onBeforeMount, onMounted } from "vue";
+import {timeProgress} from '../examFunctions';
 
 export default {
     name: "exam",
@@ -14,6 +15,14 @@ export default {
 
         let duration = ref(0);
         let questions = ref([]);
+
+        //timer
+        let timer = ref(0);
+        let examTimer = ref(0)
+        setInterval(() => {
+            timer.value += 1;
+                examTimer.value = timeProgress(duration.value, timer.value) 
+        }, 1000);
 
         onBeforeMount(() => {
             const urlParams = new URLSearchParams(window.location.search);
@@ -62,6 +71,7 @@ export default {
             examStore,
             duration,
             questions,
+            examTimer,
         };
     },
     methods: {
@@ -198,9 +208,11 @@ export default {
 
 <template>
     <div class="flex flex-col w-screen h-screen">
-        <div class="">
-            <ProgressBar color="red-500" text="n solved from m" />
-            <ProgressBar color="blue-500" text="20:00" />
+        <div v-if="duration">
+            <div class="">
+                <!-- <ProgressBar color="red-500" text="n solved from m" /> -->
+                <ProgressBar color="blue-500" text="20:00" :percentage="examTimer" />
+            </div>
         </div>
 
         <div class="flex flex-grow">
