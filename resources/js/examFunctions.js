@@ -4,3 +4,7 @@ export const timeProgress = (duration, timer) => {
     const seconds = h * 3600 + m* 60 + s;
     return timer / seconds * 100;
 }
+
+export const questionsProgress = (total, answered) => {
+    return answered / total * 100;
+}

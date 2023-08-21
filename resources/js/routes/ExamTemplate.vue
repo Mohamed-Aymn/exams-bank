@@ -6,7 +6,7 @@ import ProgressBar from "../components/molecules/ProgressBar.vue";
 import QuestionsPagination from "../components/organisms/QuestionsPagination.vue";
 import { useExamsStore } from "../stores/ExamStore.js";
 import { ref, computed, onBeforeMount, onMounted } from "vue";
-import {timeProgress} from '../examFunctions';
+import {timeProgress, questionsProgress} from '../examFunctions';
 
 export default {
     name: "exam",
@@ -15,6 +15,8 @@ export default {
 
         let duration = ref(0);
         let questions = ref([]);
+        let examQuestionsProgress = ref(0);
+        examQuestionsProgress.value = questionsProgress(questions.value.length, store.answers)
 
         //timer
         let timer = ref(0);
@@ -72,6 +74,7 @@ export default {
             duration,
             questions,
             examTimer,
+            examQuestionsProgress
         };
     },
     methods: {
@@ -108,6 +111,8 @@ export default {
         chooseAnswer(answer, answerTime, questionId) {
             // store in exams store (client state)
             this.examStore.addAnswer(questionId, answer, answerTime);
+
+            this.examQuestionsProgress.value += 1;
 
             // store in indexeddb
             const request = window.indexedDB.open("examDB", 1);
@@ -210,7 +215,7 @@ export default {
     <div class="flex flex-col w-screen h-screen">
         <div v-if="duration">
             <div class="">
-                <!-- <ProgressBar color="red-500" text="n solved from m" /> -->
+                <ProgressBar color="red-500" text="n solved from m" :percentage="examQuestionsProgress" />
                 <ProgressBar color="blue-500" text="20:00" :percentage="examTimer" />
             </div>
         </div>
