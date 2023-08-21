@@ -116,8 +116,16 @@ Route::prefix("/auth")->group(function () {
 // exams
 Route::prefix("/exams")->group(function () {
     Route::post('/', function (Request $request) {
-        $examRequest = Request::create("/api/v1/exams", 'POST', $request->all());
-        $response = Route::dispatch($examRequest);
+        $newRequestBody = [
+            'duration' => $request->hours . ":" . $request->minutes . ":00",
+            'type' => $request->type,
+            'number' => $request->number,
+            'level' => $request->level,
+            'subject' => $request->subject,
+        ];
+    
+        $examRequest = app('request')->create("/api/v1/exams", 'POST', $newRequestBody);
+        $response = app()->handle($examRequest);
         $newExam = json_decode($response->getContent(), true);
         return redirect('/exam?id=' . $newExam["exam_id"] . '&n=1');
     });

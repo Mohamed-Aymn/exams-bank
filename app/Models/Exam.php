@@ -25,8 +25,8 @@ class Exam extends Model
         'question_id' => [
             // "required",
         ],'duration' => [
-            "required",
-            'date_format:H:i:s.u'
+            // "required",
+            // 'date_format:H:i:s.u'
         ]
     ];
 }

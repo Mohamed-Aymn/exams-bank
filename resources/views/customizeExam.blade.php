@@ -28,18 +28,18 @@
                         <div class="question-index font-light ml-1">Group 1</div>
                         <div class='question-group join grid grid-cols-12'>
                             <div class="form-control join-item col-span-4">
-                                <select class="select font-normal" name="type" required>
+                                <select class="select font-normal" name="type[]" required>
                                     <option disabled selected>Select Type</option>
-                                    <option>MCQ</option>
+                                    <option value="1">MCQ</option>
                                 </select>
                             </div>
 
-                            <input class='input join-item col-span-4' placeholder="Number" name="number" type='number' required />
+                            <input class='input join-item col-span-4' placeholder="Number" name="number[]" type='number' required />
 
                             <div class="form-control join-item col-span-4">
-                                <select class="select font-normal" name="level" required>
+                                <select class="select font-normal" name="level[]" required>
                                     <option disabled selected class="">Level</option>
-                                    <option>One</option>
+                                    <option value="1">One</option>
                                     {{-- <option>Two</option> --}}
                                 </select>
                             </div>

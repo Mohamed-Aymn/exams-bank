@@ -90,11 +90,16 @@ class ExamController extends Controller
             'created_at' => now(),
         ]);
 
-        // create exam questions
-        // logic is done for all chosen questions sets
-        for ($i = 0; $i < count($request->type); $i++){
+        $questionsCount = count($request->type);
+
+        for ($i = 0; $i < $request->questionsCount; $i++){
             // fetch questions with required specs
-            $questions = Question::randomQuestions($request->subject, $request->type[$i], $request->level[$i], $request->number[$i])->pluck('question_id')->toArray();
+            $questions = Question::randomQuestions(
+                    $request->subject,
+                    $request->type[$i],
+                    $request->level[$i], 
+                    $request->number[$i]
+                )->pluck('question_id')->toArray();
 
             // combine exam_id with questions_id in an array
             $examQuestions;
