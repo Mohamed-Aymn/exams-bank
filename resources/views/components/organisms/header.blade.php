@@ -27,7 +27,7 @@
                 <a href="/customize-exam" class="btn btn-primary">Exam Demo</a>
             @elseif($userType == "s")
                 <a href="/auth/logout" class="btn btn-nav">logout</a>
-                <a href="/profile" class="btn btn-nav">profile</a>
+                <a href="profile?id={{Auth::user()->user_id}}" class="btn btn-nav">profile</a>
                 <a href="/customize-exam" class="btn btn-primary">Exam</a>
             @endif
         </div>

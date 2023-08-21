@@ -1,39 +1,23 @@
 @extends('components.layouts.account')
 
 @section('content')
-    <div class="centralization-container h-full mt-0">
-        {{-- <div class="form-control join-item col-span-3">
-
-            <label class="label">Load from saved preferences</label>
-            
-            <select class="select">
-                <option disabled selected>Chose preference</option>
-                <option>first One</option>
-                <option>second one</option>
-            </select>
-        </div>
-        <br />
-        <hr />
-        <br /> --}}
+    <div class="centralization-container h-[calc(100vh - 80px)] mt-0">
         <form action="/exams" method="POST" class="form h-full">
             @csrf
-            {{-- TODO: this should be dropdown --}}
             <div class="form-control">
                 <label class="label">Subject</label>
-                <select class="select">
+                <select class="select font-normal" name='subject' required>
                     <option disabled selected>Select subject</option>
                     <option>Physics</option>
-                    <option>database</option>
                 </select>
             </div>
 
             <div class="form-control">
                 <label class="label">Time</label>
-
-                <div class="join"> <input class='input join-item' placeholder="hours" name="hours" />
-                    <input class='input join-item' placeholder="minutes" name="minutes" />
+                <div class="join">
+                    <input class='input join-item' placeholder="hours" name="hours" required />
+                    <input class='input join-item' placeholder="minutes" name="minutes" required/>
                 </div>
-
             </div>
 
             <div class="form-control ">
@@ -43,21 +27,20 @@
                     <div>
                         <div class="question-index font-light ml-1">Group 1</div>
                         <div class='question-group join grid grid-cols-12'>
-                            <div class="form-control join-item col-span-3">
-                                <select class="select">
+                            <div class="form-control join-item col-span-4">
+                                <select class="select font-normal" name="type" required>
                                     <option disabled selected>Select Type</option>
                                     <option>MCQ</option>
-                                    <option>True or false</option>
                                 </select>
                             </div>
 
-                            <input class='input join-item col-span-3' placeholder="Number" name="number" type='number' />
+                            <input class='input join-item col-span-4' placeholder="Number" name="number" type='number' required />
 
-                            <div class="form-control join-item col-span-3">
-                                <select class="select">
-                                    <option disabled selected>Level</option>
+                            <div class="form-control join-item col-span-4">
+                                <select class="select font-normal" name="level" required>
+                                    <option disabled selected class="">Level</option>
                                     <option>One</option>
-                                    <option>Two</option>
+                                    {{-- <option>Two</option> --}}
                                 </select>
                             </div>
                         </div>
@@ -67,7 +50,7 @@
                 </div>
             </div>
 
-            <button class="btn btn-outline mt-4 w-full" type="button" id="add-group-btn">
+            <button class="btn btn-outline mt-4 w-full" disabled type="button" id="add-group-btn">
                 Add Questions group
             </button>
             <div class="flex w-full justify-between mt-auto">
