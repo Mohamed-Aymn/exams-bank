@@ -89,21 +89,20 @@ class ExamController extends Controller
             'duration' => $request->duration,
             'created_at' => now(),
         ]);
-
+        
         $questionsCount = count($request->type);
-
-        for ($i = 0; $i < $request->questionsCount; $i++){
+        for ($i = 0; $i < $questionsCount; $i++){
             // fetch questions with required specs
             $questions = Question::randomQuestions(
                     $request->subject,
-                    $request->type[$i],
-                    $request->level[$i], 
-                    $request->number[$i]
+                    (int) $request->type[$i],
+                    (int) $request->level[$i], 
+                    (int) $request->number[$i]
                 )->pluck('question_id')->toArray();
 
             // combine exam_id with questions_id in an array
             $examQuestions;
-            for ($j = 1; $j < $request->number[0]; $j++){
+            for ($j = 0; $j < (int) $request->number[0]; $j++){
                 $examQuestions [$j] = [
                     'exam_id' => $id,
                     'question_id' => $questions[$j]
@@ -114,7 +113,7 @@ class ExamController extends Controller
             ExamQuestions::insert($examQuestions);
         }
         return $newExam;
-    }
+        }
 
     /**
      * submit exam answers

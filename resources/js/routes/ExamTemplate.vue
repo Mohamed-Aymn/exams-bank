@@ -16,7 +16,7 @@ export default {
         let duration = ref(0);
         let questions = ref([]);
         let examQuestionsProgress = ref(0);
-        examQuestionsProgress.value = questionsProgress(questions.value.length, store.answers)
+        examQuestionsProgress.value = questionsProgress(questions.value.length, examStore.answers)
 
         //timer
         let timer = ref(0);

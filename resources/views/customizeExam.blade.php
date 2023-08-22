@@ -8,7 +8,7 @@
                 <label class="label">Subject</label>
                 <select class="select font-normal" name='subject' required>
                     <option disabled selected>Select subject</option>
-                    <option>Physics</option>
+                    <option value="Physics">Physics</option>
                 </select>
             </div>
 

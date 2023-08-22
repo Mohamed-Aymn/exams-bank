@@ -127,6 +127,7 @@ Route::prefix("/exams")->group(function () {
         $examRequest = app('request')->create("/api/v1/exams", 'POST', $newRequestBody);
         $response = app()->handle($examRequest);
         $newExam = json_decode($response->getContent(), true);
-        return redirect('/exam?id=' . $newExam["exam_id"] . '&n=1');
+
+        return redirect('http://localhost:8000/exam?id=' . $newExam["exam_id"] .'&n=1');
     });
 });
