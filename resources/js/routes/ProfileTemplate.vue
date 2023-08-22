@@ -1,17 +1,7 @@
 <script>
     import ProfileSidebar from "../components/organisms/ProfileSidebar.vue"
-    import {
-        getToken
-    } from '@/globalFunctions.js'
-    import {
-        useRoute
-    } from 'vue-router';
-    import {
-        ref,
-        watchEffect,
-        onMounted
-    } from 'vue'
-    import Chart from '../components/organisms/Chart.vue';
+    import { useRoute } from 'vue-router';
+    import { ref, watchEffect} from 'vue'
 
     export default {
         name: 'profileTemplate',
@@ -23,8 +13,6 @@
             const route = useRoute();
             const userData = ref(null);
             const url = '/api/v1/users/';
-
-            // getToken()
 
             watchEffect(() => {
                 const userId = route.query.id;
@@ -44,7 +32,6 @@
             }
         },
         components: {
-            Chart,
             ProfileSidebar
         }
     }
@@ -73,26 +60,11 @@
                 <span> Hello</span>
                 <span class="font-bold inline ml-2 text-2xl"> {{ userData . name }}!</span>
             </div>
-            <div class="py-6">
-                <div class="max-w-md card">
-                    <div class="bold mb-4" id="rightAndWrongA">Right & wrong answers</div>
-                    <div class="m-7">
-                        <Chart componentId="first" :appendText="false"
-                            :data="[{ name: 'first', value: 50, color: '#ff0000' }, {
-                                name: 'second',
-                                value: 100,
-                                color: '#008000'
-                            }]" />
-                    </div>
-                    <span class="flex gap-1 items-center">
-                        <span class="w-[0.75em] h-[0.75em] bg-[#008000]" />
-                        <sapn>Right</sapn>
-                    </span>
-                    <span class="flex gap-1 items-center">
-                        <span class="w-[0.75em] h-[0.75em] bg-[#ff0000]" />
-                        <sapn>wrong</sapn>
-                    </span>
-                </div>
+            <div class="card mt-5">
+                Data visualization that represents profile stats to make student user 
+                able to moitor his progress
+                <div class="card card-alert mt-5">
+                    Not all features are made or will be made (typed features in SRS) as this is a Experimental project, and the main purpose is digging deep to real life project and also to explore php/laravel world.</div>
             </div>
         </div>
     </div>

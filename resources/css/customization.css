@@ -74,5 +74,8 @@
     .card-clickable{
         @apply transition-all duration-200 cursor-pointer hover:bg-gray-50
     }
+    .card-alert{
+        @apply bg-[#efee85]
+    }
 
 }
