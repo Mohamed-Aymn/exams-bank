@@ -215,8 +215,8 @@ export default {
     <div class="flex flex-col w-screen h-screen">
         <div v-if="duration">
             <div class="">
-                <ProgressBar color="red-500" text="n solved from m" :percentage="examQuestionsProgress" />
-                <ProgressBar color="blue-500" text="20:00" :percentage="examTimer" />
+                <!-- <ProgressBar color="" text="n solved from m" /> -->
+                <ProgressBar color="" text="20:00" :percentage="examTimer" />
             </div>
         </div>
 
