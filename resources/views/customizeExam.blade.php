@@ -6,7 +6,7 @@
             @csrf
             <div class="form-control">
                 <label class="label">Subject</label>
-                <select class="select font-normal" name='subject' required>
+                <select class="select font-normal" name='subject' id="subjecet" required>
                     <option disabled selected>Select subject</option>
                     <option value="Physics">Physics</option>
                 </select>
@@ -61,6 +61,14 @@
                 </div>
             </div>
         </form>
+        <div class="mt-5 alert alert-warning">
+            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+            <span>Warning: form input fields values are not checked before submission (form is not validated) please enter valid fileds to contenue your journey!</span>
+          </div>
+          <div class="mt-5 alert alert-info">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <span>Not all features are made or will be made (typed features in SRS) as this is a Experimental project, and the main purpose is digging deep to real life project and also to explore php/laravel world.</span>
+          </div>
 
     </div>
 @endsection
@@ -98,7 +106,6 @@
                         (i + 1)
                 }
             }
-
         });
     </script>
 @endpush
