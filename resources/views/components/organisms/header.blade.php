@@ -10,7 +10,7 @@
     </a>
     {{-- small screens --}}
     <i class="cursor-pointer fa-solid fa-bars lg:hidden" id="mobile-menu-button"></i>
-    <nav id="mobile-menu" class="absolute hidden pt-4 pb-6 bg-white border border-gray-200 rounded-md shadow-md lg:hidden top-5 right-10">
+    <nav id="mobile-menu" class="absolute z-50 hidden pt-4 pb-6 bg-white border border-gray-200 rounded-md shadow-md lg:hidden top-5 right-10">
         <div class="flex flex-col items-center justify-center gap-2 px-6 -my-2 space-y-1">
             @if($userType == "a")
                 <a href="/auth/logout" class="btn btn-nav">logout</a>
@@ -61,7 +61,7 @@
             @elseif($userType == "t")
                 <a href="/auth/logout" class="btn btn-nav">logout</a>
                 <a href="/create?option=question" class="btn btn-nav">Create</a>
-                <a href="/profile" class="btn btn-nav">profile</a>
+                <a href="profile?id={{Auth::user()->user_id}}" class="btn btn-nav">profile</a>
                 <a href="/customize-exam" class="btn btn-primary">Exam Demo</a>
             @elseif($userType == "s")
                 <a href="/auth/logout" class="btn btn-ghost">logout</a>
@@ -73,7 +73,7 @@
 
     </nav>
 </header>
-{{-- 
+
 @push('scripts')
 <script>
     // create option model (only for admin users)
@@ -113,4 +113,4 @@
         });
     });
 </script>
-@endpush --}}
+@endpush
