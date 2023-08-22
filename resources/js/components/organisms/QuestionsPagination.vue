@@ -31,7 +31,7 @@
             <label for="my-drawer" class="drawer-overlay"></label>
             <ul class="menu p-4 w-80 h-full bg-white text-base-content">
                 <!-- Sidebar content here -->
-                <div class="flex gap-2">
+                <div class="flex flex-wrap gap-2">
                     <div v-for="i in length" @click="() => {
                         clickHanlder(i);
                         }" 
