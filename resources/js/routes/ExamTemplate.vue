@@ -215,7 +215,7 @@ export default {
         <div v-if="duration">
             <div class="">
                 <!-- <ProgressBar color="" text="n solved from m" /> -->
-                <ProgressBar color="" text="20:00" :percentage="examTimer" />
+                <!-- <ProgressBar color="" text="20:00" :percentage="examTimer" /> -->
             </div>
         </div>
 
