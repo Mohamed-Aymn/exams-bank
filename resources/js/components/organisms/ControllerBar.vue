@@ -17,7 +17,7 @@ export default{
     <div class="flex items-center justify-between w-full p-5 bg-white border-t border-gray-200">
         <div class="flex gap-2">
             <button @click="prev" class="btn btn-primary">Back</button>
-            <button class="btn btn-primary btn-outline">Revise later</button>
+            <button class="btn btn-primary btn-outline" disabled>Revise later</button>
         </div>
         <button @click="next" class="btn btn-primary">Next</button>
     </div>

@@ -8,6 +8,8 @@
 
     export default {
         setup() {
+            const userId = ref(null);
+
             // get exam results
             const examId = ref(null);
             const results = ref(null);
@@ -24,10 +26,19 @@
                     .catch(error => {
                         console.log(error);
                     });
+
+                // get user id
+                axios.get('/api/v1/users/current-user')
+                    .then(response => {
+                        userId.value = response.data.user_id;
+                    }).catch(error => {
+                        console.log(error);
+                    })
             });
 
             return {
-                results
+                results,
+                userId
             }
         },
         components: {
@@ -37,7 +48,7 @@
 </script>
 
 <template>
-    <div v-if="results" class="centralization-container h-full flex flex-col py-10">
+    <div v-if="results && userId" class="centralization-container h-full flex flex-col py-10">
         <div class="font-bold text-6xl">
             {{ results . grade }}
         </div>
@@ -53,6 +64,6 @@
                     { name: 'wrong', value: results.wrong, color: '#ff0000' }
                 ]" />
         </div>
-        <a href="/profile?id=" class="mt-auto btn btn-primary">Back to profile page</a>
+        <a :href="`/profile?id=${userId}`" class="mt-auto btn btn-primary">Back to profile page</a>
     </div>
 </template>

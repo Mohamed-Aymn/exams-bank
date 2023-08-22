@@ -112,7 +112,6 @@ export default {
             // store in exams store (client state)
             this.examStore.addAnswer(questionId, answer, answerTime);
 
-            this.examQuestionsProgress.value += 1;
 
             // store in indexeddb
             const request = window.indexedDB.open("examDB", 1);
