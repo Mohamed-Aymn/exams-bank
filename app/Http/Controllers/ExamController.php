@@ -303,11 +303,14 @@ class ExamController extends Controller
             }
         }
 
+        $percentage = $correct / count($questions) * 100;
+        $grade = $percentage > 75 ? "A" : ($percentage > 50 ? "B" : "C");
+    
         return response()->json([
             'number_of_questions' => count($questions),
             'correct' => $correct,
             'wrong' => $wrong,
-            'grade' => "A+"
+            'grade' => $grade
         ]);
     }
 }
