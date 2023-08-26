@@ -13,7 +13,7 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next)
     {
         if (Auth::check()) {
-            return redirect('/profile');
+            return redirect('/profile?id=' . Auth::user()->user_id);
         }
         return $next($request);
     }
