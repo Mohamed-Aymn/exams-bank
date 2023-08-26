@@ -21,11 +21,11 @@
                                 <input class="input" type="text" placeholder="Email address" name="email" area-label="Email Address" />
                                 <input class="input" type="password" placeholder="Password" name="password" area-label="Password" />
                                 <div class="form-control">
-  <label class="label cursor-pointer">
-      <input type="checkbox" disabled checked="checked" class="checkbox checkbox-primary" />
-      <span class="label-text">Remember me</span> 
-  </label>
-</div>
+                                <label class="label cursor-pointer">
+                                    <input type="checkbox" disabled checked="checked" class="checkbox checkbox-primary" />
+                                    <span class="label-text">Remember me</span> 
+                                </label>
+                            </div>
 
                                 <button class="btn btn-primary" type="submit">
                                     Sign in
@@ -37,7 +37,7 @@
                             @enderror
 
                             <div class="flex flex-col items-start justify-start my-1">
-                                <button class="link link-hover" href="#">
+                                <button class="link link-hover cursor-not-allowed" disabled href="">
                                     Forget Password?
                                 </button>
                                 <div class="text-left">
