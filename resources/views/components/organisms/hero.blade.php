@@ -22,7 +22,7 @@
                                 <input class="input" type="password" placeholder="Password" name="password" area-label="Password" />
                                 <div class="form-control">
   <label class="label cursor-pointer">
-      <input type="checkbox" checked="checked" class="checkbox checkbox-primary" />
+      <input type="checkbox" disabled checked="checked" class="checkbox checkbox-primary" />
       <span class="label-text">Remember me</span> 
   </label>
 </div>
