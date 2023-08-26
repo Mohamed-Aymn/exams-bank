@@ -6,7 +6,7 @@
 
     {{-- logo --}}
     <a href="#" title="" class="flex">
-        <img class="w-auto h-8 lg:h-10" src="https://cdn.rareblocks.xyz/collection/celebration/images/logo.svg" alt="" />
+        <img class="w-auto h-8 lg:h-10" src="{{ asset('assets/icon.svg') }}" alt="" />
     </a>
     {{-- small screens --}}
     <i class="cursor-pointer fa-solid fa-bars lg:hidden" id="mobile-menu-button"></i>

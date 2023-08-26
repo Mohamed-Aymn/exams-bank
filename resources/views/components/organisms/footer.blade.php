@@ -2,8 +2,8 @@
     <div class="w-full max-w-screen-xl p-4 mx-auto md:py-8">
         <div class="sm:flex sm:items-center sm:justify-between">
             <a href="https://flowbite.com/" class="flex items-center mb-4 sm:mb-0">
-                <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 mr-3" alt="Flowbite Logo" />
-                <span class="self-center text-2xl font-semibold whitespace-nowrap">Flowbite</span>
+                <img class="w-auto h-8 lg:h-10" src="{{ asset('assets/icon.svg') }}" alt="" />
+                <span class="self-center text-2xl font-semibold whitespace-nowrap">Exam Bank</span>
             </a>
             <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 ">
                 <li>
@@ -21,7 +21,8 @@
             </ul>
         </div>
         <hr class="my-6 border-gray-200 sm:mx-auto lg:my-8" />
-        <span class="block text-sm text-gray-500 sm:text-center">© 2023 <a href="https://flowbite.com/" class="hover:underline">Flowbite™</a>. All Rights Reserved.</span>
+        <span class="block text-sm text-gray-500 sm:text-center">© 2023 <a href="https://flowbite.com/" class="hover:underline">Exams Bank™</a>. All Rights Reserved.</span>
+    
     </div>
 </footer>
 
