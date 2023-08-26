@@ -84,7 +84,7 @@
                                         <label>Student</label>
                                     </div>
                                     <div class="flex items-center gap-2">
-                                        <input type="radio" name="type" required class="radio radio-primary" value="t"/>
+                                        <input disabled type="radio" name="type" required class="radio radio-primary" value="t"/>
                                         <label>Teacher</label>
                                     </div>
                                 </div>
